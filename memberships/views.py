@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
-from .forms import *
 from users.models import Profile
 from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
