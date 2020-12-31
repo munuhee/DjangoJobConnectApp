@@ -49,7 +49,6 @@ httplib2==0.18.1
 humanize==3.2.0
 hyperlink==20.0.1
 idna==2.10
-importlib==1.0.4
 importlib-metadata==2.0.0
 incremental==17.5.0
 jsonfield==3.1.0
