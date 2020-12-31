@@ -125,7 +125,7 @@
             </div>
             <div class="pb-3" id="hero">
                 <a href="{% url 'login' %}" class="btn-get-started scrollto">Get Started</a>
-                <br><br><br><br><br>
+                
                 <!--<div class="btns">
                     <a href="#"><i class="fa fa-apple fa-3x"></i> App Store</a>
                     <a href="#"><i class="fa fa-play fa-3x"></i> Google Play</a>
@@ -137,9 +137,9 @@
         {% endif %}
     </section>
     <!-- #header -->
-    <div class="pt-5">
+    <div class="">
         {% if user.is_authenticated %}
-        <div class="pt-1"></div>
+        <div class="pt-3"></div>
         {% else %}{% endif %}
         <div id="plans" class="section-bg pt-5 container">
             <div class="row mb-2">
