@@ -65,6 +65,9 @@ PAYPAL_SECRET_ID  =  "EFQ5Rm0QGGatdaS-n_70lnlZoGhii6MLCSSbFhaLexm2SbPYkuA-sBsBop
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    
+    #'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
