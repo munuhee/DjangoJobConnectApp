@@ -1,0 +1,15 @@
+{% extends "core/main.html" %} {% load static %}{% load crispy_forms_tags %}{% block title %}Contact{%endblock title%}{% block content %}
+<div class="pt-5"></div>
+<div class="container pt-5">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4" style="font-weight: bold;">Contact</legend>
+            {{ form.media }} {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-murste" type="submit">Send</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

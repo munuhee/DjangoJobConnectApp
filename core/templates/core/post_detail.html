@@ -1,0 +1,89 @@
+{% extends "core/main.html" %} {% load static %}{% load crispy_forms_tags %}{% block title %}Post Detail{%endblock title%}{% block content %}
+<div class="pt-5"></div>
+<div class="container container-top">
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{message.tags}}">
+        {{ message }} {% endfor %} {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-md-4 bookDetailLeftSide" style="font-family: 'Mukta', sans-serif!important;">
+            <div class="pt-5 userDetail">
+                {% if object.author.userplan.plan.plan_type == "Unlimited" %}
+                <strong class="mr-2"><a href="{% url 'public-profile' post.author.username %} ">{{object.author}}  <i class="fa fa-check-circle" aria-hidden="true" style="color:#1c87c5"></i></a></strong> {% else %}
+                <strong class="mr-2"><a href="{% url 'public-profile' post.author.username %} ">{{object.author}}</a></strong> {% endif %}
+                <small class="text-muted mr-2">{{ object.date_posted|date:"F d, Y" }}</small><br><br>
+                <img class="rounded-circle detail-img" src="{{ object.author.profile.profile_picture.url  }}">
+            </div>
+            <div class="pt-4 pl-2"> {% if post.actual_rating %} {% for rate in post.actual_rating %}
+                <span class="fa fa-star checked" style="color: orangered;"></span> {% endfor %}
+                <br> Num of rates({{ post.reviews.count }})<br> {% else %}
+                <br>
+                <h6>Nobody rated</h6>
+                {% endif %} Give star:
+                <a href="{% url 'rate_post' slug=post.slug rating=1 %}">1</a>
+                <a href="{% url 'rate_post' slug=post.slug rating=2 %}">2</a>
+                <a href="{% url 'rate_post' slug=post.slug rating=3 %}">3</a>
+                <a href="{% url 'rate_post' slug=post.slug rating=4 %}">4</a>
+                <a href="{% url 'rate_post' slug=post.slug rating=5 %}">5</a><br>
+                <a href="#commentBox">Num of comments ({{ post.comments.count }})</a>
+                <hr> {% if object.author == user %} {% else %}
+                <div class="p-2">
+                    <a class="btn btn-primary" href="{% url 'message-form' post.author %}"> Message</a>
+                </div>
+                {% endif %} {% if object.author == user %}
+                <div> {% if author.userplan.plan.plan_type == "Unlimited" or user.userplan.plan.plan_type == "Standard" %}
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' slug=post.slug %}"><i class="fa fa-edit"></i> Update</a> {% else %}
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'plan' %}"><i class="fa fa-edit"></i> Update</a> {% endif %}
+
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' slug=post.slug %}"><i class="fa fa-trash"></i> Delete</a>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="col-md-8 postDetailRight">
+            <strong><h4 class="article-title" style="text-align: center;" href="{% url 'post-detail' post.id %}">{{post.title}}</h4></strong>
+            <div class="detail-content">
+                <div class="card_image" align="center"><img src="{{ post.cover_image.url}}"></div>
+                <div style="margin: auto; font-family: 'EB Garamond', serif!important; color:#3a3939!important;">
+                    <p>{{post.description|safe}}</p>
+                </div>
+            </div>
+        </div>
+
+        <aside class="col-md-4 blog-sidebar content-section">
+            <div class="comment-section">
+                <div>
+                    <hr>
+                    <div id="commentBox">
+                        {% if user.is_authenticated %}
+                        <form method="POST" class="formsWidth">
+                            {% csrf_token %} {{ form|crispy }}
+                            <button type="submit" class="btn btn-murste"><i class="fa fa-comment"></i> Add comment</button>
+                        </form>
+                        {% else %}
+                        <a href="{% url 'login' %}"><button class="btn btn-primary btn-xs"><i class="fa fa-comment"></i> Add
+                                comment (login)</button></a> {% endif %} {% if comments %}
+                        <br> <br>
+                        <h6>Comments({{ post.comments.count }}):</h6>
+                        {% for comment in comments %}
+                        <div>
+                            {% if comment.user.userplan.plan.plan_type == "Unlimited" %}
+                            <h6><strong>{{ comment.user.username }}</strong> <i class="fa fa-check-circle" aria-hidden="true" style="color:#1c87c5"></i></h6>
+                            {% else %}
+                            <h6><strong>{{ comment.user.username }}</strong></h6>
+                            {% endif %}
+                            <h6 class="comment_text">{{ comment.text }}</h6>
+                        </div>
+                        <hr class="my-4"> {% endfor %} {% else %}
+                        <h6>No comments yet</h6>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock content %}
+</div>

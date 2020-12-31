@@ -1,0 +1,22 @@
+{% extends "core/main.html" %} {% load crispy_forms_tags %} {% block title %}Project Form{% endblock %}{% block header %}{%endblock header%} {% block content %}
+<div class="pt-5"></div>
+<div class="container pt-5" style="font-family: 'Mukta', sans-serif!important;">
+    <div class="content-section">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <section class="section-bg" id="plans">
+                <fieldset class="form-group">
+                    <header class="section-header pt-5">
+                        <h3>Post Project</h3>
+                        <hr>
+                    </header>
+                    {{ form.media }} {{ form|crispy }}
+                </fieldset>
+            </section>
+            <div class="form-group">
+                <button class="btn btn-murste" type="submit">Post</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}{% block footer %} {% endblock footer %}

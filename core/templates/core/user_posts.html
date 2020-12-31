@@ -1,0 +1,168 @@
+{% extends 'core/main.html' %} {% load static %} {% load humanize %} {% block title %}User Posts{% endblock %}{% block header %}{%endblock header%} {% block content %}
+<div class="pt-5"></div>
+<div class="container container-top " style="font-family: 'Mukta', sans-serif!important;">
+    <h3 align="center" class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h3>
+    <section class="container ">
+        <style>
+            /* Font */
+            
+            @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
+            /* Design */
+            
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+            
+            html {
+                background-color: #ecf9ff;
+            }
+            
+            .main {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            
+            img {
+                height: auto;
+                max-width: 100%;
+                vertical-align: middle;
+            }
+            
+            .btnr {
+                color: #ffffff;
+                padding: 0.8rem;
+                font-size: 14px;
+                text-transform: uppercase;
+                border-radius: 4px;
+                font-weight: 400;
+                display: block;
+                width: 100%;
+                cursor: pointer;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                background: transparent;
+                text-align: center!important;
+            }
+            
+            .btnr:hover {
+                background-color: rgba(255, 255, 255, 0.12);
+            }
+            
+            .cards {
+                display: flex;
+                flex-wrap: wrap;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .cards_item {
+                display: flex;
+                padding: 1rem;
+            }
+            
+            @media (min-width: 40rem) {
+                .cards_item {
+                    width: 50%;
+                }
+            }
+            
+            @media (min-width: 56rem) {
+                .cards_item {
+                    width: 33.3333%;
+                }
+            }
+            
+            .card {
+                background-color: white;
+                border-radius: 0.25rem;
+                box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+            
+            .card_content {
+                padding: 1rem;
+                background: linear-gradient(to bottom left, rgb(134, 191, 245) 40%, #afd4d4 100%);
+                font-family: "Montserrat", sans-serif;
+            }
+            
+            .card_title {
+                color: #ffffff!important;
+                font-size: 1.1rem!important;
+                font-weight: 700!important;
+                letter-spacing: 1px!important;
+                text-transform: capitalize!important;
+                margin: 0px!important;
+            }
+            
+            .card_text {
+                color: #ffffff;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                margin-bottom: 1.25rem;
+                font-weight: 400;
+                font-family: "Montserrat", sans-serif;
+            }
+            
+            .made_by {
+                font-weight: 400;
+                font-size: 13px;
+                margin-top: 35px;
+                text-align: center;
+            }
+        </style>
+        <div class="main">
+            <ul class="cards">
+                {% for post in posts %}
+                <li class="cards_item">
+                    <div class="card">
+                        <div class="card_image"><img src="{{ post.cover_image.url}}"></div>
+                        <div class="card_content">
+                            <header class="post-meta-and-title ">
+                                <div class="post-meta ">
+                                    <img class="rounded-circle article-img " src="{{ post.author.profile.profile_image.url  }} ">
+                                    <a href="{% url 'public-profile' post.author.username %} " rel="author ">{{post.author}}</a>
+                                    <p class="author-name "><span class="author-name-date-padding "></span>
+                                        <small class="text-muted"><time datetime=""><i class="fa fa-clock-o"></i> {{ post.date_posted|naturaltime|lower }}</time></small>
+                                    </p>
+                                </div>
+                                <p style="min-height: 19px; ">
+                                    <strong><a class=" " href="{% url 'post-detail' post.slug %} ">{{post.title}}</a></strong>
+                                </p>
+                            </header>
+                            <p class="card_text">{{post.overview}}</p>
+                            <a class="btnr card_btn" href="{% url 'post-detail' post.slug %} ">Read More</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="paginator ">
+            {% if is_paginated %}
+            <ul class="pagination ">
+                {% if page_obj.has_previous %}
+                <li><a class="btn accent-1 btn-outline-murste " href="?page={{ page_obj.previous_page_number }} ">&laquo;</a></li>
+                {% else %}
+                <li class="disabled "><span class="btn btn-outline-murste ">&laquo;</span></li>
+                {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+                <li class="active "><span class="btn btn-murste ">{{ i }} <span class="sr-only ">(current)</span></span>
+                </li>
+                {% else %}
+                <li><a href="?page={{ i }} " class="btn btn-outline-murste ">{{ i }}</a></li>
+                {% endif %} {% endfor %} {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }} " class="btn btn-outline-murste ">&raquo;</a></li>
+                {% else %}
+                <li class="disabled "><span class="btn btn-outline-murste ">&raquo;</span></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </div>
+</div>
+</div>
+</section>
+</div>
+{% endblock content %}

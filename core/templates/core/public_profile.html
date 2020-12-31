@@ -1,0 +1,51 @@
+{% extends 'core/main.html' %} {% load static %} {% block title %}Subscription Plans{% endblock %}{% block content %}
+<div class="pt-5"></div>
+<div class="resume-wrapper pt-5">
+    <section class="profile">
+        <div class="">
+            <div class="containerprofile">
+                <header class="header2">
+                    <div class="bio">
+                        <img src="{{ username.profile.cover_image.url  }}" alt="background">
+                        <div class="desc">
+                            {% if user.userplan.plan.plan_type == "Unlimited" %}
+                            <h3>{{ username }} <i class="fa fa-check-circle" aria-hidden="true" style="color:#1c87c5"></i></h3>
+                            {% else %}
+                            <h3>{{ username }}</h3>
+                            {% endif %}
+                            <h3> <i class="fa fa-map-marker"></i> {{user.profile.country.name }} </h3>
+                        </div>
+                    </div>
+
+                    <div class="avatarcontainer">
+                        <img src="{{ username.profile.profile_picture.url  }}" alt="avatar" class="avatar">
+                    </div>
+                </header>
+                <div class="">
+                    <div class="data">
+                        <ul>
+                            <li>
+                                {{ posts.count }}
+                                <a href="{% url 'user-posts' username %}"><span>Posts</span><a>
+                                </li>
+                                <li>
+                                    {{username.profile.followers.count}}
+                                    <a href="{% url 'user_followers' username %}"> <span>Followers</span></a>
+                            </li>
+                        </ul>
+                        <div class="text-center">
+                            {% if user != username %}
+                            <a href="{% url 'message-form' username %}" class="btn btn-secondary follow">Message </a> {% endif %} {% if user in username.profile.followers.all %}
+                            <button id="followElement" class="btn btn-primary follow" onclick="toggleFollow()"><i class="fa fa-check"></i> Following</button> {% elif user not in username.profile.followers.all %}
+                            <button id="followElement" class="btn btn-info follow" onclick="toggleFollow()">Follow</button> {% endif %}
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+    <section class="container p-5">
+        <div>
+            {{ username.profile.curriculum_vitae|safe }}
+        </div>
+    </section>
+    {% endblock content %}
