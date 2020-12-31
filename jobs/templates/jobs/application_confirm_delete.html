@@ -1,0 +1,14 @@
+{% extends 'core/main.html' %} {% load static %} {% block title %}job detail {% endblock title %}{% block content %}
+<div class="pt-5"></div>
+<div class="container pt-5">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="input-group mb-3">
+            <div class='input-group-append'>
+                <button class='btn btn-outline-danger' type='submit'>Delete Comment</button>
+                <a class='btn btn-outline-secondary' href="{% url 'jobs' %}">Cancel</a>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock content %}

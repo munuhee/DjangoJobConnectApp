@@ -1,0 +1,27 @@
+{% extends 'core/main.html' %} {% load static %} {% block title %}job detail {% endblock title %}{% block content %}
+<div class="pt-5"></div>
+<div class="container pt-5">
+    {% for application in applications %}
+    <div>
+        <a href="{% url 'public-profile' application.author.username %}" id="author-link" id="author-link">
+            <b>  {{ application.author }}</b>
+        </a>
+        {{ application.content }}
+        <small>{{ application.date_created }}</small> {% if application.author == user %}
+
+        <button class="btn btn-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis-h post-buttons"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Update</a>
+            <a class="dropdown-item" href="#">Delete</a>
+        </div>
+        {% endif %}
+    </div>
+    {% empty %}
+    <div class="pt-5">
+        <a href="{% url 'applications-list' j.id  %}">No Application Yet</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends 'core/main.html' %} {% load static %} {% load crispy_forms_tags %} {% block content %}
+<div class="pt-5"></div>
+<div class="container pt-5">
+    <div class="row justify-content-center pt-4">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form.media }} {{ form|crispy }}
+                <button class='btn btn-outline-murste' type='submit'>Apply</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+{% endblock content %}

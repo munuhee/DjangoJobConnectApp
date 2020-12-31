@@ -1,0 +1,13 @@
+{% extends 'core/main.html' %} {% load static %} {% block title %}job delete {% endblock title %}{% block content %}
+<div class="pt-5"></div>
+<div class="container container-top">
+    <div class="form">
+        <h2>Are you sure you want to delete the "<b>{{ object.title }}</b>" job?</h2>
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+            <a class="btn btn-outline-secondary" href="{% url 'job_detail' object.id %}">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
