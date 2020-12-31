@@ -1,0 +1,6 @@
+{% extends 'core/main.html' %} {% block content %}
+<div class="container pt-5">
+    {% if user.plan.name == "Unlimited" %}
+    <p>Free</p> {% else %} bado{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'core/main.html' %} {% load static %} {% block title %}Subscription Plans{% endblock %}{% block content %}
+<div class="container pt-5">
+    <!--Plans-->
+    <div id="generic_price_table">
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--PRICE HEADING START-->
+                        <section id="plans" class="section-bg pt-1 container">
+                            <div class="pt-1">
+                                <header class="section-header text-center">
+                                    <h3>Subscription Plans</h3>
+                                    <hr> {% if user.userplan.plan.plan_type == "Standard" %}
+                                    <h4 style="color: #27e630;">Your current subscription is: Standard</h4>
+                                    {% elif user.userplan.plan.plan_type == "Basic" %}
+                                    <h4 style="color: #27e630;">Your current subscription is: Basic</h4>
+                                    {% elif user.userplan.plan.plan_type == "Unlimited" %}
+                                    <h4 style="color: #27e630;">Your current subscription is: Unlimited</h4>
+                                    {% else %}
+                                    <h4 style="color: #27e630;">Your do not have an active Subscription</h4>
+                                    {% endif %}
+                                </header>
+                        </section>
+                        <!--//PRICE HEADING END-->
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+
+                    <!--BLOCK ROW START-->
+                    <div class="row">
+                        {% for plan in plans %}
+                        <div class="col-md-4 pb-3">
+
+                            <!--PRICE CONTENT START-->
+                            <div class="generic_content active clearfix">
+
+                                <!--HEAD PRICE DETAIL START-->
+                                <div class="generic_head_price clearfix">
+                                    <!--HEAD CONTENT START-->
+                                    <div class="generic_head_content clearfix">
+
+                                        <!--HEAD START-->
+                                        <div class="head_bg"></div>
+                                        <div class="head">
+                                            <span>{{plan.plan_type}}</span>
+                                        </div>
+                                        <!--//HEAD END-->
+
+                                    </div>
+                                    <!--//HEAD CONTENT END-->
+                                    <br>
+                                    <!--PRICE START-->
+                                    <div class="generic_price_tag clearfix">
+                                        <span class="price">
+                                    <span class="sign">$</span>
+                                        <span class="currency">{{plan.price}}</span>
+                                        <span class="month">/MON</span>
+                                        </span>
+                                    </div>
+                                    <!--//PRICE END-->
+
+                                </div>
+                                <!--//HEAD PRICE DETAIL END-->
+
+                                <!--FEATURE LIST START-->
+                                <div class="generic_feature_list">
+                                    {{plan.attributes|safe}}
+                                </div>
+                                <!--//FEATURE LIST END-->
+
+                                <!--BUTTON START-->
+                                <div class="generic_price_btn clearfix">
+                                    <a class="" href="{% url 'checkout' plan.id %}">Checkout</a>
+                                </div>
+                                <!--//BUTTON END-->
+
+                            </div>
+                            <!--//PRICE CONTENT END-->
+
+                        </div>
+                        {% endfor %}
+
+                        <!--//BLOCK ROW END-->
+
+                    </div>
+        </section>
+        </div>
+        <!--end plans-->
+        </div>
+        {% endblock %}
