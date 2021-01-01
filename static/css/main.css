@@ -2290,7 +2290,7 @@ btn-fb:active {
     display: block;
 }
 
-@media only screen and (max-width: 600px) {
+@media (max-width: 768px) {
     #container2 {
         color: #ffff;
         text-transform: uppercase;
