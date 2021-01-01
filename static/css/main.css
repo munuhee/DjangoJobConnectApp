@@ -26,6 +26,13 @@ h5 {
     font-weight: bold;
     font-family: "Sofia";
 }
+@media (max-width: 768px) {
+    h5 {
+        font-size: 20px;
+        font-weight: bold;
+        font-family: "Sofia";
+    }
+}
 
 a {
     text-decoration: none;
@@ -266,9 +273,9 @@ detail-content {
     background-size: 100%;
     position: relative;
     margin-top: 40px;
-    padding: 8px;
-    
+    padding-bottom: 10px;
 }
+
 @media only screen and (max-width: 600px) {
     #hero {
         width: 100%;
@@ -276,9 +283,9 @@ detail-content {
         background-size: 100%;
         position: relative;
         margin-top: 40px;
-        padding: 8px;
+        margin-top: 20px;
     }
-  }
+}
 
 #hero .hero-container {
     position: absolute;
@@ -622,7 +629,8 @@ canvas {
 
 #particles-js {
     margin: 0px;
-    position: absolute;
+    padding: 0;
+    position: relative;
     width: 100%!important;
     height: 100%;
     background: url("/images/app4.jpg") no-repeat;
@@ -1225,10 +1233,6 @@ canvas {
 @import url(https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700italic,700,900italic,900);
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900);
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900);
-body {
-    background-color: #eee;
-}
-
 #generic_price_table {
     background-color: #f0eded;
 }
