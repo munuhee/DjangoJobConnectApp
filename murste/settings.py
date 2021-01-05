@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_humanize',
     'django.contrib.humanize',
     'social_django',
+    'storages',
     
     
 ]
@@ -121,10 +122,6 @@ DATABASES = {
     }
 }
 
-
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -202,7 +199,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-DISABLE_COLLECTSTATIC=1
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
@@ -251,4 +247,48 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+
+AWS_ACCESS_KEY_ID = 'AKIAYWCWC5MFMBXJAOVF'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'murste'
+
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+AWS_S3_REGION_NAME="us-east-2"
+AWS_S3_HOST = "s3.us-east-2.amazonaws.com"
+
+
 ###################################
+"""
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+<CORSRule>
+    <AllowedOrigin>*</AllowedOrigin>
+    <AllowedMethod>GET</AllowedMethod>
+    <AllowedMethod>POST</AllowedMethod>
+    <AllowedMethod>PUT</AllowedMethod>
+    <AllowedHeader>*</AllowedHeader>
+</CORSRule>
+</CORSConfiguration>
+"""
+
+"""
+[
+{
+    "AllowedHeaders": [
+        "*"
+    ],
+    "AllowedMethods": [
+        "POST",
+        "GET",
+        "PUT"
+    ],
+    "AllowedOrigins": [
+        "*"
+    ]
+}
+]
+"""
