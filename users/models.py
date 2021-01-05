@@ -12,7 +12,7 @@ from ckeditor.fields import RichTextField
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     verify = models.BooleanField(default=False)
-    profile_picture = ProcessedImageField(default='default.jpg', upload_to='profile_pics', format='JPEG',
+    profile_picture = ProcessedImageField(default='profile_pics/default.jpg', upload_to='profile_pics', format='JPEG',
                                 processors = [ResizeToFill(150,150)],
                                 options={ 'quality': 100})
     cover_image = ProcessedImageField(default='cover_pics/default.jpg', upload_to='cover_pics', format='JPEG',
