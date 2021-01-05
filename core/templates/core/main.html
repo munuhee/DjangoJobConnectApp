@@ -63,7 +63,7 @@
                     <li class="drop-down"><a href=""><i  class="fa fa-user"></i> Your account({{ user.username }})</a>
                         <ul>
                             <li><a href="{% url 'profile' %}">Profile</a></li>
-                            {% if author.userplan.plan.plan_type == "Unlimited" or author.userplan.plan.plan_type == "Standard" or author.userplan.plan.plan_type == "Basic" %}
+                           {% if user.userplan.plan.plan_type == "Unlimited" or user.userplan.plan.plan_type == "Standard" or user.userplan.plan.plan_type == "Basic" %}
                             <li><a href="{% url 'job_add' %}">Post Job</a></li>
                             {% else %}
                             <li><a href="{% url 'plan' %}">Post Job</a></li>
