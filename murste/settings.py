@@ -13,7 +13,7 @@ SECRET_KEY = 'f3v+0c%=5uzb(%)2(c#k^ov+6$h@a+b9mu4sw8^fmqdm-%$0c@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['murste.herokuapp.com', '127.0.0.1', 'localhost','www.murstefreelance.com']
+ALLOWED_HOSTS = ['murste.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -122,6 +122,9 @@ DATABASES = {
     }
 }
 
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
