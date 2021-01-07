@@ -24,6 +24,6 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['bio', 'profile_picture', 'cover_image','telephone', 'country' ,'curriculum_vitae']
+        fields = ['bio', 'profile_picture','telephone', 'country' ,'curriculum_vitae']
         widgets = {'country': CountrySelectWidget(), }
 
