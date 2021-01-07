@@ -1,4 +1,4 @@
-{% extends 'core/main.html' %} {% block content %}
+{% extends 'core/main.html' %} {% block title %}Checkout{% endblock title %}{% block content %}
 <div class="pt-5"></div>
 <div class="container container-top">
     <!--Plans-->
@@ -8,8 +8,6 @@
                 <h3>Subscription Plans</h3>
                 <hr> {% if user.userplan.plan.plan_type == "Standard" %}
                 <h4 style="color: #27e630;">Your current subscription is: Standard</h4>
-                {% elif user.userplan.plan.plan_type == "Basic" %}
-                <h4 style="color: #27e630;">Your current subscription is: Basic</h4>
                 {% elif user.userplan.plan.plan_type == "Unlimited" %}
                 <h4 style="color: #27e630;">Your current subscription is: Unlimited</h4>
                 {% else %}
@@ -67,9 +65,9 @@
                     </div>
                     <div class="col-md-6 pl-5">
                         <div>
-                            <div class="container p-5">
+                            <div class="container pt-2 text-center">
                                 <div id="paypal-button-container"></div>
-                                <script src="https://www.paypal.com/sdk/js?client-id=AQpZ-HLSKYG8nsgIn9jJKy9_Qazl8uveXLsldCcm9jRYvVV1msXT1DMjz7RnTNosbIlm9PG-P_5rESJr&currency=USD"></script>
+                                <script src="https://www.paypal.com/sdk/js?client-id=AXbo9kKL14ueqLrBEpHpa13FuDiXQIvHS_rLFRk8UU7kWmAoGHHoipAFuyq6Li1zybvx5WuXXue9nAyC&currency=USD"></script>
                                 <script>
                                     // Render the PayPal button into #paypal-button-container
 

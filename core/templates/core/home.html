@@ -57,8 +57,7 @@
                             <li><a href="{% url 'post-create' %}">Post Project</a></li>
                             {% else %}
                             <li><a href="{% url 'plan' %}">Post Project</a></li>
-                            {% endif %}
-                            {% if user.is_superuser %}
+                            {% endif %} {% if user.is_superuser %}
                             <li><a href="/admin">Admin</a></li>
                             {% endif %}
                             <!--
@@ -138,11 +137,9 @@
     </div>
     </section>
     <!-- #header -->
-    {% endif %}
-{% if user.is_authenticated %}
-        <div class="pt-5"></div>
-        {% else %}
-{% endif %}
+    {% endif %} {% if user.is_authenticated %}
+    <div class="pt-5"></div>
+    {% else %} {% endif %}
     <div id="plans" class="section-bg container">
         <div class="row mb-2">
             <div class="col-md-6">

@@ -1,0 +1,46 @@
+{% extends 'core/main.html' %} {% load static %} {% block title %}Register{% endblock %} {% block header %}{%endblock header%}{% block content %} {% load crispy_forms_tags %}
+<div class="container text-center pt-5">
+    <a href="{% url 'home' %}"><img class="mb-2 mt-4" src="{% static 'images/logo/logo.png' %}" alt="" width="180" height="130"></a>
+    <hr>
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-2 offset-lg-1">
+            <form method="POST" class="form-signin">
+                {% csrf_token %}
+                <section class="section-bg" id="plans">
+                    <fieldset class="form-group">
+                        <header class="section-header pt-5">
+                            <h3>Sign Up</h3>
+                            <hr>
+                        </header>
+                        {{ form.media }} {{ form|crispy }}
+                    </fieldset>
+                </section>
+                <div class="form-group">
+                    <button class="btn btn-outline-murste" type="submit">Sign Up</button><br>
+                    <button class="btn btn-fb mb-2 p-2 mt-2">
+                        <a href="{% url 'social:begin' 'facebook' %}" style="color: #ffff;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 32 32" version="1">
+                            <path fill="#FFFFFF" d="M32 30a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h28a2 2 0 0 1 2 2v28z"/>
+                            <path fill="#4267b2" d="M22 32V20h4l1-5h-5v-2c0-2 1.002-3 3-3h2V5h-4c-3.675 0-6 2.881-6 7v3h-4v5h4v12h5z"/>
+                            </svg>
+                                Sign in with Facebook
+                        </a>
+                    </button><br>
+                    <small class="text-muted">Already have an account?
+                    <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+                </small>
+                </div>
+            </form>
+            <div class="border-top pt-3">
+
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-2 offset-lg-1">
+            <img class="mb-2 mt-5 pt-5" src="{% static 'images/homepage_pics/murste2.jpg' %}" alt="" width="500" height="340">
+        </div>
+
+    </div>
+</div>
+</div>
+
+{% endblock content %}

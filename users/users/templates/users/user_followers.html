@@ -1,0 +1,14 @@
+_{% extends "core/main.html" %} {% load material_form %} {% block content %}
+<div class="container container-top">
+    <div class="text-center">
+        <h3>Followers</h3>
+    </div>
+    <hr> {% for user in profile.followers.all %}
+    <div class="p-2" style="text-align: center;">
+        <img class='rounded-circle article-img mt-1 crop' src="{{ user.profile.profile_image.url  }}" height="50" width="50">
+        <a class="black-link" href="{% url 'public-profile' user.username %}">{{ user }}</a>
+    </div>
+    <hr> 
+    {% endfor %} 
+</div>
+{% endblock %}

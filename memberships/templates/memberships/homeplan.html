@@ -1,6 +1,24 @@
 {% extends 'core/main.html' %} {% load static %} {% block title %}Subscription Plans{% endblock %}{% block content %}
 <div class="container pt-5">
     <!--Plans-->
+    <style>
+        .box {
+            width: 400px;
+            height: 20px;
+            border: 2px solid #000;
+            margin: 0 auto 15px;
+            text-align: center;
+            padding: 20px;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+        
+        .error {
+            background-color: #EBB1B1;
+            border-color: #973939;
+            color: #973939;
+        }
+    </style>
     <div id="generic_price_table">
         <section>
             <div class="container">
@@ -26,8 +44,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="container">
-
+                <div class="container p-5">
+                    {% if user.userplan.plan.plan_type == "Standard" or user.userplan.plan.plan_type == "Unlimited"%}
+                    <div class="text-center">
+                        <div class="error box">
+                            You already have an active subscription plan
+                        </div>
+                        <div class="text-center p-3"><small><a class="text-muted" href="">Unsubscribe from your current subscription</a></small></div>
+                    </div>
+                    {% else %}
                     <!--BLOCK ROW START-->
                     <div class="row">
                         {% for plan in plans %}
@@ -85,6 +110,8 @@
                         <!--//BLOCK ROW END-->
 
                     </div>
+                    {% endif %}
+
         </section>
         </div>
         <!--end plans-->
