@@ -1,4 +1,4 @@
-{% extends 'core/main.html' %} {% load crispy_forms_tags %}{% load static %} {% block title %}Subscription Plans{% endblock %}{% block content %}
+{% extends 'core/main.html' %} {% load crispy_forms_tags %}{% load static %} {% block title %}Profile{% endblock %}{% block content %}
 <div class="pt-5"></div>
 <div class="container pt-5">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -16,7 +16,8 @@
                 </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
-                <a href="#" class="btninbox btn1">Get Verified</a>
+                {% if user.userplan.plan.plan_type != "Unlimited" %}
+                <a href="{% url 'plan' %}" class="btninbox btn1">Get Verified</a> {% endif %}
             </div>
             <div class="form-inline my-2 my-lg-0">
                 <a href="{% url 'inbox-list'  %}" class="btninbox btn4"> Inbox Messages </a>
@@ -79,5 +80,5 @@
             </form>
         </div>
     </section>
-<div>
-    {% endblock content %}
+    <div>
+        {% endblock content %}
