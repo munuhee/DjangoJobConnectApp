@@ -13,6 +13,8 @@ SECRET_KEY = 'f3v+0c%=5uzb(%)2(c#k^ov+6$h@a+b9mu4sw8^fmqdm-%$0c@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
+
 ALLOWED_HOSTS = ['murste.herokuapp.com', '127.0.0.1', 'localhost','www.murstefreelance.com']
 
 
