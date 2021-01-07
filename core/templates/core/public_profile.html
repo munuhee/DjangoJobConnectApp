@@ -1,51 +1,114 @@
-{% extends 'core/main.html' %} {% load static %} {% block title %}Public profile{% endblock %}{% block content %}
+{% extends 'core/main.html' %} {% load static %} {% block title %}Subscription Plans{% endblock %}{% block content %}
 <div class="pt-5"></div>
-<div class="resume-wrapper pt-5">
-    <section class="profile">
-        <div class="">
-            <div class="containerprofile">
-                <header class="header2">
-                    <div class="bio">
-                        <img src="{{ username.profile.cover_image.url  }}" alt="background">
-                        <div class="desc">
-                            {% if user.userplan.plan.plan_type == "Unlimited" %}
-                            <h3>{{ username }} <i class="fa fa-check-circle" aria-hidden="true" style="color:#1c87c5"></i></h3>
-                            {% else %}
-                            <h3>{{ username }}</h3>
-                            {% endif %}
-                            <h3> <i class="fa fa-map-marker"></i> {{user.profile.country.name }} </h3>
-                        </div>
-                    </div>
-
-                    <div class="avatarcontainer">
-                        <img src="{{ username.profile.profile_picture.url  }}" alt="avatar" class="avatar">
-                    </div>
-                </header>
-                <div class="">
-                    <div class="data">
-                        <ul>
-                            <li>
-                                {{ posts.count }}
-                                <a href="{% url 'user-posts' username %}"><span>Posts</span><a>
-                                </li>
-                                <li>
-                                    {{username.profile.followers.count}}
-                                    <a href="{% url 'user_followers' username %}"> <span>Followers</span></a>
-                            </li>
-                        </ul>
-                        <div class="text-center">
-                            {% if user != username %}
-                            <a href="{% url 'message-form' username %}" class="btn btn-secondary follow">Message </a> {% endif %} {% if user in username.profile.followers.all %}
-                            <button id="followElement" class="btn btn-primary follow" onclick="toggleFollow()"><i class="fa fa-check"></i> Following</button> {% elif user not in username.profile.followers.all %}
-                            <button id="followElement" class="btn btn-info follow" onclick="toggleFollow()">Follow</button> {% endif %}
-                        </div>
-                    </div>
-                </div>
-    </section>
-
-    <section class="container p-5">
-        <div>
-            {{ username.profile.curriculum_vitae|safe }}
-        </div>
-    </section>
-    {% endblock content %}
+<div class="container text-center pt-5">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600);
+        @import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+        .snip1344 {
+            font-family: 'Open Sans', Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+            min-width: 230px;
+            max-width: 315px;
+            width: 100%;
+            color: #ffffff;
+            text-align: center;
+            line-height: 1.4em;
+            background-color: #141414;
+        }
+        
+        .snip1344 * {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-transition: all 0.25s ease;
+            transition: all 0.25s ease;
+        }
+        
+        .snip1344 .background {
+            width: 100%;
+            vertical-align: top;
+            opacity: 0.2;
+            -webkit-filter: grayscale(100%) blur(10px);
+            filter: grayscale(100%) blur(10px);
+            -webkit-transition: all 2s ease;
+            transition: all 2s ease;
+        }
+        
+        .snip1344 figcaption {
+            width: 100%;
+            padding: 15px 25px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+        }
+        
+        .snip1344 .profile {
+            border-radius: 50%;
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            max-width: 100px;
+            opacity: 1;
+            box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            -webkit-transform: translate(-50%, 0%);
+            transform: translate(-50%, 0%);
+        }
+        
+        .snip1344 h3 {
+            margin: 0 0 5px;
+            font-weight: 400;
+        }
+        
+        .snip1344 h3 span {
+            display: block;
+            font-size: 0.6em;
+            color: #f39c12;
+            opacity: 0.75;
+        }
+        
+        .snip1344 i {
+            padding: 10px 5px;
+            display: inline-block;
+            font-size: 32px;
+            color: #ffffff;
+            text-align: center;
+            opacity: 0.65;
+        }
+        
+        .snip1344 a {
+            text-decoration: none;
+        }
+        
+        .snip1344 i:hover {
+            opacity: 1;
+            -webkit-transition: all 0.35s ease;
+            transition: all 0.35s ease;
+        }
+        
+        .snip1344:hover .background,
+        .snip1344.hover .background {
+            -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+        }
+    </style>
+    <figure class="snip1344"><img src="{{ user.profile.profile_picture.url  }}" alt="profile-sample1" class="background" /><img src="{{ user.profile.profile_picture.url  }}" alt="profile-sample1" class="profile" />
+        <figcaption>
+            {% if user.userplan.plan.plan_type == "Unlimited" %}
+            <h3>{{ username }} <i class="fa fa-check-circle" aria-hidden="true" style="color:#1c87c5"></i></h3>
+            {% else %}
+            <h3>{{ username }}</h3>
+            {% endif %}
+            <h3><span>{{ username.profile.bio }}</span></h3>
+            <div class="icons">
+                {% if user != username %}
+                <a href="{% url 'message-form' username %}" class="btn btn-secondary follow">Message </a> {% endif %}
+            </div>
+        </figcaption>
+    </figure>
+    <div>
+        {{ username.profile.curriculum_vitae|safe }}
+    </div>
+</div>
+{% endblock content %}
