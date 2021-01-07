@@ -15,9 +15,6 @@ class Profile(models.Model):
     profile_picture = ProcessedImageField(default='profile_pics/default.jpg', upload_to='profile_pics', format='JPEG',
                                 processors = [ResizeToFill(150,150)],
                                 options={ 'quality': 100})
-    cover_image = ProcessedImageField(default='cover_pics/default.jpg', upload_to='cover_pics', format='JPEG',
-                                processors = [ResizeToFill(350,150)],
-                                options={ 'quality': 100})
     telephone = PhoneNumberField(null=True,blank=True)
     email = models.CharField(max_length=150, blank=True, null=True)
     bio = models.CharField(max_length=150, blank=True)
