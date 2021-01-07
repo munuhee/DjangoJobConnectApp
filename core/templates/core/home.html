@@ -52,11 +52,7 @@
                     <li class="drop-down"><a href=""><i  class="fa fa-user"></i> Your account({{ user.username }})</a>
                         <ul>
                             <li><a href="{% url 'profile' %}">Profile</a></li>
-                            {% if user.userplan.plan.plan_type == "Unlimited" or author.userplan.plan.plan_type == "Standard" %}
                             <li><a href="{% url 'job_add' %}">Post Job</a></li>
-                            {% else %}
-                            <li><a href="{% url 'plan' %}">Post Job</a></li>
-                            {% endif %}
                             {% if user.userplan.plan.plan_type == "Unlimited" or author.userplan.plan.plan_type == "Standard" %}
                             <li><a href="{% url 'post-create' %}">Post Project</a></li>
                             {% else %}
@@ -712,7 +708,7 @@
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
                     <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
                     <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
- 
+
 
 
                     <script src=" {% static 'lib/jquery/jquery.min.js'%}"></script>
