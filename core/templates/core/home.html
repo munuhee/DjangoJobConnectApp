@@ -58,6 +58,9 @@
                             {% else %}
                             <li><a href="{% url 'plan' %}">Post Project</a></li>
                             {% endif %}
+                            {% if user.is_superuser %}
+                            <li><a href="murstefreelance.com/admin">Admin</a></li>
+                            {% endif %}
                             <!--
                     <li class="drop-down"><a href="#">Drop Down 2</a>
                         <ul>
