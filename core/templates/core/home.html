@@ -46,12 +46,9 @@
             <nav class="main-nav float-right d-none d-lg-block">
                 {% if user.is_authenticated %}
                 <ul>
-                    <li>
-                        <a href="{% url 'jobs' %} "> Browse Jobs</a>
-                    </li>
                     <li class="drop-down"><a href=""><i  class="fa fa-user"></i> Your account({{ user.username }})</a>
                         <ul>
-                            <li><a href="{% url 'profile' %}">Profile</a></li>
+                            <li><a href="{% url 'public-profile' user.username %}">Profile</a></li>
                             <li><a href="{% url 'job_add' %}">Post Job</a></li>
                             {% if user.userplan.plan.plan_type == "Unlimited" or author.userplan.plan.plan_type == "Standard" %}
                             <li><a href="{% url 'post-create' %}">Post Project</a></li>
@@ -60,32 +57,28 @@
                             {% endif %} {% if user.is_superuser %}
                             <li><a href="/admin">Admin</a></li>
                             {% endif %}
-                            <!--
-                    <li class="drop-down"><a href="#">Drop Down 2</a>
-                        <ul>
-                            <li><a href="#">Deep Drop Down 2</a></li>
-                            <li><a href="#">Deep Drop Down 3</a></li>
-                            <li><a href="#">Deep Drop Down 4</a></li>
-                            <li><a href="#">Deep Drop Down 5</a></li>
-                        </ul>
-                    </li>
-                    -->
+                            <li><a href="{% url 'logout' %}">Logout</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="{% url 'notifications:unread' %}">
+                        <a href="{% url 'projects' %}">Browse Projects</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'jobs' %}">Browse Jobs</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'inbox-list' %}">
                             <span class="fa fa-bell"></span>
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'plan' %}">MursteFreelance<span class=" badge badge-warning p-1 "> Pro</span></a></li>
-                    <li>
-                        <a href="{% url 'logout' %} " class="btn btn-outline-murste"><i  class="fa fa-power-off "></i> Logout</a>
-                    </li>
                 </ul>
                 {%else%}
                 <ul>
-                    <li><a href="#how">How It Works</a></li>
+                    <li>
+                        <a href="{% url 'projects' %} ">Browse Projects</a>
+                    </li>
                     <li><a href="{% url 'jobs' %} "> Browse Jobs</a></li>
 
                     <li><a href="{% url 'login' %} " class="btn btn-murste" style="color:#ffff;"><i  class="fa fa-sign-in "></i> Join</a></li>
@@ -140,6 +133,8 @@
     {% endif %} {% if user.is_authenticated %}
     <div class="pt-5"></div>
     {% else %} {% endif %}
+
+
     <div id="plans" class="section-bg container">
         <div class="row mb-2">
             <div class="col-md-6">
@@ -170,7 +165,7 @@
                     </form>
                     <div id="menu1">
                         <div class="how-itworks">
-                            <strong><h6 style="color:#124c8a;">As a freelancer</h6></strong>
+                            <em><h6 style="color:#124c8a;">As a freelancer</h6></em>
                             <p>
                                 <ul class="pt-3">
                                     <li><strong>Step 1 :</strong> Search for jobs in your field.</li>
@@ -183,7 +178,7 @@
                     </div>
                     <div id="menu2">
                         <div class="how-itworks">
-                            <strong><h6 style="color:#27e630;">As a Hirer</h6></strong>
+                            <em><h6 style="color:#27e630;">As a Hirer</h6></em>
                             <p>
                                 <ul class="pt-3">
                                     <li><strong>Step 1 :</strong> Write the job description.</li>
@@ -225,7 +220,7 @@
                 <div class="row mb-2">
                     <div class="col-md-6">
                         <section id="services " class="section-bg pt-1">
-                            <div class="pt-1">
+                            <div class="pt-1"></div>
                                 <header class="">
                                     <p>If you are good in creating unique projects, you can simply start marketing your own capabilities. Start posting your projects.You could sell your ideas to other users. Make your specialism a new trend now
                                     </p>
@@ -235,130 +230,12 @@
                         <div class="col-md-6 text-center">
                             <img src="{% static 'images/homepage_pics/murste2.jpg' %}" height="400" width="400" />
                         </div>
-                    </div><br>
-                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-                        <a class="navbar-brand" href="#">All Projects</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
+                    </div>
+                    <div class="text-center pt-5" id="neon-btn">
+                    <button class="btnhov two"><a href="{% url 'projects' %}">Click To View Projects</a></button>
+                    </div>
+                    <br>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
-
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Categories
-                      </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="/category/graphics-design">Graphics & Design</a>
-                                        <a class="dropdown-item" href="/category/Photography">Photography</a>
-                                        <a class="dropdown-item" href="/category/Photoshop">Photoshop</a>
-                                        <a class="dropdown-item" href="/category/Architecture-Services">Architecture Services</a>
-                                        <a class="dropdown-item" href="/category/Marketing-Sales-and-Service">Marketing, Sales and Service</a>
-                                        <a class="dropdown-item" href="/category/Data-Entry">Data Entry</a>
-                                        <a class="dropdown-item" href="/category/Web-Development-and-Designing">Web Development and Designing</a>
-                                        <a class="dropdown-item" href="/category/Creative-Design">Creative Design</a>
-                                        <a class="dropdown-item" href="/category/Mobile-App-Development">Mobile App Development</a>
-                                        <a class="dropdown-item" href="/category/3D-Modeling-and-CAD">3D Modeling and CAD</a>
-                                        <a class="dropdown-item" href="/category/Game-Development">Game Development</a>
-                                        <a class="dropdown-item" href="/category/Translation">Translation</a>
-                                        <a class="dropdown-item" href="/category/Transcription">Transcription</a>
-                                        <a class="dropdown-item" href="/category/Article-and-Blog-Writing">Article and Blog Writing</a>
-                                        <a class="dropdown-item" href="/category/Teaching-and-Tutoring">Logo Design and illustration</a>
-                                        <a class="dropdown-item" href="/category/Audio-and-Video-Production">Audio and Video Production</a>
-                                    </div>
-                                </li>
-                            </ul>
-                            <form class="form-inline my-2 my-lg-0" role="search " id="searchform" action="{% url 'post_search_list_view' %}" method="get" accept-charset="utf-8">
-                                <div class="form-group ">
-                                    <div class="input-group ">
-                                        <input id="searchbox" name="q" type="text" class="form-control " placeholder="Find projects">
-                                        <span class="input-group-btn ">
-                          <button class="btn btn-outline-murste my-2 my-sm-0" type="submit">Search</i></button>
-                        </span>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </nav>
-                    <section class="container">
-                        <div class="main">
-                            <ul class="cards">
-                                {% for post in posts %}
-                                <li class="cards_item">
-                                    <div class="card">
-                                        <div class="card_image"><img src="{{ post.cover_image.url}}"></div>
-                                        <div class="card_content">
-                                            <header class="post-meta-and-title ">
-                                                <div class="post-meta ">
-                                                    <img class="rounded-circle article-img " src="{{ post.author.profile.profile_picture.url  }} "> {% if post.author.userplan.plan.plan_type == "Unlimited" %}
-                                                    <a href="{% url 'public-profile' post.author.username %} " rel="author ">{{post.author}} <i class="fa fa-check-circle" aria-hidden="true" style="color:#1c87c5"></i></a> {% else %}
-                                                    <a href="{% url 'public-profile' post.author.username %} " rel="author ">{{post.author}}</a> {% endif %}
-                                                    <p class="author-name "><span class="author-name-date-padding "></span>
-                                                        <small class="text-muted"><time datetime=""><i class="fa fa-clock-o"></i> {{ post.date_posted|naturaltime|lower }}</time></small>
-                                                    </p>
-                                                </div>
-                                                <p style="min-height: 19px; ">
-                                                    <strong><a class="postcard-title" href="{% url 'post-detail' post.slug %} ">{{post.title}}</a></strong>
-                                                </p>
-                                            </header>
-                                            <p class="card_text">{{post.overview}}</p>
-                                            <a class="btnr card_btn" href="{% url 'post-detail' post.slug %} ">Read More</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                {% empty %}
-                                <br>
-                                <div class="container mb-5">
-                                    <div style="text-align:center;" id="nopost" class="anim-typewriter">
-                                        No Projects Posted Yet
-                                    </div>
-                                </div>
-                                <div id="meat_boy">
-                                    <div id="shadow"></div>
-                                    <div id="left-hand"></div>
-                                    <div id="right-hand"></div>
-                                    <div id="left-leg"></div>
-                                    <div id="right-leg"></div>
-                                    <div id="body">
-                                        <div id="deformation1"></div>
-                                        <div id="deformation2"></div>
-                                        <div id="deformation3"></div>
-                                        <div id="deformation4"></div>
-                                        <div id="deformation5"></div>
-                                        <div id="deformation6"></div>
-                                        <div id="deformation7"></div>
-                                        <div id="deformation8"></div>
-                                        <div id="left-eye"></div>
-                                        <div id="right-eye"></div>
-                                        <div id="dimple"></div>
-                                        <div id="smiley"></div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <div class="paginator ">
-                            {% if is_paginated %}
-                            <ul class="pagination ">
-                                {% if page_obj.has_previous %}
-                                <li><a class="btn accent-1 btn-outline-murste " href="?page={{ page_obj.previous_page_number }} ">&laquo;</a></li>
-                                {% else %}
-                                <li class="disabled "><span class="btn btn-outline-murste ">&laquo;</span></li>
-                                {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
-                                <li class="active "><span class="btn btn-murste ">{{ i }} <span class="sr-only ">(current)</span></span>
-                                </li>
-                                {% else %}
-                                <li><a href="?page={{ i }} " class="btn btn-outline-murste ">{{ i }}</a></li>
-                                {% endif %} {% endfor %} {% if page_obj.has_next %}
-                                <li><a href="?page={{ page_obj.next_page_number }} " class="btn btn-outline-murste ">&raquo;</a></li>
-                                {% else %}
-                                <li class="disabled "><span class="btn btn-outline-murste ">&raquo;</span></li>
-                                {% endif %}
-                            </ul>
-                            {% endif %}
-                        </div>
-                </div>
                 </div>
                 </section><br>
                 <!--Plans-->
@@ -397,7 +274,6 @@
 
                                                 <!--HEAD CONTENT START-->
                                                 <div class="generic_head_content clearfix">
-
                                                     <!--HEAD START-->
                                                     <div class="head_bg"></div>
                                                     <div class="head">

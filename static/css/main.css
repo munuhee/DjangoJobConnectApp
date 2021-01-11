@@ -26,6 +26,7 @@ h5 {
     font-weight: bold;
     font-family: "Sofia";
 }
+
 @media (max-width: 768px) {
     h5 {
         font-size: 20px;
@@ -300,6 +301,7 @@ detail-content {
     text-align: center;
 }
 
+
 .badge-murste {
     color: #fff;
     background-color: #124c8a;
@@ -538,7 +540,7 @@ detail-content {
 }
 
 .inbox-list {
-    background-color: #27e630;
+    background-color: #ffff;
     border-radius: 12px;
     padding: 5px;
     margin: 2px;
@@ -1346,7 +1348,7 @@ canvas {
 
 #generic_price_table .generic_content .generic_head_price .generic_head_content .head span {
     font-family: "Raleway", sans-serif;
-    font-size: 28px;
+    font-size: 18px;
     font-weight: 400;
     letter-spacing: 2px;
     margin: 0;
@@ -1355,7 +1357,7 @@ canvas {
 }
 
 #generic_price_table .generic_content .generic_head_price .generic_price_tag {
-    padding: 0 0 20px;
+    padding: 0 0 15px;
 }
 
 #generic_price_table .generic_content .generic_head_price .generic_price_tag .price {
@@ -1372,7 +1374,7 @@ canvas {
 
 #generic_price_table .generic_content .generic_head_price .generic_price_tag .price .currency {
     font-family: "Lato", sans-serif;
-    font-size: 60px;
+    font-size: 40px;
     font-weight: 300;
     letter-spacing: -2px;
     line-height: 60px;
@@ -1383,7 +1385,7 @@ canvas {
 #generic_price_table .generic_content .generic_head_price .generic_price_tag .price .cent {
     display: inline-block;
     font-family: "Lato", sans-serif;
-    font-size: 24px;
+    font-size: 25px;
     font-weight: 400;
     vertical-align: bottom;
 }
@@ -1686,7 +1688,7 @@ canvas {
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
     background: #fff;
     min-width: 270px;
-    height: 420px;
+    height: 305px;
 }
 
 .post-card:hover,
@@ -1694,25 +1696,6 @@ canvas {
     -webkit-box-shadow: 0px 1px 35px 0px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0px 1px 35px 0px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 1px 35px 0px rgba(0, 0, 0, 0.3);
-}
-
-.post-card:hover .post-img,
-.hover .post-img,
-{
-    -webkit-transform: scale(1.1);
-    -moz-transform: scale(1.1);
-    transform: scale(1.1);
-    opacity: .6;
-}
-
-.post-img {
-    height: 250px;
-    overflow: hidden;
-}
-
-.post-card img {
-    display: block;
-    width: 135%;
 }
 
 .date {
@@ -1753,7 +1736,7 @@ canvas {
     margin: 0;
     padding: 0 0 10px;
     color: #333333;
-    font-size: 26px;
+    font-size: 15px;
     font-weight: 700;
 }
 
@@ -2218,7 +2201,9 @@ canvas {
 
 
 /*neon availablejobs*/
-
+label{
+    font-family: montserrat;
+}
 #neon-btn {
     align-items: center;
 }
@@ -2626,4 +2611,315 @@ img {
     margin-bottom: 1.25rem;
     font-weight: 400;
     font-family: "Montserrat", sans-serif;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600);
+.containerapp {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact input[type="tel"],
+#contact input[type="url"],
+#contact textarea,
+#contact button[type="submit"] {
+    font: 400 12px/16px "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+#contact {
+    background: #F9F9F9;
+    padding: 25px;
+    margin: 50px 0;
+}
+
+#contact h3 {
+    color: #27e630;
+    display: block;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+#contact h4 {
+    margin: 5px 0 15px;
+    display: block;
+    font-size: 13px;
+}
+
+fieldset {
+    border: medium none !important;
+    margin: 0 0 10px;
+    min-width: 100%;
+    padding: 0;
+    width: 100%;
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact input[type="tel"],
+#contact input[type="url"],
+#contact textarea {
+    width: 100%;
+    border: 1px solid #CCC;
+    background: #FFF;
+    margin: 0 0 5px;
+    padding: 10px;
+}
+
+#contact input[type="text"]:hover,
+#contact input[type="email"]:hover,
+#contact input[type="tel"]:hover,
+#contact input[type="url"]:hover,
+#contact textarea:hover {
+    -webkit-transition: border-color 0.3s ease-in-out;
+    -moz-transition: border-color 0.3s ease-in-out;
+    transition: border-color 0.3s ease-in-out;
+    border: 1px solid #AAA;
+}
+
+#contact textarea {
+    height: 100px;
+    max-width: 100%;
+    resize: none;
+}
+
+#contact button[type="submit"] {
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    background: #124c8a;
+    color: #FFF;
+    margin: 0 0 5px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+#contact button[type="submit"]:hover {
+    background: #091f36;
+    -webkit-transition: background 0.3s ease-in-out;
+    -moz-transition: background 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#contact button[type="submit"]:active {
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+#contact input:focus,
+#contact textarea:focus {
+    outline: 0;
+    border: 1px solid #999;
+}
+
+ ::-webkit-input-placeholder {
+    color: #888;
+}
+
+ :-moz-placeholder {
+    color: #888;
+}
+
+ ::-moz-placeholder {
+    color: #888;
+}
+
+ :-ms-input-placeholder {
+    color: #888;
+}
+
+#msform {
+    width: 400px;
+    margin: 50px auto;
+    text-align: center;
+    position: relative;
+}
+
+
+@media (max-width: 768px) {
+   #msform {
+    width: 280px;
+    margin: 0px;
+    text-align: center;
+    position: relative;
+}
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 80%;
+    margin: 10%;
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+
+
+/*Hide all except first fieldset*/
+
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+
+/*inputs*/
+select{
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 13px;  
+}
+#msform select,
+#msform input,
+#msform textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+
+/*buttons*/
+
+#msform .action-button {
+    width: 100px;
+    background: #27e630;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+
+
+/*headings*/
+
+.fs-title {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 10px;
+}
+
+.fs-subtitle {
+    font-weight: normal;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+
+/*progressbar*/
+
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+
+#progressbar li {
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 9px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+}
+
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 20px;
+    line-height: 20px;
+    display: block;
+    font-size: 10px;
+    color: #333;
+    background: white;
+    border-radius: 3px;
+    margin: 0 auto 5px auto;
+}
+
+
+/*progressbar connectors*/
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1;
+    /*put it behind the numbers*/
+}
+
+#progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none;
+}
+
+
+/*marking active/completed steps green*/
+
+
+/*The number of the step and the connector before it = green*/
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #124c8a;
+    color: white;
+}
+
+.employer-name{
+    font-size: 20px;
+}
+.job-description{
+ font-size: 15px;
+}
+
+@media (max-width: 768px) {
+    .job-description{
+        font-size: 14px;
+    }
 }

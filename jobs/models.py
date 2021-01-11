@@ -39,17 +39,11 @@ class Job(models.Model):
     )
     status = models.CharField(max_length=6, choices=JOB_STATUS, default="Open")
     title = models.CharField(max_length=200)
-    overview = models.CharField(max_length=100,default='explore to find more about my capabilities')
-    description = RichTextUploadingField(default="explore")
+    description = models.TextField(blank=False)
     pub_date = models.DateTimeField(default=timezone.now)
-    view_count = models.PositiveIntegerField(default=0)
     budget = models.CharField(max_length=10, help_text="eg, 15-35 USD",null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     jobscategory = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default="O")
-    cover_image = ProcessedImageField(default='2.jpg', upload_to='job_pics', format='JPEG',
-                                processors = [ResizeToFill(350,170)],
-                                options={ 'quality': 100})
-    
 
     def __str__(self):
         return self.title

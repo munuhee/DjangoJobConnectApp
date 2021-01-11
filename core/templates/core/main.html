@@ -29,6 +29,7 @@
     <!-- Main Stylesheet File -->
     <link href="{% static 'css/profile.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
 
 
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
@@ -61,44 +62,39 @@
             <nav class="main-nav float-right d-none d-lg-block">
                 {% if user.is_authenticated %}
                 <ul>
-                    <li>
-                        <a href="{% url 'jobs' %} "> Browse Jobs</a>
-                    </li>
                     <li class="drop-down"><a href=""><i  class="fa fa-user"></i> Your account({{ user.username }})</a>
                         <ul>
-                            <li><a href="{% url 'profile' %}">Profile</a></li>
+                            <li><a href="{% url 'public-profile' user.username %}">Profile</a></li>
                             <li><a href="{% url 'job_add' %}">Post Job</a></li>
-                            {% if user.userplan.plan.plan_type == "Unlimited" or user.userplan.plan.plan_type == "Standard" %}
+                            {% if user.userplan.plan.plan_type == "Unlimited" or author.userplan.plan.plan_type == "Standard" %}
                             <li><a href="{% url 'post-create' %}">Post Project</a></li>
                             {% else %}
                             <li><a href="{% url 'plan' %}">Post Project</a></li>
+                            {% endif %} {% if user.is_superuser %}
+                            <li><a href="/admin">Admin</a></li>
                             {% endif %}
-                            <!--
-                        <li class="drop-down"><a href="#">Drop Down 2</a>
-                            <ul>
-                                <li><a href="#">Deep Drop Down 2</a></li>
-                                <li><a href="#">Deep Drop Down 3</a></li>
-                                <li><a href="#">Deep Drop Down 4</a></li>
-                                <li><a href="#">Deep Drop Down 5</a></li>
-                            </ul>
-                        </li>
-                        -->
+                            <li><a href="{% url 'logout' %}">Logout</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="{% url 'notifications:unread' %}">
+                        <a href="{% url 'projects' %}">Browse Projects</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'jobs' %}">Browse Jobs</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'inbox-list' %}">
                             <span class="fa fa-bell"></span>
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'plan' %}">MursteFreelance<span class=" badge badge-warning p-1 "> Pro</span></a></li>
-                    <li>
-                        <a href="{% url 'logout' %} " class="btn btn-outline-murste"><i  class="fa fa-power-off "></i> Logout</a>
-                    </li>
                 </ul>
                 {%else%}
                 <ul>
-                    <li><a href="{% url 'home' %} ">How It Works</a></li>
+                    <li>
+                        <a href="{% url 'projects' %} ">Browse Projects</a>
+                    </li>
                     <li><a href="{% url 'jobs' %} "> Browse Jobs</a></li>
 
                     <li><a href="{% url 'login' %} " class="btn btn-murste" style="color:#ffff;"><i  class="fa fa-sign-in "></i> Join</a></li>
@@ -111,7 +107,7 @@
         </div>
     </header>
     <!-- #header -->
-    <div class="container">
+    <div class="">
         {% block content %} {% endblock %}
     </div>
     <a href="# " class="back-to-top "><i class="fa fa-chevron-up "></i></a>

@@ -8,7 +8,7 @@ from notifications.signals import notify
 class Message(models.Model):
     sender = models.ForeignKey(User, related_name="senders", on_delete=models.CASCADE)
     receiver = models.ForeignKey(User, related_name='receivers', on_delete=models.CASCADE)
-    content = models.CharField(max_length=2200)
+    content = models.TextField()
     date_created = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):

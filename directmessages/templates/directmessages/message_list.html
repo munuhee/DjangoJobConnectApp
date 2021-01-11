@@ -1,18 +1,19 @@
-{% extends 'core/main.html' %} {% block content %}
+{% extends 'core/main.html' %} {% load humanize %}{% block title %} Inbox list{% endblock title %} {% block content %}
+<div class="pt-5"></div>
 <div class="container container-top">
     <div class="inbox">
         {% for message in sender_qs %}
         <div class="inbox-list">
             <a class='row' id='profile' href="{% url 'message-form' message.sender.username %}">
                 <div class='col align-self-center'>
-                    <img class='d-inline rounded-circle like-image' src="{{message.sender.profile.profile_image.url}}">
+                    <img class='d-inline rounded-circle like-image' src="{{message.sender.profile.profile_picture.url}}">
                     <p class='d-inline'><strong> {{ message.sender }} </strong></p>
                     <div class="message-item" style="color: #201f1f;">
                         <p align="center"> {{ message.content|truncatewords:9 }}</p>
                     </div>
                 </div>
                 <div class='row justify-content-end' id='profile'>
-                    <strong>  <small style="color: #201f1f;">{{ message.date_created|date:"M d h:i A" }}</small></strong>
+                    <strong>  <small style="color: #201f1f;">{{ message.date_created|naturaltime|lower }}</small></strong>
                 </div>
         </div>
         </a>

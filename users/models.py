@@ -21,7 +21,8 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     country = CountryField(blank_label='(select country)', blank=True, null=True)
-    curriculum_vitae  = RichTextField()
+    skills  = models.TextField(max_length=130, blank=True, null=True)
+    career_description = models.TextField(blank=True, null=True)
     followers = models.ManyToManyField(User, blank=True, related_name='user_followers')
     
     def get_number_of_followers(self):

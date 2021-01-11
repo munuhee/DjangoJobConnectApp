@@ -31,15 +31,12 @@ from functools import reduce
 from django.db.models import Q
 # Create your views here.
 def home(request):
-    context = {
-        'posts':Post.objects.all(),
-        'user':request.user
-         }
+    context = {}
     return render(request, 'core/home.html',context)   
 
 class PostListView(ListView):
     model = Post
-    template_name = 'core/home.html'  # <app>/<model>_<viewtype>.html
+    template_name = 'core/projects.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-last_rating']
     paginate_by = 6

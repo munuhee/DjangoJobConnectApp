@@ -17,7 +17,8 @@ from . import views
 
 
 urlpatterns = [
-    path('',PostListView.as_view(), name="home"),
+    path('', views.home, name='home'),
+    path('projects/',PostListView.as_view(), name="projects"),
     path('contact/', ContactCreateView.as_view(), name='contact'),
     #path('checkout/', views.checkout, name="checkout"),
     #path('update_item/', views.updateItem, name="update_item"),
@@ -29,7 +30,7 @@ urlpatterns = [
     path('post/<slug:slug>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('profile/<str:username>', views.public_profile, name='public-profile'),
     path('post/<slug:slug>/<rating>', rate_post_view, name='rate_post'),
-    url(r'^category/(?P<link>[\w|-]+)/$', views.category, name="category"),
+    url(r'^projects/category/(?P<link>[\w|-]+)/$', views.category, name="category"),
     #url(r'^search/$', views.search, name='search'),
     path('search/',PostSearchListView.as_view(), name="post_search_list_view"),
 ]

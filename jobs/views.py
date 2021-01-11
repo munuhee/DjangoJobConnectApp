@@ -69,7 +69,6 @@ class JobDisplay(PageContextMixin, SingleObjectMixin, View):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        self.object.view_count += 1
         self.object.save()
         job = self.get_context_data(object=self.object)
         return render(request, 'jobs/job_detail.html', job)
@@ -94,7 +93,7 @@ class JobDetail(DetailView):
 @method_decorator(login_required, name='dispatch')
 class JobCreate(CreateView):
     model = Job
-    fields = ('title', 'jobscategory', 'overview', 'description', 'budget', 'cover_image', 'status')
+    fields = ('title', 'jobscategory','description', 'budget', 'status')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -106,7 +105,7 @@ class JobCreate(CreateView):
 @method_decorator(login_required, name='dispatch')
 class JobUpdate(UpdateView):
     model = Job
-    fields = ('title', 'jobscategory', 'overview', 'description',  'budget','cover_image', 'status')
+    fields = ('title', 'jobscategory','description', 'budget', 'status')
 
 
 @method_decorator(login_required, name='dispatch')

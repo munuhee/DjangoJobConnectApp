@@ -572,6 +572,14 @@ body {
     position: relative;
 }
 
+.section-header h6 {
+    font-size: 22px;
+    color: #124c8a;
+    text-align: center;
+    font-weight: 500;
+    position: relative;
+}
+
 .section-header p {
     text-align: center;
     margin: auto;
@@ -592,6 +600,13 @@ body {
         margin: auto;
         font-size: 15px;
         width: 50%;
+    }
+    .section-header h6 {
+        font-size: 17px;
+        color: #124c8a;
+        text-align: center;
+        font-weight: 500;
+        position: relative;
     }
 }
 
@@ -1534,4 +1549,49 @@ body {
     #intro {
         padding: 100px 0 20px 0;
     }
+}
+
+#morris-bar-chart {
+    -webkit-transition: all 2s;
+    /* Safari */
+    transition: all 2s;
+}
+
+#morris-table-left-div {
+    /*height: 350px;
+    overflow: hidden;*/
+}
+
+.header-row {
+    padding: 0 18px;
+}
+
+.header-column {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: inline-block;
+    font-weight: 300;
+    color: #555;
+    /*border: 1px solid grey;*/
+    padding: 0px;
+    width: 24%;
+    box-sizing: border-box;
+    /*content-box|border-box|initial|inherit;*/
+}
+
+.list-group-column {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: inline-block;
+    font-weight: 300;
+    color: #555;
+    /*border: 1px solid grey;*/
+    padding: 0px;
+    width: 24%;
+}
+
+
+/*border: 1px solid grey;*/
+
+padding: 0px;
+width: 24%;
+
 }

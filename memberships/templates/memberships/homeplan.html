@@ -3,14 +3,14 @@
     <!--Plans-->
     <style>
         .box {
+            width: 400px;
             height: fit-content;
             border: 2px solid #000;
             margin: 0 auto 15px;
             text-align: center;
-            padding: 10px;
+            padding: 20px;
             font-weight: bold;
             border-radius: 10px;
-            margin-bottom: 10px;
         }
         
         .error {
@@ -18,15 +18,37 @@
             border-color: #973939;
             color: #973939;
         }
+
+        
+        @media (max-width: 768px) {
+            .box {
+            width: fit-content;
+            height: fit-content;
+            border: 2px solid #000;
+            margin: 0 auto 15px;
+            text-align: center;
+            padding: 20px;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+        
+        .error {
+            background-color: #EBB1B1;
+            border-color: #973939;
+            color: #973939;
+        }
+        }
     </style>
     <div id="generic_price_table">
         <section>
             <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
                         <!--PRICE HEADING START-->
                         <section id="plans" class="section-bg pt-1 container">
                             <div class="pt-1">
                                 <header class="section-header text-center">
-                                    <h3>Subscription Plans</h3>
+                                    <h4>Subscription Plans</h4>
                                     <hr> {% if user.userplan.plan.plan_type == "Standard" %}
                                     <h4 style="color: #27e630;">Your current subscription is: Standard</h4>
                                     {% elif user.userplan.plan.plan_type == "Basic" %}
@@ -39,8 +61,10 @@
                                 </header>
                         </section>
                         <!--//PRICE HEADING END-->
+                        </div>
+                    </div>
                 </div>
-                <div class="container p-0">
+                <div class="container p-5">
                     {% if user.userplan.plan.plan_type == "Standard" or user.userplan.plan.plan_type == "Unlimited"%}
                     <div class="text-center">
                         <div class="error box">
@@ -52,7 +76,7 @@
                     <!--BLOCK ROW START-->
                     <div class="row">
                         {% for plan in plans %}
-                        <div class="col-md-5 pb-3">
+                        <div class="col-md-4 pb-3">
 
                             <!--PRICE CONTENT START-->
                             <div class="generic_content active clearfix">
@@ -102,14 +126,14 @@
 
                         </div>
                         {% endfor %}
-                    </div>
-                        <!--//BLOCK ROW END-->
 
+                        <!--//BLOCK ROW END-->
                     </div>
-                    {% endif %}
+                </div>
+                {% endif %}
 
         </section>
         </div>
         <!--end plans-->
-        </div>
-        {% endblock %}
+    </div>
+    {% endblock %}
