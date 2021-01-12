@@ -41,16 +41,6 @@ class PostListView(ListView):
     ordering = ['-last_rating']
     paginate_by = 6
     
-    def home(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            profile = request.user.profile
-            order, created = Order.objects.get_or_create(profile=profile, complete=False)
-            items = order.orderitem_set.all()
-            cartItems = order.get_cart_items
-        else:
-            items = []
-            order = {'get_cart_total':0, 'get_cart_items':0}
-            cartItems = order['get_cart_items']
 class UserPostListView(ListView):
     model = Post
     template_name = 'core/user_posts.html'  # <app>/<model>_<viewtype>.html

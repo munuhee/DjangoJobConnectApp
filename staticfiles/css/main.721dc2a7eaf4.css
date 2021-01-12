@@ -301,6 +301,7 @@ detail-content {
     text-align: center;
 }
 
+
 .badge-murste {
     color: #fff;
     background-color: #124c8a;
@@ -2200,11 +2201,9 @@ canvas {
 
 
 /*neon availablejobs*/
-
-label {
+label{
     font-family: montserrat;
 }
-
 #neon-btn {
     align-items: center;
 }
@@ -2753,13 +2752,14 @@ fieldset {
     position: relative;
 }
 
+
 @media (max-width: 768px) {
-    #msform {
-        width: 280px;
-        margin: 0px;
-        text-align: center;
-        position: relative;
-    }
+   #msform {
+    width: 280px;
+    margin: 0px;
+    text-align: center;
+    position: relative;
+}
 }
 
 #msform fieldset {
@@ -2784,8 +2784,7 @@ fieldset {
 
 
 /*inputs*/
-
-select {
+select{
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -2794,9 +2793,8 @@ select {
     box-sizing: border-box;
     font-family: montserrat;
     color: #2C3E50;
-    font-size: 13px;
+    font-size: 13px;  
 }
-
 #msform select,
 #msform input,
 #msform textarea {
@@ -2913,16 +2911,15 @@ select {
     color: white;
 }
 
-.employer-name {
+.employer-name{
     font-size: 20px;
 }
-
-.job-description {
-    font-size: 15px;
+.job-description{
+ font-size: 15px;
 }
 
 @media (max-width: 768px) {
-    .job-description {
+    .job-description{
         font-size: 14px;
     }
 }

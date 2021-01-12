@@ -211,7 +211,7 @@
                         <h6>Skills :</h6><br>
                         <p>{{ username.profile.skills }}</p><br>
                         <h6>Career description :</h6><br>
-                        <p>{{ username.profile.career_description|safe }}</p>
+                        <p>{{ username.profile.career_description }}</p>
                     </div>
                 </div>
     <div class="card-container">
@@ -234,7 +234,7 @@
         <div class="skills">
             <h6>Skills</h6>
             <ul>
-                {{ username.profile.skills|safe }}
+                {{ username.profile.skills }}
             </ul>
         </div>
     </div>
