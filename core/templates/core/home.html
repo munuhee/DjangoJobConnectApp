@@ -28,7 +28,6 @@
     <!-- Main Stylesheet File -->
     <link href="{% static 'css/profile.css' %}" rel="stylesheet">
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
-    <link href="{% static 'css/sidenav.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
 </head>
@@ -221,20 +220,20 @@
                     <div class="col-md-6">
                         <section id="services " class="section-bg pt-1">
                             <div class="pt-1"></div>
-                                <header class="">
-                                    <p>If you are good in creating unique projects, you can simply start marketing your own capabilities. Start posting your projects.You could sell your ideas to other users. Make your specialism a new trend now
-                                    </p>
-                                </header>
+                            <header class="">
+                                <p>If you are good in creating unique projects, you can simply start marketing your own capabilities. Start posting your projects.You could sell your ideas to other users. Make your specialism a new trend now
+                                </p>
+                            </header>
                         </section>
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <img src="{% static 'images/homepage_pics/murste2.jpg' %}" height="400" width="400" />
-                        </div>
                     </div>
-                    <div class="text-center pt-5" id="neon-btn">
+                    <div class="col-md-6 text-center">
+                        <img src="{% static 'images/homepage_pics/murste2.jpg' %}" height="400" width="400" />
+                    </div>
+                </div>
+                <div class="text-center pt-5" id="neon-btn">
                     <button class="btnhov two"><a href="{% url 'projects' %}">Click To View Projects</a></button>
-                    </div>
-                    <br>
+                </div>
+                <br>
 
                 </div>
                 </section><br>
@@ -438,25 +437,6 @@
                             <span id="left-arrow" class="arrow left fa fa-chevron-left "></span>
                             <ul id="testim-dots" class="dots">
                                 <li class="dot active"></li>
-                                <!--
-                                                                            <div class="active">
-                                        <div class="img"><img src="{% static 'images/logo/magicalcrystals.jpg' %}" alt=""></div>
-                                        <h2>MagicalCrystals</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-                                    </div>
-
-                                    <div>
-                                        <div class="img"><img src="{% static 'images/logo/brism.jpg' %}" alt=""></div>
-                                        <h2>BRISM Brands</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-                                    </div>
-
-                                    <div>
-                                        <div class="img"><img src="{% static 'images/logo/africanbizfashions.jpg' %}" alt=""></div>
-                                        <h2>Africanbiz Fashions</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-                                    </div>
-                            -->
                                 <li class="dot"></li>
                                 <!--
                             -->
@@ -545,8 +525,10 @@
 
                                         <div class="social-links">
                                             <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                                            <a href="https://www.facebook.com/MursteFreelance-105139821548699" class="facebook"><i class="fa fa-facebook"></i></a>
+                                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
                                             <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                                            <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                                            <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
                                         </div>
 
                                     </div>
@@ -596,8 +578,7 @@
                     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js'%}"></script>
                     <script src="{% static 'lib/isotope/isotope.pkgd.min.js'%}"></script>
                     <script src="{% static 'lib/lightbox/js/lightbox.min.js'%}"></script>
-                    <!-- Contact Form JavaScript File -->
-                    <script src="{% static 'contactform/contactform.js'%}"></script>
+
 
                     <!-- Template Main Javascript File -->
                     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer data-deferred="1"></script>
