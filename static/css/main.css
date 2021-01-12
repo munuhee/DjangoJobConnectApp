@@ -634,7 +634,7 @@ canvas {
     position: relative;
     width: 100%!important;
     height: 100%;
-    background: url("https://raw.githubusercontent.com/munuhee/murste-live/main/static/images/app4.jpg?token=AMJGNZVJHM6I3CPAINNE6JK77XZTU") no-repeat;
+    background: #27e630 url("/images/app4.jpg") no-repeat;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50% 50%;
