@@ -18,6 +18,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('/sitemaps', views.sitemaps, name='sitemaps'),
     path('projects/',PostListView.as_view(), name="projects"),
     path('contact/', ContactCreateView.as_view(), name='contact'),
     #path('checkout/', views.checkout, name="checkout"),

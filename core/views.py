@@ -34,6 +34,10 @@ def home(request):
     context = {}
     return render(request, 'core/home.html',context)   
 
+def sitemaps(request):
+    context = {}
+    return render(request, 'core/sitemap.xml',context)   
+
 class PostListView(ListView):
     model = Post
     template_name = 'core/projects.html'  # <app>/<model>_<viewtype>.html
