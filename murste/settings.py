@@ -127,10 +127,10 @@ WSGI_APPLICATION = 'murste.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'database-1',
+        'NAME': 'murstefreelance-db',
         'USER': 'postgres',
         'PASSWORD': '2021newresol',
-        'HOST': 'database-1.cwo78vptbdzt.us-east-2.rds.amazonaws.com',
+        'HOST': 'murstefreelance-db.cwo78vptbdzt.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
