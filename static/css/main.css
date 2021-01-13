@@ -634,7 +634,7 @@ canvas {
     position: relative;
     width: 100%!important;
     height: 100%;
-    background: #27e630 url("/images/app4.jpg") no-repeat;
+    background: url("/static/images/app4.jpg") no-repeat;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50% 50%;
