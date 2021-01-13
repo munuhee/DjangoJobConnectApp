@@ -34,7 +34,7 @@ LOGGING = {
     },
 }
 
-ALLOWED_HOSTS = ['www.murstefreelance.com']
+ALLOWED_HOSTS = ['murstefreelance.com']
 
 # Application definition
 

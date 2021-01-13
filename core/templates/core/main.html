@@ -65,7 +65,7 @@
                         <ul>
                             <li><a href="{% url 'public-profile' user.username %}">Profile</a></li>
                             <li><a href="{% url 'job_add' %}">Post Job</a></li>
-                            {% if user.userplan.plan.plan_type == "Unlimited" or author.userplan.plan.plan_type == "Standard" %}
+                            {% if user.userplan.plan.plan_type == "Unlimited" or user.userplan.plan.plan_type == "Standard" or user.is_superuser %}
                             <li><a href="{% url 'post-create' %}">Post Project</a></li>
                             {% else %}
                             <li><a href="{% url 'plan' %}">Post Project</a></li>
