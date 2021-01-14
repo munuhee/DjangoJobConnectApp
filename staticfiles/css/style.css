@@ -254,13 +254,13 @@ body {
 }
 
 #header .logo h1 {
-    font-size: 36px;
+    font-size: 25px;
     margin: 0;
+    font-family: sofia;
     padding: 0;
     line-height: 1;
-    font-weight: 400;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0px;
 }
 
 #header .logo h1 a,
@@ -270,8 +270,8 @@ body {
 
 #header .logo img {
     padding: 0;
-    margin: 7px 0;
-    height: 40px;
+    margin-bottom: 7px;
+    height: 45px;
 }
 
 .main-pages {

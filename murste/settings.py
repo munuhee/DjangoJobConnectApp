@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'f3v+0c%=5uzb(%)2(c#k^ov+6$h@a+b9mu4sw8^fmqdm-%$0c@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 LOGGING = {
     'version': 1,
@@ -34,7 +34,7 @@ LOGGING = {
     },
 }
 
-ALLOWED_HOSTS = ['www.murstefreelance.com']
+ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
@@ -46,13 +46,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'countdowntimer_model',
+    'murstebase.apps.MurstebaseConfig',
     'jobs.apps.JobsConfig',
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
     'directmessages.apps.DirectmessagesConfig',
-    'notifications',
     'memberships.apps.MembershipsConfig',
+
+    'countdowntimer_model',
+    'notifications',
     'crispy_forms',
     'ckeditor',
     'ckeditor_uploader',

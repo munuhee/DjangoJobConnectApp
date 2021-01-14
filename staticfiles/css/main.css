@@ -308,7 +308,7 @@ detail-content {
 
 #hero h1 {
     margin: 0 0 10px 0;
-    font-size: 58px;
+    font-size: 48px;
     font-weight: 700;
     line-height: 56px;
     font-family: "Philosopher", sans-serif;
@@ -634,7 +634,7 @@ canvas {
     position: relative;
     width: 100%!important;
     height: 100%;
-    background: url("/images/app4.jpg") no-repeat;
+    background: url("/static/images/app4.jpg") no-repeat;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50% 50%;

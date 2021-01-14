@@ -30,13 +30,7 @@ from django.core import serializers
 from functools import reduce
 from django.db.models import Q
 # Create your views here.
-def home(request):
-    context = {}
-    return render(request, 'core/home.html',context)   
 
-def sitemaps(request):
-    context = {}
-    return render(request, 'core/sitemap.xml',context)   
 
 class PostListView(ListView):
     model = Post
@@ -90,7 +84,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     
     
     def post(self, request, *args, **kwargs):
-        if request.user.userplan.plan.plan_type == "Unlimited"  or request.user.userplan.plan.plan_type == "Basic" or request.user.userplan.plan.plan_type == "Standard":
+        if request.user.userplan.plan.plan_type == "Unlimited"  or request.user.is_superuser or request.user.userplan.plan.plan_type == "Standard":
             if not request.user.is_authenticated:
                 return HttpResponseForbidden()
             form = self.get_form()
@@ -135,24 +129,24 @@ def category(request, link):
         "graphics-design": "Graphics & Design",
         "Photography": "Photography",
         "Photoshop": "Photoshop",
-        "Architecture-Services": "Architecture Services",
-        "Marketing-Sales-and-Service":"Marketing, Sales and Service",
-        "Data-Entry": "Data Entry",
-        "Web-Development-and Designing" : "Web Development and Designing",
-        "Teaching-and-Tutoring" : "Teaching and Tutoring",
-        "Creative-Design" : "Creative Design",
-        "Mobile-App-Development" : "Mobile App Development",
-        "3D-Modeling-and-CAD" : "3D Modeling and CAD",
-        "Game-Development" : "Game Development",
+        "Architecture Services": "Architecture Services",
+        "Marketing, Sales and Service":"Marketing, Sales and Service",
+        "Data Entry": "Data Entry",
+        "Web Development and Designing" : "Web Development and Designing",
+        "Teaching and Tutoring" : "Teaching and Tutoring",
+        "Creative Design" : "Creative Design",
+        "Mobile App Development" : "Mobile App Development",
+        "3D Modeling and CAD" : "3D Modeling and CAD",
+        "Game Development" : "Game Development",
         "Translation" : "Translation",
         "Transcription" : "Transcription",
-        "Article-and-Blog-Writing" : "Article and Blog Writing",
-        "Logo-Design-and-illustration" : "Logo Design and illustration",
-        "Audio-and-Video-Production" : "Audio and Video Production",
+        "Article and Blog Writing" : "Article and Blog Writing",
+        "Logo Design and illustration" : "Logo Design and illustration",
+        "Audio and Video Production" : "Audio and Video Production",
     }
     try:
         posts = Post.objects.filter(category=categories[link])
-        return render(request, 'core/home.html', {"posts": posts})
+        return render(request, 'core/projects.html', {"posts": posts})
     except KeyError:
         return redirect('home')
 
