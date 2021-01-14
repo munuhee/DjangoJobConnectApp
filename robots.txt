@@ -1,0 +1,3 @@
+Sitemap: http://www.murstefreelance.com/sitemaps
+User-agent:*
+Disallow:
