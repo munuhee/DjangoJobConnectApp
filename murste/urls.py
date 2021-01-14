@@ -8,6 +8,8 @@ from users import views as user_views
 import notifications.urls
 from users.views import FollowUser, ViewFollowers
 
+from django.views.generic.base import TemplateView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -50,6 +52,11 @@ urlpatterns = [
     path('user/<str:username>/follow/', FollowUser.as_view(), name='user_follow'),
     path('user/<str:username>/followers/', ViewFollowers.as_view(), name='user_followers'),
     url(r'^threadedcomments/', include('django_comments.urls')),
+    
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="core/robots.txt", content_type="text/plain"),
+    ),
     
 ]
 
