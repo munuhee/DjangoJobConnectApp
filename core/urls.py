@@ -14,6 +14,7 @@ from .views import (
     PostSearchListView
 )
 from . import views
+from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
@@ -32,4 +33,8 @@ urlpatterns = [
     path('category/<str:link>/', views.category, name="category"),
     #url(r'^search/$', views.search, name='search'),
     path('search/',PostSearchListView.as_view(), name="post_search_list_view"),
+    path(
+        "sitemap.xml",
+        TemplateView.as_view(template_name="core/sitemap.xml"),
+    ),
 ]
