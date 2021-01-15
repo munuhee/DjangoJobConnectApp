@@ -16,6 +16,7 @@ from .views import (
     #Dashboard
 )
 from . import views
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     #url(r'^job/cat/(?P<pk>[\d]+)/$', JobCategory.as_view(), name='job_by_category'),
@@ -29,4 +30,8 @@ urlpatterns = [
     path('job-application/<int:pk>/delete/', ApplicationDeleteView.as_view(), name='job-application-delete'),
     path('job-application/<int:pk>/', ApplicationCreateView.as_view(), name='job-application-form'),
     path('search/',JobSearchListView.as_view(), name="job_search_list_view"),
+    path(
+        "sitemap.xml",
+        TemplateView.as_view(template_name="jobs/sitemap.xml"),
+    ),
 ]
