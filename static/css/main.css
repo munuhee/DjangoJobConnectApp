@@ -2210,11 +2210,11 @@ label {
 }
 
 #neon-btn a {
-    color: #ffff;
+    color: #ffff!important;
 }
 
 #neon-btn a:hover {
-    color: #ffff;
+    color: #ffff!important;
 }
 
 .btnhov {
