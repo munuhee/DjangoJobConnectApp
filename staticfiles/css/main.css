@@ -280,7 +280,7 @@ detail-content {
 @media only screen and (max-width: 600px) {
     #hero {
         width: 100%;
-        height: calc(100vh - 40vh);
+        height: calc(100vh - 30vh);
         background-size: 100%;
         position: relative;
         margin-top: 40px;
