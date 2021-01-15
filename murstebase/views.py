@@ -7,4 +7,4 @@ def home(request):
 
 def sitemaps(request):
     context = {}
-    return render(request, 'core/sitemap.xml',context)   
+    return render(request, 'murstebase/sitemap.xml',context)
