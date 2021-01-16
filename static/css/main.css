@@ -288,6 +288,17 @@ detail-content {
     }
 }
 
+@media only screen and (max-width: 391px) {
+    #hero {
+        width: 100%;
+        height: calc(100vh - 15vh);
+        background-size: 100%;
+        position: relative;
+        margin-top: 40px;
+        margin-top: 20px;
+    }
+}
+
 #hero .hero-container {
     position: absolute;
     bottom: 0;
@@ -2915,6 +2926,16 @@ select {
 
 .employer-name {
     font-size: 20px;
+}
+
+.job-description {
+    font-size: 15px;
+}
+
+@media (max-width: 768px) {
+    .job-description {
+        font-size: 14px;
+    }
 }
 
 .job-description {
