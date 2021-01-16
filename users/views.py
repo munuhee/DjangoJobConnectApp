@@ -31,11 +31,12 @@ def profile(request):
         p_form = ProfileUpdateForm(request.POST,
                                    request.FILES,
                                    instance=request.user.profile)
+        username = request.user.username
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('profile')
+            return redirect('public-profile', username)
 
     else:
         u_form = UserUpdateForm(instance=request.user)
