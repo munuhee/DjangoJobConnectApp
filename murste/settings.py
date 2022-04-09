@@ -79,12 +79,12 @@ INSTALLED_APPS = [
 
 COMMENTS_APP = 'core'
 
-PAYPAL_RECEIVER_EMAIL = 'murichustephen@gmail.com'
+PAYPAL_RECEIVER_EMAIL = 'youremail@domain.com'
 
 PAYPAL_TEST = False
 
-PAYPAL_CLIENT_ID  = "AXbo9kKL14ueqLrBEpHpa13FuDiXQIvHS_rLFRk8UU7kWmAoGHHoipAFuyq6Li1zybvx5WuXXue9nAyC"
-PAYPAL_SECRET_ID  =  "EA668Yx-10UaL-_QKrTIiRVJiRM87C5BP7jttctuFKoPlnRb51k-fbCAemNr_SPk2OPD38aRoPdFJidO"
+PAYPAL_CLIENT_ID  = "AXbo9kKL14ueqLWmAoGHHoipAFuyq6Li1zybvx5WuXXuyC"
+PAYPAL_SECRET_ID  =  "EA668Yx-10UaL-_QKrTIi7jttctuFKoPlnRb51k-fbCAemNr_SPk2OdFJidO"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -240,8 +240,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'murichustephen@gmail.com'
-EMAIL_HOST_PASSWORD = 'wuxzopwnmpzkxojx'
+EMAIL_HOST_USER = 'youremail@domain.com'
+EMAIL_HOST_PASSWORD = 'your password
 
 #...
 SITE_ID = 1
@@ -266,8 +266,8 @@ CKEDITOR_CONFIGS = {
 }
 
 
-AWS_ACCESS_KEY_ID = 'AKIAYWCWC5MFMBXJAOVF'
-AWS_SECRET_ACCESS_KEY = 'TRfrl9GSnX1eF4Smw6LM8EwL1BV7jG9o1kNqkKQI'
+AWS_ACCESS_KEY_ID = 'AYWCWC5MFMBAOVF'
+AWS_SECRET_ACCESS_KEY = 'TSnX1eF4Smw6LM8EwL1BV7jG9o1kNqkKQI'
 AWS_STORAGE_BUCKET_NAME = 'murste'
 
 
