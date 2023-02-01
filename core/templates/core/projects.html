@@ -163,8 +163,8 @@
                 <div class="input-group ">
                     <input id="searchbox" name="q" type="text" class="form-control " placeholder="Find projects">
                     <span class="input-group-btn ">
-      <button class="btn btn-outline-murste my-2 my-sm-0" type="submit">Search</i></button>
-    </span>
+                        <button class="btn btn-outline-murste my-2 my-sm-0" type="submit">Search</i></button>
+                    </span>
                 </div>
             </div>
         </form>
@@ -186,11 +186,15 @@
                         <div class="ripple-cont"></div>
                     </div>
                     <div class="blog-table">
-                        {% if post.actual_rating %} {% for rate in post.actual_rating %}
-                        <span class="fa fa-star checked" style="color: orangered;"></span> {% endfor %}
-                        <br><small><em> Num of rates({{ post.reviews.count }})</em></small>{% else %}
-                        <br>
-                        <small><em>Nobody has rated</em></small> {% endif %}
+                        {% if post.actual_rating %} 
+                            {% for rate in post.actual_rating %}
+                            <span class="fa fa-star checked" style="color: orangered;"></span> 
+                            {% endfor %}
+                            <br><small><em> Num of rates({{ post.reviews.count }})</em></small>
+                        {% else %}
+                            <br>
+                            <small><em>Nobody has rated</em></small> 
+                        {% endif %}
                         <h6 class="blog-category blog-text-success"><i class="fa fa-newspaper"></i>{{post.category}}</h6>
                         <h4 class="blog-card-caption">
                             <a href="{% url 'post-detail' post.slug %}">{{post.title}}</a>
@@ -235,29 +239,28 @@
                 <div id="smiley"></div>
             </div>
         </div>
-        {% endfor %}
-        </ul>
-    </div>
-    <div class="paginator ">
-        {% if is_paginated %}
-        <ul class="pagination ">
-            {% if page_obj.has_previous %}
-            <li><a class="btn accent-1 btn-outline-murste " href="?page={{ page_obj.previous_page_number }} ">&laquo;</a></li>
-            {% else %}
-            <li class="disabled "><span class="btn btn-outline-murste ">&laquo;</span></li>
-            {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
-            <li class="active "><span class="btn btn-murste ">{{ i }} <span class="sr-only ">(current)</span></span>
-            </li>
-            {% else %}
-            <li><a href="?page={{ i }} " class="btn btn-outline-murste ">{{ i }}</a></li>
-            {% endif %} {% endfor %} {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }} " class="btn btn-outline-murste ">&raquo;</a></li>
-            {% else %}
-            <li class="disabled "><span class="btn btn-outline-murste ">&raquo;</span></li>
+            {% endfor %}
+        </div>
+        <div class="paginator ">
+            {% if is_paginated %}
+            <ul class="pagination ">
+                {% if page_obj.has_previous %}
+                <li><a class="btn accent-1 btn-outline-murste " href="?page={{ page_obj.previous_page_number }} ">&laquo;</a></li>
+                {% else %}
+                <li class="disabled "><span class="btn btn-outline-murste ">&laquo;</span></li>
+                {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+                <li class="active "><span class="btn btn-murste ">{{ i }} <span class="sr-only ">(current)</span></span>
+                </li>
+                {% else %}
+                <li><a href="?page={{ i }} " class="btn btn-outline-murste ">{{ i }}</a></li>
+                {% endif %} {% endfor %} {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }} " class="btn btn-outline-murste ">&raquo;</a></li>
+                {% else %}
+                <li class="disabled "><span class="btn btn-outline-murste ">&raquo;</span></li>
+                {% endif %}
+            </ul>
             {% endif %}
-        </ul>
-        {% endif %}
-    </div>
+        </div>
 </div>
 </div>
 {% endblock content%}

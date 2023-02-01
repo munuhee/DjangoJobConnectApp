@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
-from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFill
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 from ckeditor.fields import RichTextField
@@ -12,9 +10,7 @@ from ckeditor.fields import RichTextField
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     verify = models.BooleanField(default=False)
-    profile_picture = ProcessedImageField(default='profile_pics/default.jpg', upload_to='profile_pics', format='JPEG',
-                                processors = [ResizeToFill(150,150)],
-                                options={ 'quality': 100})
+    profile_picture = models.ImageField(upload_to='profile_pics', height_field=300, width_field=300, max_length=100)
     telephone = PhoneNumberField(null=True,blank=True)
     email = models.CharField(max_length=150, blank=True, null=True)
     bio = models.CharField(max_length=150, blank=True)

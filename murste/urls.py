@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
-from django.conf.urls import url
+from django.urls import re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
@@ -15,9 +15,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-    #url(r'^reviews/', include('reviews.urls')),
-    #url(r"^ratings/", include("pinax.ratings.urls", namespace="pinax_ratings")),
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    #re_path(r'^reviews/', include('reviews.urls')),
+    #re_path(r"^ratings/", include("pinax.ratings.urls", namespace="pinax_ratings")),
     path('messages/', include('directmessages.urls')),
     path('memberships/', include('memberships.urls')),
     path('projects/', include('core.urls')),
@@ -51,8 +51,6 @@ urlpatterns = [
          name='password_reset_complete'),
     path('user/<str:username>/follow/', FollowUser.as_view(), name='user_follow'),
     path('user/<str:username>/followers/', ViewFollowers.as_view(), name='user_followers'),
-    url(r'^threadedcomments/', include('django_comments.urls')),
-    
     path(
         "robots.txt",
         TemplateView.as_view(template_name="core/robots.txt", content_type="text/plain"),

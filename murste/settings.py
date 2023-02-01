@@ -4,38 +4,14 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'f3v+0c%=5uzb(%)2(c#k^ov+6$h@a+b9mu4sw8^fmqdm-%$0c@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-       'file': {
-           'level': 'DEBUG',
-           'class': 'logging.FileHandler',
-           'filename': 'log.django',
-       },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console','file'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
-        },
-    },
-}
-
-ALLOWED_HOSTS = ['www.murstefreelance.com']
-
+ALLOWED_HOSTS = ['www.murstefreelance.com', 'localhost']
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Application definition
 
 INSTALLED_APPS = [
@@ -64,7 +40,6 @@ INSTALLED_APPS = [
     'material',
     'imagekit',
     'rest_framework',
-    'threadedcomments',
     'django_comments',
     'django.contrib.sites',
     'paypal.standard.ipn',
@@ -126,7 +101,7 @@ WSGI_APPLICATION = 'murste.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
+''' DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'murstefreelance-db',
@@ -134,6 +109,13 @@ DATABASES = {
         'PASSWORD': '2021newresol',
         'HOST': 'murstefreelance-db.cwo78vptbdzt.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
+    }
+} '''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -233,15 +215,15 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'jobs'
 LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'youremail@domain.com'
-EMAIL_HOST_PASSWORD = 'your password
+EMAIL_HOST_USER = 'murichustephen@gmail.com'
+EMAIL_HOST_PASSWORD = 'your password'
 
 #...
 SITE_ID = 1
@@ -257,7 +239,6 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_CONFIGS = {
     'default': {
-        #'toolbar': None,
         'skin': 'office2013',
         'toolbar': 'full',
         'height': 200,
@@ -277,36 +258,3 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 #STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 AWS_S3_REGION_NAME="us-east-2"
 AWS_S3_HOST = "s3.us-east-2.amazonaws.com"
-
-
-###################################
-"""
-<?xml version="1.0" encoding="UTF-8"?>
-<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
-<CORSRule>
-    <AllowedOrigin>*</AllowedOrigin>
-    <AllowedMethod>GET</AllowedMethod>
-    <AllowedMethod>POST</AllowedMethod>
-    <AllowedMethod>PUT</AllowedMethod>
-    <AllowedHeader>*</AllowedHeader>
-</CORSRule>
-</CORSConfiguration>
-"""
-
-"""
-[
-{
-    "AllowedHeaders": [
-        "*"
-    ],
-    "AllowedMethods": [
-        "POST",
-        "GET",
-        "PUT"
-    ],
-    "AllowedOrigins": [
-        "*"
-    ]
-}
-]
-"""

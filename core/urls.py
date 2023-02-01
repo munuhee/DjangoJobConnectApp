@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.conf.urls import url
 from django.urls import path, include
 from .views import (
     PostListView,
@@ -31,7 +30,6 @@ urlpatterns = [
     path('profile/<str:username>', views.public_profile, name='public-profile'),
     path('post/<slug:slug>/<rating>', rate_post_view, name='rate_post'),
     path('category/<str:link>/', views.category, name="category"),
-    #url(r'^search/$', views.search, name='search'),
     path('search/',PostSearchListView.as_view(), name="post_search_list_view"),
     path(
         "sitemap.xml",

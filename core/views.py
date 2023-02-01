@@ -34,14 +34,14 @@ from django.db.models import Q
 
 class PostListView(ListView):
     model = Post
-    template_name = 'core/projects.html'  # <app>/<model>_<viewtype>.html
-    context_object_name = 'posts'
+    posts = Post.objects.all()
+    template_name = 'core/projects.html'
     ordering = ['-last_rating']
     paginate_by = 6
     
 class UserPostListView(ListView):
     model = Post
-    template_name = 'core/user_posts.html'  # <app>/<model>_<viewtype>.html
+    template_name = 'core/user_posts.html'
     context_object_name = 'posts'
     paginate_by = 6
 

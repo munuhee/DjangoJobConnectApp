@@ -6,10 +6,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.text import slugify
 from PIL import Image
 from autoslug import AutoSlugField
-from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFill
 from users.models import Profile
-from django_file_validator.validators import MaxSizeValidator
 from memberships.models import *
 
 class Post(models.Model):
@@ -41,14 +38,21 @@ class Post(models.Model):
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default="O")
     slug = AutoSlugField(unique=True, populate_from='title')
     last_rating = models.IntegerField(default=0)
-    cover_image = ProcessedImageField(default='2.jpg', upload_to='post_pics', format='JPEG',
-                                processors = [ResizeToFill(350,200)],
-                                options={ 'quality': 100})
+    cover_image = models.ImageField(upload_to='post_pics', height_field=300, width_field=300, max_length=100)
     
     class Meta:
         verbose_name_plural = "All projects"
         ordering = ["date_posted"]
-
+    
+    def save(self, *args, **kwargs):
+        try:
+            img = Image.open(self.cover_image)
+            if img.width > 1000 or img.height > 1000:
+                raise ValidationError("Image size must be no larger than 1000x1000")
+        except:
+            raise ValidationError("The image file is invalid")
+        super().save(*args, **kwargs)   
+      
     def __str__(self):
         return '%s' ' ' 'by' ' ' '%s'  ' ' '(%s)'  %(self.title,self.author, self.slug)
     
