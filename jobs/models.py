@@ -8,9 +8,6 @@ from PIL import Image
 from notifications.signals import notify
 from django.utils.text import Truncator
 
-
-
-
 class Job(models.Model):
     CATEGORY_CHOICES = (
         ("graphics-design", "Graphics & Design"),
@@ -29,7 +26,7 @@ class Job(models.Model):
         ("Transcription", "Transcription"),
         ("Article and Blog Writing", "Article and Blog Writing"),
         ("Logo Design and illustration", "Logo Design and illustration"),
-        ("Audio and Video Production", "Audio and Video Production"),   
+        ("Audio and Video Production", "Audio and Video Production"),
     )
     JOB_STATUS = (
         ("Open", "Open"),
