@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'social_django',
     'storages',
-    
-    
+
+
 ]
 
 COMMENTS_APP = 'core'
@@ -63,7 +63,7 @@ PAYPAL_SECRET_ID  =  "EA668Yx-10UaL-_QKrTIi7jttctuFKoPlnRb51k-fbCAemNr_SPk2OdFJi
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    
+
     #'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -87,7 +87,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                
+
                 'social_django.context_processors.backends', # add this
                 'social_django.context_processors.login_redirect', # add this
             ],
@@ -148,15 +148,15 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-SOCIAL_AUTH_FACEBOOK_KEY = "431072011360189"        # App ID
+SOCIAL_AUTH_FACEBOOK_KEY = "431072011360189"
 SOCIAL_AUTH_FACEBOOK_SECRET = "8248ece792ca0f6cdf67cb7d590a0295"  # App Secret
 
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] # add this
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
   'fields': 'id, name, email, picture.type(large), link'
 }
 
-SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
     ('name', 'name'),
     ('email', 'email'),
     ('picture', 'picture'),
@@ -227,10 +227,6 @@ EMAIL_HOST_PASSWORD = 'your password'
 
 #...
 SITE_ID = 1
-
-####################################
-    ##  CKEDITOR CONFIGURATION ##
-####################################
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
