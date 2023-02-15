@@ -1,129 +1,80 @@
-{% extends "core/main.html" %} {% load humanize %} {% load static %}{% load crispy_forms_tags %}{% block title %} Availabe Jobs{%endblock title%}{% block content %}
+{% extends "core/main.html" %}
+{% load humanize %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Projects{%endblock title%}
+{% block content %}
 <div class="pt-5"></div>
-<div class="container" style="font-family: montserrat;">
-    <section id="plans" class="section-bg container">
-        <div class="pt-1">
-            <header class="section-header pt-5">
-                <h4>Available Jobs</h4>
-                <hr>
-            </header>
-        </div>
-        <p class="text-center">
-            Find the latest freelance jobs from top employers
-        </p>
-    </section>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Job Categories </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/jobs/jobscategory/graphics-design">Graphics & Design</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Photography">Photography</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Photoshop">Photoshop</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Architecture Services">Architecture Services</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Marketing, Sales and Service">Marketing, Sales and Service</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Data Entry">Data Entry</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Web Development and Designing">Web Development and Designing</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Creative Design">Creative Design</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Mobile App Development">Mobile App Development</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/3D Modeling and CAD">3D Modeling and CAD</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Game Development">Game Development</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Translation">Translation</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Transcription">Transcription</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Article and Blog Writing">Article and Blog Writing</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Teaching and Tutoring">Logo Design and illustration</a>
-                        <a class="dropdown-item" href="/jobs/jobscategory/Audio and Video Production">Audio and Video Production</a>
-                    </div>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0" role="search " id="searchform" action="{% url 'job_search_list_view' %}" method="get" accept-charset="utf-8">
-                <div class="form-group ">
-                    <div class="input-group ">
-                        <input id="searchbox" name="q" type="text" class="form-control " placeholder="Find Jobs">
-                        <span class="input-group-btn ">
-              <button class="btn btn-outline-murste my-2 my-sm-0" type="submit">Search</i></button>
-            </span>
-                    </div>
+<div class="p-3">
+    <div>
+        <form>
+            <div class="input-group mb-2 pr-5 pl-5">
+                <input type="text" class="form-control" placeholder="Title">
+                <input type="text" class="form-control" placeholder="Category">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-search"></i>
+                    </span>
                 </div>
-            </form>
-        </div>
-    </nav>
-    <div class="row pt-4">
-        {% for job in jobs %}
-        <div class="col-md-4 pb-3">
-            <a href="{% url 'job_detail' job.pk %}">
-                <div class="post-card">
-                    <div class="post-content">
-                        <div class="category">{{ job.jobscategory }}</div>
-                        <h6 class="title">{{ job.title }}</h6>
-                        {% if job.author.userplan.plan.plan_type == "Unlimited" %}
-                        <p class="text-muted">Posted by: {{ job.author }} <i class="fa fa-check-circle" aria-hidden="true" style="color:#1c87c5"></i></p>
-                        {% else %}
-                        <p class="small">Posted by: {{ job.author }} </p>
-                        {% endif %}
-                        <p class="description">{{ job.description|truncatewords:10|safe }}</p>
-                        <div class="post-meta"><span class="timestamp"><i class="fa fa-clock-o"></i> {{ job.pub_date|naturaltime }}</span></div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        {% empty %}
-        <br>
-        <div class="container mb-5">
-            <div style="text-align:center;" id="nopost">
-                No Jobs Posted Yet
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-lg-2 border-right fixed">
+            <div>
+                <span class="navbar-brand">Popular Projects</span>
+            </div>
+            <div>
+                <span class="navbar-brand">Latest changes</span>
+                <p>
+                    Very often, especially on small screens, you want to hide the navigation
+                    links and replace them with a button that should reveal them when clicked on.
+                </p>
             </div>
         </div>
-        <div id="meat_boy">
-            <div id="shadow"></div>
-            <div id="left-hand"></div>
-            <div id="right-hand"></div>
-            <div id="left-leg"></div>
-            <div id="right-leg"></div>
-            <div id="body">
-                <div id="deformation1"></div>
-                <div id="deformation2"></div>
-                <div id="deformation3"></div>
-                <div id="deformation4"></div>
-                <div id="deformation5"></div>
-                <div id="deformation6"></div>
-                <div id="deformation7"></div>
-                <div id="deformation8"></div>
-                <div id="left-eye"></div>
-                <div id="right-eye"></div>
-                <div id="dimple"></div>
-                <div id="smiley"></div>
+        <div class="col-md-10 col-lg-10">
+            <div class="row">
+                {% for job in jobs %}
+                <div class="col-lg-6 col-md-6 pb-2 job">
+                    <div class="card">
+                        <div class="card-body row">
+                            <div class="col-md-2 col-lg-2 mt-2">
+                                <img style="width: 40px; height:40px;" src="{{job.thumbnail.url}}" alt="thumbnail"><br>
+                                <span class="text-warning">{{job.last_rating}} <i class="fa fa-star"></i></span>
+                            </div>
+                            <div class="col-md-10 col-lg-10">
+                                <span class="card-title"><strong>{{job.title}}</strong></span>
+                                <p class="job card-text">{{job.description}}</p>
+                                <a href="#" >see more</a>
+                                <div>
+                                    <span class="badge badge-info">tag one</span>
+                                    <span class="badge badge-info">tag two</span>
+                                    <span class="badge badge-info">tag three</span>
+                                </div>
+                                <small class="text-muted">
+                                    <span class="float-left">
+                                        <i class="fa fa-envelope"> 13</i>
+                                        <i class="fa fa-eye"> 30</i>
+                                    </span>
+                                    <span class="float-right">{{job.date_posted}}</span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div>
+                <ul class="pagination mt-4">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
             </div>
         </div>
-        {% endfor%}
-        <div class="paginator">
-            {% if is_paginated %}
-            <ul class="pagination ">
-                {% if page_obj.has_previous %}
-                <li><a class="btn accent-1 btn-outline-murste " href="?page={{ page_obj.previous_page_number }} ">&laquo;</a></li>
-                {% else %}
-                <li class="disabled "><span class="btn btn-outline-murste ">&laquo;</span></li>
-                {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
-                <li class="active "><span class="btn btn-murste ">{{ i }} <span class="sr-only ">(current)</span></span>
-                </li>
-                {% else %}
-                <li><a href="?page={{ i }} " class="btn btn-outline-murste ">{{ i }}</a></li>
-                {% endif %} {% endfor %} {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }} " class="btn btn-outline-murste ">&raquo;</a></li>
-                {% else %}
-                <li class="disabled "><span class="btn btn-outline-murste ">&raquo;</span></li>
-                {% endif %}
-            </ul>
-            {% endif %}
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content%}

@@ -1,16 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
-:root {
-    --murste: #124c8a;
-}
-
-.bg-dark {
-    background-color: #27e630!important;
-}
-
-.bg-info {
-    background-color: #27e630!important;
-}
 
 .navbar-dark .navbar-nav .nav-link {
     color: rgb(255, 255, 255)!important;
@@ -45,7 +34,7 @@ a:link {
 }
 
 a:hover {
-    color: #27e630;
+    color: #ffc107;
 }
 
 html {
@@ -54,22 +43,6 @@ html {
 
 a {
     text-decoration: none;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
-    color: #333;
-    scroll-padding-top: 70px;
-    font-family: 'Cormorant Garamond', serif;
-    background-color: #3333!important;
-}
-
-#header .logo a:focus,
-#header .logo a:hover,
-{
-    color: #124c8a!important;
 }
 
 .container-top {
@@ -189,9 +162,6 @@ detail-content {
     font-size: 25px;
 }
 
-.paginator ul li {
-    padding: 5px;
-}
 
 .verify-icon {
     height: 30px;
@@ -312,10 +282,6 @@ detail-content {
     text-align: center;
 }
 
-.badge-murste {
-    color: #fff;
-    background-color: #124c8a;
-}
 
 #hero h1 {
     margin: 0 0 10px 0;
@@ -323,7 +289,7 @@ detail-content {
     font-weight: 700;
     line-height: 56px;
     font-family: "Philosopher", sans-serif;
-    color: #27e630;
+    color: #ffc107;
 }
 
 @media (max-width: 768px) {
@@ -335,7 +301,7 @@ detail-content {
 }
 
 #hero h2 {
-    color: #27e630;
+    color: #ffc107;
     margin-bottom: 30px;
     font-size: 25px;
     font-family: "Roboto", sans-serif;
@@ -378,7 +344,7 @@ detail-content {
 }
 
 #hero .btns a {
-    color: #27e630;
+    color: #ffc107;
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
@@ -536,8 +502,6 @@ detail-content {
 }
 
 .paginator {
-    padding-top: 15px;
-    font-size: 5px;
     display: flex;
     justify-content: center;
 }
@@ -693,7 +657,7 @@ canvas {
 
 .testim {
     width: 100%;
-    background-color: #27e630;
+    background-color: #ffc107;
     font-family: "Montserrat", sans-serif;
 }
 
@@ -1294,17 +1258,17 @@ canvas {
 
 #generic_price_table .generic_content .generic_feature_list ul li:hover {
     background-color: #E4E4E4;
-    border-left: 5px solid #27e630;
+    border-left: 5px solid #ffc107;
 }
 
 .generic_price_btn a {
-    border: 1px solid #27e630;
-    color: #27e630;
+    border: 1px solid #ffc107;
+    color: #ffc107;
 }
 
 #generic_price_table .generic_content.active .generic_head_price .generic_head_content .head_bg,
 #generic_price_table .generic_content:hover .generic_head_price .generic_head_content .head_bg {
-    border-color: #27e630 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #27e630;
+    border-color: #ffc107 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffc107;
     color: #fff;
 }
 
@@ -1315,7 +1279,7 @@ canvas {
 
 .generic_price_btn a,
 .generic_price_btn a {
-    color: #27e630;
+    color: #ffc107;
 }
 
 #generic_price_table {
@@ -1435,12 +1399,12 @@ canvas {
 
 .generic_price_btn {
     margin: 20px 0 32px;
-    color: #27e630;
+    color: #ffc107;
 }
 
 .generic_price_btn a:hover {
     margin: 20px 0 32px;
-    background-color: #27e630;
+    background-color: #ffc107;
     color: #ffff;
 }
 
@@ -1551,7 +1515,7 @@ canvas {
 }
 
 #generic_price_table_home .emerald {
-    background: #27e630;
+    background: #ffc107;
     transition: all 0.3s ease-in-out 0s;
 }
 
@@ -1734,7 +1698,7 @@ canvas {
     position: absolute;
     top: -34px;
     left: 0;
-    background: #e74c3c;
+    background: #17a2b8;
     padding: 10px 15px;
     color: #FFFFFF;
     font-size: 14px;
@@ -2230,7 +2194,7 @@ label {
 
 .btnhov {
     border: 1px solid;
-    background-color: #27e630;
+    background-color: #ffc107;
     transparent;
     text-transform: uppercase;
     font-size: 14px;
@@ -2240,7 +2204,7 @@ label {
 }
 
 .two {
-    color: #27e630;
+    color: #ffc107;
 }
 
 .three {
@@ -2253,10 +2217,10 @@ label {
 }
 
 .two:hover {
-    background-color: #27e630;
-    -webkit-box-shadow: 10px 10px 99px 6px #27e630;
-    -moz-box-shadow: 10px 10px 99px 6px #27e630;
-    box-shadow: 10px 10px 99px 6px #27e630;
+    background-color: #ffc107;
+    -webkit-box-shadow: 10px 10px 99px 6px #ffc107;
+    -moz-box-shadow: 10px 10px 99px 6px #ffc107;
+    box-shadow: 10px 10px 99px 6px #ffc107;
 }
 
 
@@ -2325,11 +2289,11 @@ btn-fb:active {
 }
 
 #flip div:first-child div {
-    background: #27e630;
+    background: #ffc107;
 }
 
 #flip div:last-child div {
-    background-image: linear-gradient(to right, #124c8a, #27e630);
+    background-image: linear-gradient(to right, #124c8a, #ffc107);
 }
 
 @keyframes show {
@@ -2479,7 +2443,7 @@ btn-fb:active {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #27e630;
+    background-color: #ffc107;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -2664,7 +2628,7 @@ img {
 }
 
 #contact h3 {
-    color: #27e630;
+    color: #ffc107;
     display: block;
     font-size: 30px;
     font-weight: 400;
@@ -2827,7 +2791,7 @@ select {
 
 #msform .action-button {
     width: 100px;
-    background: #27e630;
+    background: #ffc107;
     font-weight: bold;
     color: white;
     border: 0 none;

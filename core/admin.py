@@ -5,18 +5,18 @@ from . models import *
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     fields = ('title', 'overview', 'author', 'description', 'date_posted',
-              'category','cover_image')
+              'category', 'image')
 
     list_display = ('title', 'author', 'category', 'slug', 'date_posted')
     search_fields = ['title']
-    
+
 admin.site.register(PostComment)
 
 @admin.register(Contact)
 class Contact(admin.ModelAdmin):
 
     list_display = ('name', 'email', 'date_contacted', 'message')
-    
+
 '''
 @admin.register(OrderItem)
 class PostAdmin(admin.ModelAdmin):

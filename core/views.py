@@ -22,7 +22,7 @@ from django.views.generic import (
     CreateView,
     UpdateView,
     DeleteView
-) 
+)
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 import operator
@@ -34,11 +34,11 @@ from django.db.models import Q
 
 class PostListView(ListView):
     model = Post
-    posts = Post.objects.all()
+    context_object_name = 'posts'
     template_name = 'core/projects.html'
     ordering = ['-last_rating']
     paginate_by = 6
-    
+
 class UserPostListView(ListView):
     model = Post
     template_name = 'core/user_posts.html'
@@ -71,18 +71,18 @@ class PostDetailView(FormMixin, DetailView):
         new_comment.save()
         messages.success(self.request, "Your comment is added, thank you")
         return super().form_valid(form)
-    
+
 #@userplan_required(plan_types=["Standard","Unlimited"])
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['cover_image','title','overview','description', 'category']
-    
-    
+
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-    
-    
+
+
     def post(self, request, *args, **kwargs):
         if request.user.userplan.plan.plan_type == "Unlimited"  or request.user.is_superuser or request.user.userplan.plan.plan_type == "Standard":
             if not request.user.is_authenticated:
@@ -94,8 +94,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
                 return self.form_invalid(form)
         else:
             return HttpResponseRedirect(reverse('plan'))
-    
-   
+
+
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['cover_image','title','overview','description','category']
@@ -120,7 +120,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
-    
+
 
 
 
@@ -150,12 +150,12 @@ def category(request, link):
     except KeyError:
         return redirect('home')
 
-    
+
 def search(request):
     context = {
         'posts': Post.objects.filter(title__contains=request.GET['title'])
     }
-    
+
     return render(request, 'core/post_search_results.html', context)
 
 

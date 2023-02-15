@@ -10,7 +10,7 @@ SECRET_KEY = 'f3v+0c%=5uzb(%)2(c#k^ov+6$h@a+b9mu4sw8^fmqdm-%$0c@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.murstefreelance.com', 'localhost']
+ALLOWED_HOSTS = ['www.Jobspeedyup.com', 'localhost', '127.0.0.1']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Application definition
 
@@ -104,10 +104,10 @@ WSGI_APPLICATION = 'murste.wsgi.application'
 ''' DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'murstefreelance-db',
+        'NAME': 'Jobspeedyup-db',
         'USER': 'postgres',
         'PASSWORD': '2021newresol',
-        'HOST': 'murstefreelance-db.cwo78vptbdzt.us-east-2.rds.amazonaws.com',
+        'HOST': 'Jobspeedyup-db.cwo78vptbdzt.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 } '''
@@ -243,14 +243,14 @@ CKEDITOR_CONFIGS = {
 }
 
 
-AWS_ACCESS_KEY_ID = 'AYWCWC5MFMBAOVF'
-AWS_SECRET_ACCESS_KEY = 'TSnX1eF4Smw6LM8EwL1BV7jG9o1kNqkKQI'
-AWS_STORAGE_BUCKET_NAME = 'murste'
+#AWS_ACCESS_KEY_ID = 'AYWCWC5MFMBAOVF'
+#AWS_SECRET_ACCESS_KEY = 'TSnX1eF4Smw6LM8EwL1BV7jG9o1kNqkKQI'
+#AWS_STORAGE_BUCKET_NAME = 'murste'
 
 
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#AWS_S3_FILE_OVERWRITE = False
+#AWS_DEFAULT_ACL = None
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 #STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-AWS_S3_REGION_NAME="us-east-2"
-AWS_S3_HOST = "s3.us-east-2.amazonaws.com"
+#AWS_S3_REGION_NAME="us-east-2"
+#AWS_S3_HOST = "s3.us-east-2.amazonaws.com"

@@ -4,7 +4,8 @@ from django.urls import reverse
 from django.template.defaultfilters import slugify
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
-from PIL import Image
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 from notifications.signals import notify
 from django.utils.text import Truncator
 
@@ -39,6 +40,8 @@ class Job(models.Model):
     budget = models.CharField(max_length=20, help_text="eg, 15-35 USD",null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     jobscategory = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default="O")
+    thumbnail = ProcessedImageField(upload_to='project_pics', format='JPEG', processors = [ResizeToFill(150,150)],
+                options={ 'quality': 100})
 
     def __str__(self):
         return self.title

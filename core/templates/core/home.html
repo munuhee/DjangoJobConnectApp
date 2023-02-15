@@ -1,592 +1,414 @@
-{% load static %}{% load humanize %}
-<!DOCTYPE html>
-<html>
+{% extends "core/main.html" %}{% load static %}{% load humanize %}
+    {% block content %}
 
-<head>
-    <meta charset="utf-8">
-    <title>MursteFreelance: Homepage</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Favicons -->
-    <link href="{% static 'images/logo/favicon.png' %}" rel="icon">
-    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
-
-    <!-- Bootstrap CSS File -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- Libraries CSS Files -->
-    <link href="{% static 'lib/ionicons/css/ionicons.min.css'%}" rel="stylesheet">
-    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
-    <link href="{% static 'lib/lightbox/css/lightbox.min.css'%}" rel="stylesheet">
-
-    <!-- Main Stylesheet File -->
-    <link href="{% static 'css/profile.css' %}" rel="stylesheet">
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-</head>
-
-<body>
-    <!--==========================
-  Header
-  ============================-->
-    <header id="header" class="fixed-top">
-        <div class="container">
-            <div class="logo float-left">
-                <!-- Uncomment below if you prefer to use an image logo -->
-                <h1 class="text-light" style="text-decoration: none;"><a href="{% url 'home' %}"><span><img src="{% static 'images/logo/logo.png' %}" alt="">MursteFreelance</span></a></h1>
+<div class="container text-center">
+<section id="plans" class="section-bg">
+<div id="how" class="pt-5 text-center section-header">
+    <h4>How it Works</h4>
+    <div id="neon-btn">
+        <form>
+            <label class="switch">
+                    <input type="checkbox" id="toggle" checked="true" />
+                    <div class="slider round"></div>
+                </label>
+        </form>
+        <div id="menu1">
+            <div class="how-itworks">
+                <em><h6 style="color:#124c8a;">As a freelancer</h6></em>
+                <p>
+                    <ul class="pt-3">
+                        <li><strong>Step 1 :</strong> Search for jobs in your field.</li>
+                        <li><strong>Step 2 :</strong> Research hiring users.</li>
+                        <li><strong>Step 3 :</strong> Ready your profile.</li>
+                        <li><strong>Step 4 :</strong> Submit your application.</li>
+                    </ul>
+                </p>
             </div>
-            <nav class="main-nav float-right d-none d-lg-block">
-                {% if user.is_authenticated %}
-                <ul>
-                    <li class="drop-down"><a href=""><i  class="fa fa-user"></i> Your account({{ user.username }})</a>
-                        <ul>
-                            <li><a href="{% url 'public-profile' user.username %}">Profile</a></li>
-                            <li><a href="{% url 'job_add' %}">Post Job</a></li>
-                            {% if user.userplan.plan.plan_type == "Unlimited" or user.userplan.plan.plan_type == "Standard" or user.is_superuser %}
-                            <li><a href="{% url 'post-create' %}">Post Project</a></li>
-                            {% else %}
-                            <li><a href="{% url 'plan' %}">Post Project</a></li>
-                            {% endif %} {% if user.is_superuser %}
-                            <li><a href="/admin">Admin</a></li>
-                            {% endif %}
-                            <li><a href="{% url 'logout' %}">Logout</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="{% url 'projects' %}">Browse Projects</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'jobs' %}">Browse Jobs</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'inbox-list' %}">
-                            <span class="fa fa-bell"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'plan' %}">MursteFreelance<span class=" badge badge-warning p-1 "> Pro</span></a></li>
-                </ul>
-                {%else%}
-                <ul>
-                    <li>
-                        <a href="{% url 'projects' %} ">Browse Projects</a>
-                    </li>
-                    <li><a href="{% url 'jobs' %} "> Browse Jobs</a></li>
-
-                    <li><a href="{% url 'login' %} " class="btn btn-murste" style="color:#ffff;"><i  class="fa fa-sign-in "></i> Join</a></li>
-                </ul>
-                {% endif %}
-            </nav>
-            <!-- .main-nav -->
         </div>
-        </div>
-        </div>
-    </header>
-    <!-- #header -->
-    <div class="">
-        {% if user.is_authenticated %}
-        <div class="pt-5"></div>
-        {% else %}
-        <section id="hero" class="wow fadeIn">
-            <!-- particles.js container -->
-            <div id="particles-js">
+        <div id="menu2">
+            <div class="how-itworks">
+                <em><h6 style="color:#27e630;">As a Hirer</h6></em>
+                <p>
+                    <ul class="pt-3">
+                        <li><strong>Step 1 :</strong> Write the job description.</li>
+                        <li><strong>Step 2 :</strong> Post job and sift through applicants</li>
+                        <li><strong>Step 3 :</strong> Interview the most qualified .</li>
+                        <li><strong>Step 4 :</strong> Follow up with the freelancers.</li>
+                        <li><strong>Step 5 :</strong> Extend the job offer.</li>
+                    </ul>
+                </p>
             </div>
-            <div class="hero-container pt-5 text-center"><br><br>
-                <h1>Solve problems using freelancers' skills availed to everyone</h1>
-                <br>
-                <div id="container2">
-                    Make
-                    <div id=flip>
-                        <div>
-                            <div class="pb-5"> Work </div>
-                        </div>
-                        <div>
-                            <div class="pb-5">lifeStyle</div>
-                        </div>
-                        <div>
-                            <div class="pb-5">Everything</div>
-                        </div>
-                    </div>
-                    AweSoMe!
-                </div>
-                <div class="pb-3" id="hero">
-                    <a href="{% url 'login' %}" class="btn-get-started scrollto">Get Started</a>
-
-                    <!--<div class="btns">
-                        <a href="#"><i class="fa fa-apple fa-3x"></i> App Store</a>
-                        <a href="#"><i class="fa fa-play fa-3x"></i> Google Play</a>
-                        <a href="#"><i class="fa fa-windows fa-3x"></i> windows</a>
-                        <br><br>-->
-                </div>
-            </div>
+        </div>
     </div>
+</div>
+</section>
+</div>
+<!--end how it works-->
+<div class="pt-1">
+<section id="plans" class="section-bg">
+<header class="section-header pt-5">
+    <h4>Available freelance jobs</h4>
+    <div id="neon-btn">
+        <div>
+            <p><br><strong>What jobs are available right now?</strong><br> Quickly find the best freelance online jobs from home and apply.<br><br><br>
+                <button class="btnhov two"><a href="{% url 'jobs' %}">Click To View Jobs</a></button>
+            </p>
+        </div>
+    </div>
+</header>
+</section>
+<div class="container pt-5">
+<main id="">
+    <section id="services " class="section-bg pt-1">
+        <div class="pt-1 section-header">
+            <header class="text-center">
+                <h4>Projects</h4>
+                <hr>
+            </header>
     </section>
-    <!-- #header -->
-    {% endif %} {% if user.is_authenticated %}
-    <div class="pt-5"></div>
-    {% else %} {% endif %}
-
-
-    <div id="plans" class="section-bg container">
-        <div class="row mb-2">
-            <div class="col-md-6">
-                <h3 style="color:#124c8a;"></h3>
-                <div class="">
-                    <p class="">
-                        MursteFreelance is an online platform that allows users to connect with either hirers or reliable freelance workers. We help in growing your businesses by allowing you to hire freelance workers who bring in fresh expertise. We work closely with our clients
-                        on every process and our team is here to give you personalized support within the hour - available 24/7. Join MursteFreelance now and Grow your business faster.
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <section id="services " class="section-bg pt-1">
+                <div class="pt-1"></div>
+                <header class="">
+                    <p>If you are good in creating unique projects, you can simply start marketing your own capabilities. Start posting your projects.You could sell your ideas to other users. Make your tasks a new trend now
                     </p>
-                </div>
-            </div>
-            <div class="col-md-6 text-center">
-                <img src="{% static 'images/homepage_pics/murste1.jpg' %}" />
-            </div>
+                </header>
+            </section>
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="{% static 'images/homepage_pics/murste2.jpg' %}" height="400" width="400" />
         </div>
     </div>
-    <!--how it works-->
-    <div class="container text-center">
-        <section id="plans" class="section-bg">
-            <div id="how" class="pt-5 text-center section-header">
-                <h4>How it Works</h4>
-                <div id="neon-btn">
-                    <form>
-                        <label class="switch">
-                              <input type="checkbox" id="toggle" checked="true" />
-                              <div class="slider round"></div>
-                          </label>
-                    </form>
-                    <div id="menu1">
-                        <div class="how-itworks">
-                            <em><h6 style="color:#124c8a;">As a freelancer</h6></em>
-                            <p>
-                                <ul class="pt-3">
-                                    <li><strong>Step 1 :</strong> Search for jobs in your field.</li>
-                                    <li><strong>Step 2 :</strong> Research hiring users.</li>
-                                    <li><strong>Step 3 :</strong> Ready your profile.</li>
-                                    <li><strong>Step 4 :</strong> Submit your application.</li>
-                                </ul>
-                            </p>
-                        </div>
-                    </div>
-                    <div id="menu2">
-                        <div class="how-itworks">
-                            <em><h6 style="color:#27e630;">As a Hirer</h6></em>
-                            <p>
-                                <ul class="pt-3">
-                                    <li><strong>Step 1 :</strong> Write the job description.</li>
-                                    <li><strong>Step 2 :</strong> Post job and sift through applicants</li>
-                                    <li><strong>Step 3 :</strong> Interview the most qualified .</li>
-                                    <li><strong>Step 4 :</strong> Follow up with the freelancers.</li>
-                                    <li><strong>Step 5 :</strong> Extend the job offer.</li>
-                                </ul>
-                            </p>
+    <div class="text-center pt-5" id="neon-btn">
+        <button class="btnhov two"><a href="{% url 'projects' %}">Click To View Projects</a></button>
+    </div>
+    <br>
+
+    </div>
+    </section><br>
+    <!--Plans-->
+
+    <! ========================
+    Syed Sahar Ali Raza
+    ========================	!>
+    <div id="generic_price_table">
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--PRICE HEADING START-->
+                        <section id="plans" class="section-bg pt-5 container">
+                            <div class="pt-1">
+                                <header class="section-header">
+                                    <h4>Subscription Plans</h4>
+                                    <hr>
+                                </header>
+                        </section>
+                        <!--//PRICE HEADING END-->
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="container">
+
+                    <!--BLOCK ROW START-->
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <!--PRICE CONTENT START-->
+                            <div class="generic_content active clearfix">
+
+                                <!--HEAD PRICE DETAIL START-->
+                                <div class="generic_head_price clearfix">
+
+                                    <!--HEAD CONTENT START-->
+                                    <div class="generic_head_content clearfix">
+                                        <!--HEAD START-->
+                                        <div class="head_bg"></div>
+                                        <div class="head">
+                                            <span>Free</span>
+                                        </div>
+                                        <!--//HEAD END-->
+
+                                    </div>
+                                    <!--//HEAD CONTENT END-->
+
+                                    <!--PRICE START-->
+                                    <div class="generic_price_tag clearfix">
+                                        <span class="price">
+                                    <span class="sign">$</span>
+                                        <span class="currency">0</span>
+                                        <span class="cent">.00</span>
+                                        <span class="month">/MON</span>
+                                        </span>
+                                    </div>
+                                    <!--//PRICE END-->
+
+                                </div>
+                                <!--//HEAD PRICE DETAIL END-->
+
+                                <!--FEATURE LIST START-->
+                                <div class="generic_feature_list">
+                                    <ul>
+                                        <li><span></span> Post Jobs</li>
+                                        <li><span>24/7</span> Support</li>
+                                    </ul>
+                                </div>
+                                <!--//FEATURE LIST END-->
+
+
+                            </div>
+                            <!--//PRICE CONTENT END-->
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <!--PRICE CONTENT START-->
+                            <div class="generic_content active clearfix">
+
+                                <!--HEAD PRICE DETAIL START-->
+                                <div class="generic_head_price clearfix">
+
+                                    <!--HEAD CONTENT START-->
+                                    <div class="generic_head_content clearfix">
+
+                                        <!--HEAD START-->
+                                        <div class="head_bg"></div>
+                                        <div class="head">
+                                            <span>Standard</span>
+                                        </div>
+                                        <!--//HEAD END-->
+
+                                    </div>
+                                    <!--//HEAD CONTENT END-->
+
+                                    <!--PRICE START-->
+                                    <div class="generic_price_tag clearfix">
+                                        <span class="price">
+                                    <span class="sign">$</span>
+                                        <span class="currency">4</span>
+                                        <span class="cent">.99</span>
+                                        <span class="month">/MON</span>
+                                        </span>
+                                    </div>
+                                    <!--//PRICE END-->
+
+                                </div>
+                                <!--//HEAD PRICE DETAIL END-->
+
+                                <!--FEATURE LIST START-->
+                                <div class="generic_feature_list">
+                                    <ul>
+                                        <li><span></span> Apply for jobs</li>
+                                        <li><span></span> Post Jobs</li>
+                                        <li><span></span> Post Projects</li>
+                                        <li><span>24/7</span> Support</li>
+                                    </ul>
+                                </div>
+                                <!--//FEATURE LIST END-->
+                            </div>
+                            <!--//PRICE CONTENT END-->
+
+                        </div>
+                        <div class="col-md-4">
+
+                            <!--PRICE CONTENT START-->
+                            <div class="generic_content active clearfix">
+
+                                <!--HEAD PRICE DETAIL START-->
+                                <div class="generic_head_price clearfix">
+
+                                    <!--HEAD CONTENT START-->
+                                    <div class="generic_head_content clearfix">
+
+                                        <!--HEAD START-->
+                                        <div class="head_bg"></div>
+                                        <div class="head">
+                                            <span>Unlimited</span>
+                                        </div>
+                                        <!--//HEAD END-->
+
+                                    </div>
+                                    <!--//HEAD CONTENT END-->
+
+                                    <!--PRICE START-->
+                                    <div class="generic_price_tag clearfix">
+                                        <span class="price">
+                                    <span class="sign">$</span>
+                                        <span class="currency">8</span>
+                                        <span class="cent">.99</span>
+                                        <span class="month">/MON</span>
+                                        </span>
+                                    </div>
+                                    <!--//PRICE END-->
+
+                                </div>
+                                <!--//HEAD PRICE DETAIL END-->
+
+                                <!--FEATURE LIST START-->
+                                <div class="generic_feature_list">
+                                    <ul>
+                                        <li><span></span> Get Verified</li>
+                                        <li><span></span> Apply for jobs</li>
+                                        <li><span></span> Post Jobs</li>
+                                        <li><span></span> Post Projects</li>
+                                        <li><span>24/7</span> Support</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--//PRICE CONTENT END-->
+
+                        </div>
+                    </div>
+                    <!--//BLOCK ROW END-->
+                    <!--BUTTON START-->
+                    <div class="generic_price_btn text-center pb-2 clearfix">
+                        <a class="" href="{% url 'plan' %}">Proceed to Subscribe</a>
+                    </div>
+                    <!--//BUTTON END-->
+                </div>
         </section>
-    </div>
-    <!--end how it works-->
-    <div class="pt-1">
-        <section id="plans" class="section-bg">
-            <header class="section-header pt-5">
-                <h4>Available freelance jobs</h4>
-                <div id="neon-btn">
+        </div>
+        <!--end plans-->
+        <!-- testimonials -->
+        <section id="#" class="section-bg pt-5 container">
+            <div class="pt-1">
+                <header class="section-header">
+                    <h4>Testimonials</h4>
+                    <hr>
+                </header>
+        </section>
+        <section id="testim" class="testim pt-5">
+            <!--         <div class="testim-cover"> -->
+            <div class="wrap">
+
+                <span id="right-arrow" class="arrow right fa fa-chevron-right"></span>
+                <span id="left-arrow" class="arrow left fa fa-chevron-left "></span>
+                <ul id="testim-dots" class="dots">
+                    <li class="dot active"></li>
+
+                    <li class="dot"></li>
+                    <!--
+                -->
+                    <li class="dot"></li>
+                    <!--
+                -->
+                    <li class="dot"></li>
+                    <!--
+                -->
+                    <li class="dot"></li>
+                </ul>
+                <div id="testim-content" class="cont">
+
+                    <div class="active">
+                        <div class="img"><img src="{% static 'images/logo/magicalcrystals.jpg' %}"></div>
+                        <h2>MagicalCrystals</h2>
+                        <p>I am definately thankful to MursteFreelance platform.It was a business changer</p>
+                    </div>
+
                     <div>
-                        <p><br><strong>What jobs are available right now?</strong><br> Quickly find the best freelance online jobs from home and apply.<br><br><br>
-                            <button class="btnhov two"><a href="{% url 'jobs' %}">Click To View Jobs</a></button>
+                        <div class="img"><img src="{% static 'images/logo/brism.jpg' %}"></div>
+                        <h2>BRISM Brands</h2>
+                        <p>MursteFreelance was unbeleiveably helpful to me when I wanted a freelancer to market my designs. Anytime i need a task done i get freelancers who do it according to my specification.</p>
+                    </div>
+
+                    <div>
+                        <div class="img"><img src="{% static 'images/logo/africanbizfashion.jpg' %}" alt=""></div>
+                        <h2>AGW fashions</h2>
+                        <p>Before I began using murstefreelance platform I thought I didn't have any great ideas to make money. Now I realized that it's not about having a life changing idea but looking into solving problems with the skills availed to everyone at MursteFreelance platform.
                         </p>
                     </div>
-                </div>
-            </header>
-        </section>
-        <div class="container pt-5">
-            <main id="">
-                <section id="services " class="section-bg pt-1">
-                    <div class="pt-1 section-header">
-                        <header class="text-center">
-                            <h4>Projects</h4>
-                            <hr>
-                        </header>
-                </section>
-                <div class="row mb-2">
-                    <div class="col-md-6">
-                        <section id="services " class="section-bg pt-1">
-                            <div class="pt-1"></div>
-                            <header class="">
-                                <p>If you are good in creating unique projects, you can simply start marketing your own capabilities. Start posting your projects.You could sell your ideas to other users. Make your tasks a new trend now
-                                </p>
-                            </header>
-                        </section>
+
+                    <div>
+                        <div class="img"><img src="{% static 'images/logo/brism.jpg' %}" alt=""></div>
+                        <h2>BRISM Brands</h2>
+                        <p>MursteFreelance was unbeleiveably helpful to me when I wanted a freelancer to market my designs. Anytime i need a task done i get freelancers who do it according to my specification.</p>
                     </div>
-                    <div class="col-md-6 text-center">
-                        <img src="{% static 'images/homepage_pics/murste2.jpg' %}" height="400" width="400" />
+
+                    <div>
+                        <div class="img"><img src="{% static 'images/logo/africanbizfashion.jpg' %}" alt=""></div>
+                        <h2>AGW fashions</h2>
+                        <p>Before I began using murstefreelance platform I thought I didn't have any great ideas to make money. Now I realized that it's not about having a life changing idea but looking into solving problems with the skills availed to everyone at MursteFreelance platform.
+                        </p>
                     </div>
-                </div>
-                <div class="text-center pt-5" id="neon-btn">
-                    <button class="btnhov two"><a href="{% url 'projects' %}">Click To View Projects</a></button>
-                </div>
-                <br>
 
                 </div>
-                </section><br>
-                <!--Plans-->
 
-                <! ========================  
-                Syed Sahar Ali Raza   	 
-              ========================	!>
-                <div id="generic_price_table">
-                    <section>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <!--PRICE HEADING START-->
-                                    <section id="plans" class="section-bg pt-5 container">
-                                        <div class="pt-1">
-                                            <header class="section-header">
-                                                <h4>Subscription Plans</h4>
-                                                <hr>
-                                            </header>
-                                    </section>
-                                    <!--//PRICE HEADING END-->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container">
+            </div>
+            <!--         </div> -->
+        </section><br><br><br>
+        <!-- end of testimonials -->
+        <!--==========================
+                    Footer
+                ==============-->
+        <footer id="footer">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 footer-info">
+                            <h5>MursteFreelance</h3>
+                                <p>We help in growing your businesses by allowing you to hire freelance workers who bring in fresh expertise.</p>
+                        </div>
 
-                                <!--BLOCK ROW START-->
-                                <div class="row">
-                                    <div class="col-md-4">
+                        <div class="col-lg-2 col-md-6 footer-links">
+                            <h4>Useful Links</h4>
+                            <ul>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li><a href="{% url 'jobs' %}">Browse jobs</a></li>
+                                <li><a href="{% url 'projects' %}">Browse projects</a></li>
+                                <li><a href="#how">How it works</a></li>
+                                <li><a href="{% url 'plan' %}">Get verified</a></li>
+                                <li><a href="{% url 'plan' %}">MursteFreelance Pro</a></li>
+                                <li><a href="{% url 'home' %}">Terms of service</a></li>
+                                {% if user.is_authenticated %}
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                                {% else %} {% endif %}
 
-                                        <!--PRICE CONTENT START-->
-                                        <div class="generic_content active clearfix">
-
-                                            <!--HEAD PRICE DETAIL START-->
-                                            <div class="generic_head_price clearfix">
-
-                                                <!--HEAD CONTENT START-->
-                                                <div class="generic_head_content clearfix">
-                                                    <!--HEAD START-->
-                                                    <div class="head_bg"></div>
-                                                    <div class="head">
-                                                        <span>Free</span>
-                                                    </div>
-                                                    <!--//HEAD END-->
-
-                                                </div>
-                                                <!--//HEAD CONTENT END-->
-
-                                                <!--PRICE START-->
-                                                <div class="generic_price_tag clearfix">
-                                                    <span class="price">
-                                                <span class="sign">$</span>
-                                                    <span class="currency">0</span>
-                                                    <span class="cent">.00</span>
-                                                    <span class="month">/MON</span>
-                                                    </span>
-                                                </div>
-                                                <!--//PRICE END-->
-
-                                            </div>
-                                            <!--//HEAD PRICE DETAIL END-->
-
-                                            <!--FEATURE LIST START-->
-                                            <div class="generic_feature_list">
-                                                <ul>
-                                                    <li><span></span> Post Jobs</li>
-                                                    <li><span>24/7</span> Support</li>
-                                                </ul>
-                                            </div>
-                                            <!--//FEATURE LIST END-->
-
-
-                                        </div>
-                                        <!--//PRICE CONTENT END-->
-
-                                    </div>
-
-                                    <div class="col-md-4">
-
-                                        <!--PRICE CONTENT START-->
-                                        <div class="generic_content active clearfix">
-
-                                            <!--HEAD PRICE DETAIL START-->
-                                            <div class="generic_head_price clearfix">
-
-                                                <!--HEAD CONTENT START-->
-                                                <div class="generic_head_content clearfix">
-
-                                                    <!--HEAD START-->
-                                                    <div class="head_bg"></div>
-                                                    <div class="head">
-                                                        <span>Standard</span>
-                                                    </div>
-                                                    <!--//HEAD END-->
-
-                                                </div>
-                                                <!--//HEAD CONTENT END-->
-
-                                                <!--PRICE START-->
-                                                <div class="generic_price_tag clearfix">
-                                                    <span class="price">
-                                                <span class="sign">$</span>
-                                                    <span class="currency">4</span>
-                                                    <span class="cent">.99</span>
-                                                    <span class="month">/MON</span>
-                                                    </span>
-                                                </div>
-                                                <!--//PRICE END-->
-
-                                            </div>
-                                            <!--//HEAD PRICE DETAIL END-->
-
-                                            <!--FEATURE LIST START-->
-                                            <div class="generic_feature_list">
-                                                <ul>
-                                                    <li><span></span> Apply for jobs</li>
-                                                    <li><span></span> Post Jobs</li>
-                                                    <li><span></span> Post Projects</li>
-                                                    <li><span>24/7</span> Support</li>
-                                                </ul>
-                                            </div>
-                                            <!--//FEATURE LIST END-->
-                                        </div>
-                                        <!--//PRICE CONTENT END-->
-
-                                    </div>
-                                    <div class="col-md-4">
-
-                                        <!--PRICE CONTENT START-->
-                                        <div class="generic_content active clearfix">
-
-                                            <!--HEAD PRICE DETAIL START-->
-                                            <div class="generic_head_price clearfix">
-
-                                                <!--HEAD CONTENT START-->
-                                                <div class="generic_head_content clearfix">
-
-                                                    <!--HEAD START-->
-                                                    <div class="head_bg"></div>
-                                                    <div class="head">
-                                                        <span>Unlimited</span>
-                                                    </div>
-                                                    <!--//HEAD END-->
-
-                                                </div>
-                                                <!--//HEAD CONTENT END-->
-
-                                                <!--PRICE START-->
-                                                <div class="generic_price_tag clearfix">
-                                                    <span class="price">
-                                                <span class="sign">$</span>
-                                                    <span class="currency">8</span>
-                                                    <span class="cent">.99</span>
-                                                    <span class="month">/MON</span>
-                                                    </span>
-                                                </div>
-                                                <!--//PRICE END-->
-
-                                            </div>
-                                            <!--//HEAD PRICE DETAIL END-->
-
-                                            <!--FEATURE LIST START-->
-                                            <div class="generic_feature_list">
-                                                <ul>
-                                                    <li><span></span> Get Verified</li>
-                                                    <li><span></span> Apply for jobs</li>
-                                                    <li><span></span> Post Jobs</li>
-                                                    <li><span></span> Post Projects</li>
-                                                    <li><span>24/7</span> Support</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!--//PRICE CONTENT END-->
-
-                                    </div>
-                                </div>
-                                <!--//BLOCK ROW END-->
-                                <!--BUTTON START-->
-                                <div class="generic_price_btn text-center pb-2 clearfix">
-                                    <a class="" href="{% url 'plan' %}">Proceed to Subscribe</a>
-                                </div>
-                                <!--//BUTTON END-->
-                            </div>
-                    </section>
-                    </div>
-                    <!--end plans-->
-                    <!-- testimonials -->
-                    <section id="#" class="section-bg pt-5 container">
-                        <div class="pt-1">
-                            <header class="section-header">
-                                <h4>Testimonials</h4>
-                                <hr>
-                            </header>
-                    </section>
-                    <section id="testim" class="testim pt-5">
-                        <!--         <div class="testim-cover"> -->
-                        <div class="wrap">
-
-                            <span id="right-arrow" class="arrow right fa fa-chevron-right"></span>
-                            <span id="left-arrow" class="arrow left fa fa-chevron-left "></span>
-                            <ul id="testim-dots" class="dots">
-                                <li class="dot active"></li>
-
-                                <li class="dot"></li>
-                                <!--
-                            -->
-                                <li class="dot"></li>
-                                <!--
-                            -->
-                                <li class="dot"></li>
-                                <!--
-                            -->
-                                <li class="dot"></li>
                             </ul>
-                            <div id="testim-content" class="cont">
+                        </div>
 
-                                <div class="active">
-                                    <div class="img"><img src="{% static 'images/logo/magicalcrystals.jpg' %}"></div>
-                                    <h2>MagicalCrystals</h2>
-                                    <p>I am definately thankful to MursteFreelance platform.It was a business changer</p>
-                                </div>
+                        <div class="col-lg-3 col-md-6 footer-contact">
+                            <h4>Contact Us</h4>
+                            <p>
+                                <strong>Phone:</strong> +254 746341598<br>
+                                <strong>Email:</strong>munuhesteve@gmail.com<br>
+                            </p>
 
-                                <div>
-                                    <div class="img"><img src="{% static 'images/logo/brism.jpg' %}"></div>
-                                    <h2>BRISM Brands</h2>
-                                    <p>MursteFreelance was unbeleiveably helpful to me when I wanted a freelancer to market my designs. Anytime i need a task done i get freelancers who do it according to my specification.</p>
-                                </div>
-
-                                <div>
-                                    <div class="img"><img src="{% static 'images/logo/africanbizfashion.jpg' %}" alt=""></div>
-                                    <h2>AGW fashions</h2>
-                                    <p>Before I began using murstefreelance platform I thought I didn't have any great ideas to make money. Now I realized that it's not about having a life changing idea but looking into solving problems with the skills availed to everyone at MursteFreelance platform.
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <div class="img"><img src="{% static 'images/logo/brism.jpg' %}" alt=""></div>
-                                    <h2>BRISM Brands</h2>
-                                    <p>MursteFreelance was unbeleiveably helpful to me when I wanted a freelancer to market my designs. Anytime i need a task done i get freelancers who do it according to my specification.</p>
-                                </div>
-
-                                <div>
-                                    <div class="img"><img src="{% static 'images/logo/africanbizfashion.jpg' %}" alt=""></div>
-                                    <h2>AGW fashions</h2>
-                                    <p>Before I began using murstefreelance platform I thought I didn't have any great ideas to make money. Now I realized that it's not about having a life changing idea but looking into solving problems with the skills availed to everyone at MursteFreelance platform.
-                                    </p>
-                                </div>
+                            <div class="social-links">
+                                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="https://www.facebook.com/MursteFreelance-105139821548699" class="facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
 
                             </div>
 
                         </div>
-                        <!--         </div> -->
-                    </section><br><br><br>
-                    <!-- end of testimonials -->
-                    <!--==========================
-                                Footer
-                            ==============-->
-                    <footer id="footer">
-                        <div class="footer-top">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-6 footer-info">
-                                        <h5>MursteFreelance</h3>
-                                            <p>We help in growing your businesses by allowing you to hire freelance workers who bring in fresh expertise.</p>
-                                    </div>
 
-                                    <div class="col-lg-2 col-md-6 footer-links">
-                                        <h4>Useful Links</h4>
-                                        <ul>
-                                            <li><a href="{% url 'home' %}">Home</a></li>
-                                            <li><a href="{% url 'jobs' %}">Browse jobs</a></li>
-                                            <li><a href="{% url 'projects' %}">Browse projects</a></li>
-                                            <li><a href="#how">How it works</a></li>
-                                            <li><a href="{% url 'plan' %}">Get verified</a></li>
-                                            <li><a href="{% url 'plan' %}">MursteFreelance Pro</a></li>
-                                            <li><a href="{% url 'home' %}">Terms of service</a></li>
-                                            {% if user.is_authenticated %}
-                                            <li><a href="{% url 'logout' %}">Logout</a></li>
-                                            {% else %} {% endif %}
-
-                                        </ul>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-6 footer-contact">
-                                        <h4>Contact Us</h4>
-                                        <p>
-                                            <strong>Phone:</strong> +254 746341598<br>
-                                            <strong>Email:</strong>munuhesteve@gmail.com<br>
-                                        </p>
-
-                                        <div class="social-links">
-                                            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                                            <a href="https://www.facebook.com/MursteFreelance-105139821548699" class="facebook"><i class="fa fa-facebook"></i></a>
-                                            <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-6 footer-newsletter">
-                                        <h4>Subscribe to receive latest news</h4>
-                                        <form action="" method="post">
-                                            {% csrf_token %}
-                                            <input type="email" name="email"><input type="submit" value="Subscribe">
-                                        </form>
-                                    </div>
-
-                                </div>
-                            </div>
+                        <div class="col-lg-3 col-md-6 footer-newsletter">
+                            <h4>Subscribe to receive latest news</h4>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <input type="email" name="email"><input type="submit" value="Subscribe">
+                            </form>
                         </div>
 
-                        <div class="container">
-                            <div class="copyright">
-                                &copy; Copyright <strong>MursteFreelance</strong>. All Rights Reserved
-                            </div>
-                        </div>
-                    </footer>
-                    <!-- #footer -->
-                    <script src="https://use.fontawesome.com/1744f3f671.js"></script>
-                    <a href="# " class="back-to-top"><i class="fa fa-chevron-up "></i></a>
-
-                    <div id="preloader">
-                        <div id="loader"></div>
-                        <div class="loader-section section-left"></div>
-                        <div class="loader-section section-right"></div>
                     </div>
-                    <!-- JavaScript Libraries -->
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
-                    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+                </div>
+            </div>
 
+            <div class="container">
+                <div class="copyright">
+                    &copy; Copyright <strong>MursteFreelance</strong>. All Rights Reserved
+                </div>
+            </div>
+        </footer>
+        <!-- #footer -->
+        <script src="https://use.fontawesome.com/1744f3f671.js"></script>
+        <a href="# " class="back-to-top"><i class="fa fa-chevron-up "></i></a>
 
-
-                    <script src=" {% static 'lib/jquery/jquery.min.js'%}"></script>
-                    <script src="{% static 'lib/jquery/jquery-migrate.min.js'%}"></script>
-                    <script src="{% static 'lib/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
-                    <script src="{% static 'lib/easing/easing.min.js'%}"></script>
-                    <script src="{% static 'lib/mobile-nav/mobile-nav.js'%}"></script>
-                    <script src="{% static 'lib/wow/wow.min.js'%}"></script>
-                    <script src="{% static 'lib/waypoints/waypoints.min.js'%}"></script>
-                    <script src="{% static 'lib/counterup/counterup.min.js'%}"></script>
-                    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js'%}"></script>
-                    <script src="{% static 'lib/isotope/isotope.pkgd.min.js'%}"></script>
-                    <script src="{% static 'lib/lightbox/js/lightbox.min.js'%}"></script>
-
-                    <!-- Template Main Javascript File -->
-                    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer data-deferred="1"></script>
-                    <script src="{% static 'js/buttons.js'%}"></script>
-                    <script src="{% static 'js/particles.js'%}"></script>
-                    <script src="{% static 'js/main.js'%}"></script>
-                    <script src="{% static 'js/clients.js'%}"></script>
-
-</body>
-
-</html>
+{% comment %} <div id="preloader">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div> {% endcomment %}
+{% endblock content %}

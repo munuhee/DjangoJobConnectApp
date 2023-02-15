@@ -19,9 +19,6 @@ from django.views.generic.base import TemplateView
 urlpatterns = [
     path('',PostListView.as_view(), name="projects"),
     path('contact/', ContactCreateView.as_view(), name='contact'),
-    #path('checkout/', views.checkout, name="checkout"),
-    #path('update_item/', views.updateItem, name="update_item"),
-    #path('cart/', views.cart, name="cart"),
     path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
     path('post/<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
     path('new-post/', PostCreateView.as_view(), name='post-create'),

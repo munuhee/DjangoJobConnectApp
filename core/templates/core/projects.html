@@ -1,3 +1,50 @@
-{% extends "core/main.html" %} {% load humanize %} {% load static %}{% load crispy_forms_tags %}{% block title %} Projects{%endblock title%}{% block content %}
+{% extends "core/main.html" %} {% load humanize %} {% load static %}{% load crispy_forms_tags %}{% block title %} Availabe posts{%endblock title%}{% block content %}
+<div class="pt-5"></div>
+<div class="container" style="font-family: montserrat;">
+    <section id="plans" class="section-bg container">
+        <div class="pt-1">
+            <header class="section-header pt-5">
+                <h4>Projects</h4>
+                <hr>
+            </header>
+        </div>
+        <p class="text-center">
+            Find projects from top talents
+        </p>
+    </section>
 
-{% endblock content%}
+    <div class="row pt-4">
+        {% for post in posts %}
+        <div class="col-md-4 pb-3">
+            <a href="{% url 'post-detail' post.slug %}">
+                <div class="post-card">
+                    <img src="{{post.image.url}}" style="width: fit-content;">
+                    <div class="post-content">
+                        <h6 class="title">{{ post.title }}</h6>
+                        {% if post.author.userplan.plan.plan_type == "Unlimited" %}
+                        <p class="text-muted">Posted by: {{ post.author }} <i class="fa fa-check-circle" aria-hidden="true" style="color:#1c87c5"></i></p>
+                        {% else %}
+                        <p class="small">Posted by: {{ post.author }} </p>
+                        {% endif %}
+                        <p class="description">{{ post.description|truncatewords:10|safe }}</p>
+                        <div class="post-meta"><span class="timestamp"><i class="fa fa-clock-o"></i> {{ post.date_posted|naturaltime }}</span></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <br>
+        No projectsS posted
+        {% endfor%}
+        <div class="paginator">
+            <ul class="pagination mt-4">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
