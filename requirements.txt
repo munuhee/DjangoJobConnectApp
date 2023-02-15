@@ -86,7 +86,6 @@ six==1.15.0
 social-auth-app-django==4.0.0
 social-auth-core==3.3.3
 sqlparse==0.4.3
-stripe==2.54.0
 swapper==1.1.2.post1
 timeago==1.0.15
 Twisted==22.4.0
