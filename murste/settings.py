@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'directmessages.apps.DirectmessagesConfig',
     'memberships.apps.MembershipsConfig',
 
-    'countdowntimer_model',
     'notifications',
     'crispy_forms',
     'ckeditor',
