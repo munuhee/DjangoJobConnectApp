@@ -35,14 +35,13 @@ django-notifications-hq==1.7.0
 django-paypal==2.0
 django-phonenumber-field==7.0.2
 django-ratings==0.3.7
-django-restframework==0.0.1
 django-reviews==1.2.1
 django-search-views==0.3.7
 django-searchbar==0.1.7
 django-secretballot==1.0.0
 django-storages==1.11.1
 django-utils==0.0.2
-djangorestframework==3.12.1
+djangorestframework==3.14.0
 gunicorn==20.0.4
 httplib2==0.18.1
 humanize==3.2.0
