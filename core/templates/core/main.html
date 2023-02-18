@@ -17,78 +17,62 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Main Stylesheet File -->
-    <link href="{% static 'css/profile.css' %}" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <link  type="text/css" href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 <body>
-    <header id="header" class="fixed-top">
-        <div class="container">
-            <div class="logo float-left">
-                <a href="{% url 'home' %}"><img src="{% static 'images/logo/logo.png' %}" alt=""></a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
+		<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/logo/logo.png' %}" width="160" height="17" alt="logo"/></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">About</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Contact</a>
+				</li>
+            </ul>
+            <!-- Toggle button for small devices -->
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="toggle-btn">
+            <span class="navbar-toggler-icon"></span>
+            </button>
             </div>
-            <nav class="main-nav float-right d-none d-lg-block">
-                {% if user.is_authenticated %}
-                <ul>
-                    <li>
-                        <a href="{% url 'projects' %}">Projects</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'jobs' %}">Jobs</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'inbox-list' %}">
-                            <span class="fa fa-bell"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'plan' %}">Pricing</a></li>
-                        <li class="drop-down"><a href=""><i  class="fa fa-user"></i> Your account({{ user.username }})</a>
-                            <ul>
-                                <li><a href="{% url 'public-profile' user.username %}">Profile</a></li>
-                                <li><a href="{% url 'job_add' %}">Post Job</a></li>
-                                {% if user.userplan.plan.plan_type == "Unlimited" or user.userplan.plan.plan_type == "Standard" or user.is_superuser %}
-                                <li><a href="{% url 'post-create' %}">Post Project</a></li>
-                                {% else %}
-                                <li><a href="{% url 'plan' %}">Post Project</a></li>
-                                {% endif %} {% if user.is_superuser %}
-                                <li><a href="/admin">Admin</a></li>
-                                {% endif %}
-                                <li><a href="{% url 'logout' %}">Logout</a></li>
-                            </ul>
-                        </li>
-                </ul>
-                {%else%}
-                <ul>
-                    <li>
-                        <a href="{% url 'projects' %} ">Browse Projects</a>
-                    </li>
-                    <li><a href="{% url 'jobs' %} "> Browse Jobs</a></li>
-
-                    <li><a href="{% url 'login' %} " class="btn btn-info btn-sm" style="color:#ffff;"><i  class="fa fa-sign-in "></i> Join</a></li>
-                </ul>
-                {% endif %}
-            </nav>
-            <!-- .main-nav -->
+        </nav>
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <a href="#" class="close-btn" id="close-btn">&times;</a>
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#">Contact</a>
         </div>
-        </div>
-        </div>
-    </header>
-    <!-- #header -->
     <div class="">
         {% block content %} {% endblock %}
     </div>
-    <a href="# " class="back-to-top "><i class="fa fa-chevron-up "></i></a>
+    <button id="back-to-top-btn" class="btn btn-primary d-none">
+        <i class="fas fa-chevron-up"></i> Back to Top
+    </button>
 
-    <div id="preloader">
-        <div id="loader"></div>
-        <div class="loader-section section-left "></div>
-        <div class="loader-section section-right "></div>
-    </div>
-    {% block javascript %} {% endblock javascript %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <script src="{% static 'js/main.js'%} "></script>
+    <script>
+        // Toggle sidebar when the toggle button is clicked
+        document.getElementById("toggle-btn").addEventListener("click", function() {
+            document.getElementById("sidebar").style.width = "250px";
+        });
+
+        // Close sidebar when the close button is clicked
+        document.getElementById("close-btn").addEventListener("click", function() {
+            document.getElementById("sidebar").style.width = "0";
+        });
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{ static 'js/main.js' }"
 </body>
 </html>

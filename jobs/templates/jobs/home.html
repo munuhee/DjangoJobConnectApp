@@ -5,75 +5,44 @@
 {% block title %} Projects{%endblock title%}
 {% block content %}
 <div class="pt-5"></div>
-<div class="p-3">
-    <div>
-        <form>
-            <div class="input-group mb-2 pr-5 pl-5">
-                <input type="text" class="form-control" placeholder="Title">
-                <input type="text" class="form-control" placeholder="Category">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="fa fa-search"></i>
-                    </span>
-                </div>
-            </div>
-        </form>
-    </div>
+<div class="container">
     <div class="row">
-        <div class="col-md-2 col-lg-2 border-right fixed">
-            <div>
-                <span class="navbar-brand">Popular Projects</span>
+        <div class="col-lg-8">
+            <h1>Job Listings</h1>
+            <div class="job-listing">
+                <h2>Web Designer</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia consectetur sem, sit amet tempus lectus accumsan nec. Nulla sollicitudin risus quis elit varius, id sagittis dui pharetra. Donec efficitur quam sit amet erat tristique aliquet. Nam luctus tempor urna, id semper elit convallis non. </p>
+                <p><a href="#" class="btn btn-info">Apply Now</a></p>
             </div>
-            <div>
-                <span class="navbar-brand">Latest changes</span>
-                <p>
-                    Very often, especially on small screens, you want to hide the navigation
-                    links and replace them with a button that should reveal them when clicked on.
-                </p>
+            <div class="job-listing">
+                <h2>Backend Developer</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia consectetur sem, sit amet tempus lectus accumsan nec. Nulla sollicitudin risus quis elit varius, id sagittis dui pharetra. Donec efficitur quam sit amet erat tristique aliquet. Nam luctus tempor urna, id semper elit convallis non. </p>
+                <p><a href="#" class="btn btn-info">Apply Now</a></p>
             </div>
-        </div>
-        <div class="col-md-10 col-lg-10">
-            <div class="row">
-                {% for job in jobs %}
-                <div class="col-lg-6 col-md-6 pb-2 job">
-                    <div class="card">
-                        <div class="card-body row">
-                            <div class="col-md-2 col-lg-2 mt-2">
-                                <img style="width: 40px; height:40px;" src="{{job.thumbnail.url}}" alt="thumbnail"><br>
-                                <span class="text-warning">{{job.last_rating}} <i class="fa fa-star"></i></span>
-                            </div>
-                            <div class="col-md-10 col-lg-10">
-                                <span class="card-title"><strong>{{job.title}}</strong></span>
-                                <p class="job card-text">{{job.description}}</p>
-                                <a href="#" >see more</a>
-                                <div>
-                                    <span class="badge badge-info">tag one</span>
-                                    <span class="badge badge-info">tag two</span>
-                                    <span class="badge badge-info">tag three</span>
-                                </div>
-                                <small class="text-muted">
-                                    <span class="float-left">
-                                        <i class="fa fa-envelope"> 13</i>
-                                        <i class="fa fa-eye"> 30</i>
-                                    </span>
-                                    <span class="float-right">{{job.date_posted}}</span>
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            <div>
-                <ul class="pagination mt-4">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
+            <div class="job-listing">
+                <h2>Marketing Manager</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia consectetur sem, sit amet tempus lectus accumsan nec. Nulla sollicitudin risus quis elit varius, id sagittis dui pharetra. Donec efficitur quam sit amet erat tristique aliquet. Nam luctus tempor urna, id semper elit convallis non. </p>
+                <p><a href="#" class="btn btn-info">Apply Now</a></p>
             </div>
         </div>
+        <div class="col-lg-4">
+            <h2>Categories</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="#">Web Design</a></li>
+                <li class="list-group-item"><a href="#">Development</a></li>
+                <li class="list-group-item"><a href="#">Marketing</a></li>
+                <li class="list-group-item"><a href="#">Writing</a></li>
+                <li class="list-group-item"><a href="#">Data Entry</a></li>
+            </ul>
+            <br>
+            <h2>Recent Jobs</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="#">Web Designer</a></li>
+                <li class="list-group-item"><a href="#">Backend Developer</a></li>
+                <li class="list-group-item"><a href="#">Marketing Manager</a></li>
+                <li class="list-group-item"><a href="#">Graphic Designer</a></li>
+                <li class="list-group-item"><a href="#">Content Writer</a></li>
+            </ul>
         </div>
     </div>
 </div>

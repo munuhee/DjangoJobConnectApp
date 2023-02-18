@@ -1,414 +1,168 @@
 {% extends "core/main.html" %}{% load static %}{% load humanize %}
     {% block content %}
-
-<div class="container text-center">
-<section id="plans" class="section-bg">
-<div id="how" class="pt-5 text-center section-header">
-    <h4>How it Works</h4>
-    <div id="neon-btn">
-        <form>
-            <label class="switch">
-                    <input type="checkbox" id="toggle" checked="true" />
-                    <div class="slider round"></div>
-                </label>
-        </form>
-        <div id="menu1">
-            <div class="how-itworks">
-                <em><h6 style="color:#124c8a;">As a freelancer</h6></em>
-                <p>
-                    <ul class="pt-3">
-                        <li><strong>Step 1 :</strong> Search for jobs in your field.</li>
-                        <li><strong>Step 2 :</strong> Research hiring users.</li>
-                        <li><strong>Step 3 :</strong> Ready your profile.</li>
-                        <li><strong>Step 4 :</strong> Submit your application.</li>
-                    </ul>
-                </p>
-            </div>
-        </div>
-        <div id="menu2">
-            <div class="how-itworks">
-                <em><h6 style="color:#27e630;">As a Hirer</h6></em>
-                <p>
-                    <ul class="pt-3">
-                        <li><strong>Step 1 :</strong> Write the job description.</li>
-                        <li><strong>Step 2 :</strong> Post job and sift through applicants</li>
-                        <li><strong>Step 3 :</strong> Interview the most qualified .</li>
-                        <li><strong>Step 4 :</strong> Follow up with the freelancers.</li>
-                        <li><strong>Step 5 :</strong> Extend the job offer.</li>
-                    </ul>
-                </p>
-            </div>
-        </div>
+<!-- Hero Section -->
+<section class="py-5 text-center bg-light">
+    <div class="container">
+      <h1 class="display-4 fw-bold">Find Your Next Opportunity</h1>
+      <p class="lead mb-4">JobSpeedyUp is a powerful web application that provides a convenient platform for job seekers and employers to connect and exchange opportunities.</p>
+      <a href="{% url 'jobs' %}" class="btn btn-info">Browse Jobs</a>
     </div>
-</div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h3 class="card-title">Post Jobs</h3>
+              <p class="card-text">Employers can post job opportunities and receive applications from qualified candidates, making it easy to find the best talent for their company.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h3 class="card-title">Browse Jobs</h3>
+              <p class="card-text">Job seekers can browse through a wide range of job opportunities posted by various employers and apply for jobs that match their skills and interests.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h3 class="card-title">Post Projects and Blogs</h3>
+              <p class="card-text">The platform also allows usersto post their projects and blogs for a fee, as detailed in the pricing page. With JobSpeedyUp, users can showcase their skills and creativity by posting their own projects and blogs. Our payment system is integrated to allow for easy and secure payments when users are posting their projects or blogs. </p>
+              <a href="{% url 'plan' %}" class="btn btn-info">View Pricing</a>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+  </section>
+  <section id="services" class="services section-bg">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Services</h2>
+        <p>JobSpeedyUp offers a wide range of services for job seekers and employers</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box">
+            <div class="icon"><i class="bi bi-briefcase"></i></div>
+            <h4 class="title"><a href="">Job Postings</a></h4>
+            <p class="description">Employers can post job opportunities and receive applications from qualified candidates.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box">
+            <div class="icon"><i class="bi bi-laptop"></i></div>
+            <h4 class="title"><a href="">Post Projects and Blogs</a></h4>
+            <p class="description">Users can post their projects and blogs for a fee, as detailed in the pricing page.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box">
+            <div class="icon"><i class="bi bi-people"></i></div>
+            <h4 class="title"><a href="">Talent Search</a></h4>
+            <p class="description">Job seekers can browse through a wide range of job opportunities posted by various employers and apply for jobs that match their skills and interests.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box">
+            <div class="icon"><i class="bi bi-wallet2"></i></div>
+            <h4 class="title"><a href="">Secure Payments</a></h4>
+            <p class="description">Our payment system is integrated to allow for easy and secure payments when users are posting their projects or blogs.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="cta" class="cta">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-9 text-center text-lg-start">
+          <h3>Start your journey with us now</h3>
+          <p>Join the JobSpeedyUp community and start exploring a world of opportunities.</p>
+        </div>
+        <div class="col-lg-3 cta-btn-container text-center">
+          <a class="cta-btn align-middle" href="{% url 'register' %}">Join Now</a>
+        </div>
+      </div>
+    </div>
 </section>
-</div>
-<!--end how it works-->
-<div class="pt-1">
-<section id="plans" class="section-bg">
-<header class="section-header pt-5">
-    <h4>Available freelance jobs</h4>
-    <div id="neon-btn">
-        <div>
-            <p><br><strong>What jobs are available right now?</strong><br> Quickly find the best freelance online jobs from home and apply.<br><br><br>
-                <button class="btnhov two"><a href="{% url 'jobs' %}">Click To View Jobs</a></button>
-            </p>
+<!-- End About Section -->
+<!-- ======= Services Section ======= -->
+<section id="services" class="services">
+  <div class="container">
+    <div class="section-title">
+        <h2>Services</h2>
+        <p>We offer a wide range of services to our users</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-pencil"></i></div>
+            <h4 class="title"><a href="">Post Jobs</a></h4>
+            <p class="description">Easily post job opportunities and receive applications from other users.</p>
+          </div>
         </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-folder"></i></div>
+            <h4 class="title"><a href="">Post Projects</a></h4>
+            <p class="description">Post your projects and get paid for your work.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-book"></i></div>
+            <h4 class="title"><a href="">Post Blogs</a></h4>
+            <p class="description">Share your thoughts and ideas with the community and earn money for your content.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-credit-card"></i></div>
+            <h4 class="title"><a href="">Payment System</a></h4>
+            <p class="description">Secure and easy payment system to post your projects and blogs for a fee.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
-</header>
 </section>
-<div class="container pt-5">
-<main id="">
-    <section id="services " class="section-bg pt-1">
-        <div class="pt-1 section-header">
-            <header class="text-center">
-                <h4>Projects</h4>
-                <hr>
-            </header>
-    </section>
-    <div class="row mb-2">
-        <div class="col-md-6">
-            <section id="services " class="section-bg pt-1">
-                <div class="pt-1"></div>
-                <header class="">
-                    <p>If you are good in creating unique projects, you can simply start marketing your own capabilities. Start posting your projects.You could sell your ideas to other users. Make your tasks a new trend now
-                    </p>
-                </header>
-            </section>
+<!-- End Services Section -->
+<!-- ======= Call To Action Section ======= -->
+<section id="cta" class="cta">
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-9 text-center text-lg-start">
+          <h3>Start your journey with us now</h3>
+          <p>Join the JobSpeedyUp community and start exploring a world of opportunities.</p>
         </div>
-        <div class="col-md-6 text-center">
-            <img src="{% static 'images/homepage_pics/murste2.jpg' %}" height="400" width="400" />
+        <div class="col-lg-3 cta-btn-container text-center">
+          <a class="cta-btn align-middle" href="{% url 'register' %}">Join Now</a>
         </div>
+      </div>
     </div>
-    <div class="text-center pt-5" id="neon-btn">
-        <button class="btnhov two"><a href="{% url 'projects' %}">Click To View Projects</a></button>
-    </div>
-    <br>
-
-    </div>
-    </section><br>
-    <!--Plans-->
-
-    <! ========================
-    Syed Sahar Ali Raza
-    ========================	!>
-    <div id="generic_price_table">
-        <section>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <!--PRICE HEADING START-->
-                        <section id="plans" class="section-bg pt-5 container">
-                            <div class="pt-1">
-                                <header class="section-header">
-                                    <h4>Subscription Plans</h4>
-                                    <hr>
-                                </header>
-                        </section>
-                        <!--//PRICE HEADING END-->
-                        </div>
-                    </div>
-                </div>
-                <div class="container">
-
-                    <!--BLOCK ROW START-->
-                    <div class="row">
-                        <div class="col-md-4">
-
-                            <!--PRICE CONTENT START-->
-                            <div class="generic_content active clearfix">
-
-                                <!--HEAD PRICE DETAIL START-->
-                                <div class="generic_head_price clearfix">
-
-                                    <!--HEAD CONTENT START-->
-                                    <div class="generic_head_content clearfix">
-                                        <!--HEAD START-->
-                                        <div class="head_bg"></div>
-                                        <div class="head">
-                                            <span>Free</span>
-                                        </div>
-                                        <!--//HEAD END-->
-
-                                    </div>
-                                    <!--//HEAD CONTENT END-->
-
-                                    <!--PRICE START-->
-                                    <div class="generic_price_tag clearfix">
-                                        <span class="price">
-                                    <span class="sign">$</span>
-                                        <span class="currency">0</span>
-                                        <span class="cent">.00</span>
-                                        <span class="month">/MON</span>
-                                        </span>
-                                    </div>
-                                    <!--//PRICE END-->
-
-                                </div>
-                                <!--//HEAD PRICE DETAIL END-->
-
-                                <!--FEATURE LIST START-->
-                                <div class="generic_feature_list">
-                                    <ul>
-                                        <li><span></span> Post Jobs</li>
-                                        <li><span>24/7</span> Support</li>
-                                    </ul>
-                                </div>
-                                <!--//FEATURE LIST END-->
+</section>
+<!-- End Call To Action Section -->
 
 
-                            </div>
-                            <!--//PRICE CONTENT END-->
 
-                        </div>
 
-                        <div class="col-md-4">
-
-                            <!--PRICE CONTENT START-->
-                            <div class="generic_content active clearfix">
-
-                                <!--HEAD PRICE DETAIL START-->
-                                <div class="generic_head_price clearfix">
-
-                                    <!--HEAD CONTENT START-->
-                                    <div class="generic_head_content clearfix">
-
-                                        <!--HEAD START-->
-                                        <div class="head_bg"></div>
-                                        <div class="head">
-                                            <span>Standard</span>
-                                        </div>
-                                        <!--//HEAD END-->
-
-                                    </div>
-                                    <!--//HEAD CONTENT END-->
-
-                                    <!--PRICE START-->
-                                    <div class="generic_price_tag clearfix">
-                                        <span class="price">
-                                    <span class="sign">$</span>
-                                        <span class="currency">4</span>
-                                        <span class="cent">.99</span>
-                                        <span class="month">/MON</span>
-                                        </span>
-                                    </div>
-                                    <!--//PRICE END-->
-
-                                </div>
-                                <!--//HEAD PRICE DETAIL END-->
-
-                                <!--FEATURE LIST START-->
-                                <div class="generic_feature_list">
-                                    <ul>
-                                        <li><span></span> Apply for jobs</li>
-                                        <li><span></span> Post Jobs</li>
-                                        <li><span></span> Post Projects</li>
-                                        <li><span>24/7</span> Support</li>
-                                    </ul>
-                                </div>
-                                <!--//FEATURE LIST END-->
-                            </div>
-                            <!--//PRICE CONTENT END-->
-
-                        </div>
-                        <div class="col-md-4">
-
-                            <!--PRICE CONTENT START-->
-                            <div class="generic_content active clearfix">
-
-                                <!--HEAD PRICE DETAIL START-->
-                                <div class="generic_head_price clearfix">
-
-                                    <!--HEAD CONTENT START-->
-                                    <div class="generic_head_content clearfix">
-
-                                        <!--HEAD START-->
-                                        <div class="head_bg"></div>
-                                        <div class="head">
-                                            <span>Unlimited</span>
-                                        </div>
-                                        <!--//HEAD END-->
-
-                                    </div>
-                                    <!--//HEAD CONTENT END-->
-
-                                    <!--PRICE START-->
-                                    <div class="generic_price_tag clearfix">
-                                        <span class="price">
-                                    <span class="sign">$</span>
-                                        <span class="currency">8</span>
-                                        <span class="cent">.99</span>
-                                        <span class="month">/MON</span>
-                                        </span>
-                                    </div>
-                                    <!--//PRICE END-->
-
-                                </div>
-                                <!--//HEAD PRICE DETAIL END-->
-
-                                <!--FEATURE LIST START-->
-                                <div class="generic_feature_list">
-                                    <ul>
-                                        <li><span></span> Get Verified</li>
-                                        <li><span></span> Apply for jobs</li>
-                                        <li><span></span> Post Jobs</li>
-                                        <li><span></span> Post Projects</li>
-                                        <li><span>24/7</span> Support</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!--//PRICE CONTENT END-->
-
-                        </div>
-                    </div>
-                    <!--//BLOCK ROW END-->
-                    <!--BUTTON START-->
-                    <div class="generic_price_btn text-center pb-2 clearfix">
-                        <a class="" href="{% url 'plan' %}">Proceed to Subscribe</a>
-                    </div>
-                    <!--//BUTTON END-->
-                </div>
-        </section>
-        </div>
-        <!--end plans-->
-        <!-- testimonials -->
-        <section id="#" class="section-bg pt-5 container">
-            <div class="pt-1">
-                <header class="section-header">
-                    <h4>Testimonials</h4>
-                    <hr>
-                </header>
-        </section>
-        <section id="testim" class="testim pt-5">
-            <!--         <div class="testim-cover"> -->
-            <div class="wrap">
-
-                <span id="right-arrow" class="arrow right fa fa-chevron-right"></span>
-                <span id="left-arrow" class="arrow left fa fa-chevron-left "></span>
-                <ul id="testim-dots" class="dots">
-                    <li class="dot active"></li>
-
-                    <li class="dot"></li>
-                    <!--
-                -->
-                    <li class="dot"></li>
-                    <!--
-                -->
-                    <li class="dot"></li>
-                    <!--
-                -->
-                    <li class="dot"></li>
-                </ul>
-                <div id="testim-content" class="cont">
-
-                    <div class="active">
-                        <div class="img"><img src="{% static 'images/logo/magicalcrystals.jpg' %}"></div>
-                        <h2>MagicalCrystals</h2>
-                        <p>I am definately thankful to MursteFreelance platform.It was a business changer</p>
-                    </div>
-
-                    <div>
-                        <div class="img"><img src="{% static 'images/logo/brism.jpg' %}"></div>
-                        <h2>BRISM Brands</h2>
-                        <p>MursteFreelance was unbeleiveably helpful to me when I wanted a freelancer to market my designs. Anytime i need a task done i get freelancers who do it according to my specification.</p>
-                    </div>
-
-                    <div>
-                        <div class="img"><img src="{% static 'images/logo/africanbizfashion.jpg' %}" alt=""></div>
-                        <h2>AGW fashions</h2>
-                        <p>Before I began using murstefreelance platform I thought I didn't have any great ideas to make money. Now I realized that it's not about having a life changing idea but looking into solving problems with the skills availed to everyone at MursteFreelance platform.
-                        </p>
-                    </div>
-
-                    <div>
-                        <div class="img"><img src="{% static 'images/logo/brism.jpg' %}" alt=""></div>
-                        <h2>BRISM Brands</h2>
-                        <p>MursteFreelance was unbeleiveably helpful to me when I wanted a freelancer to market my designs. Anytime i need a task done i get freelancers who do it according to my specification.</p>
-                    </div>
-
-                    <div>
-                        <div class="img"><img src="{% static 'images/logo/africanbizfashion.jpg' %}" alt=""></div>
-                        <h2>AGW fashions</h2>
-                        <p>Before I began using murstefreelance platform I thought I didn't have any great ideas to make money. Now I realized that it's not about having a life changing idea but looking into solving problems with the skills availed to everyone at MursteFreelance platform.
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
-            <!--         </div> -->
-        </section><br><br><br>
-        <!-- end of testimonials -->
-        <!--==========================
-                    Footer
-                ==============-->
-        <footer id="footer">
-            <div class="footer-top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 footer-info">
-                            <h5>MursteFreelance</h3>
-                                <p>We help in growing your businesses by allowing you to hire freelance workers who bring in fresh expertise.</p>
-                        </div>
-
-                        <div class="col-lg-2 col-md-6 footer-links">
-                            <h4>Useful Links</h4>
-                            <ul>
-                                <li><a href="{% url 'home' %}">Home</a></li>
-                                <li><a href="{% url 'jobs' %}">Browse jobs</a></li>
-                                <li><a href="{% url 'projects' %}">Browse projects</a></li>
-                                <li><a href="#how">How it works</a></li>
-                                <li><a href="{% url 'plan' %}">Get verified</a></li>
-                                <li><a href="{% url 'plan' %}">MursteFreelance Pro</a></li>
-                                <li><a href="{% url 'home' %}">Terms of service</a></li>
-                                {% if user.is_authenticated %}
-                                <li><a href="{% url 'logout' %}">Logout</a></li>
-                                {% else %} {% endif %}
-
-                            </ul>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 footer-contact">
-                            <h4>Contact Us</h4>
-                            <p>
-                                <strong>Phone:</strong> +254 746341598<br>
-                                <strong>Email:</strong>munuhesteve@gmail.com<br>
-                            </p>
-
-                            <div class="social-links">
-                                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                                <a href="https://www.facebook.com/MursteFreelance-105139821548699" class="facebook"><i class="fa fa-facebook"></i></a>
-                                <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 footer-newsletter">
-                            <h4>Subscribe to receive latest news</h4>
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <input type="email" name="email"><input type="submit" value="Subscribe">
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="copyright">
-                    &copy; Copyright <strong>MursteFreelance</strong>. All Rights Reserved
-                </div>
-            </div>
-        </footer>
-        <!-- #footer -->
-        <script src="https://use.fontawesome.com/1744f3f671.js"></script>
-        <a href="# " class="back-to-top"><i class="fa fa-chevron-up "></i></a>
-
-{% comment %} <div id="preloader">
-    <div id="loader"></div>
-    <div class="loader-section section-left"></div>
-    <div class="loader-section section-right"></div>
-</div> {% endcomment %}
 {% endblock content %}
