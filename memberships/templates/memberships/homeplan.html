@@ -1,139 +1,79 @@
 {% extends 'core/main.html' %} {% load static %} {% block title %}Subscription Plans{% endblock %}{% block content %}
-<div class="container pt-5">
-    <!--Plans-->
-    <style>
-        .box {
-            width: 400px;
-            height: fit-content;
-            border: 2px solid #000;
-            margin: 0 auto 15px;
-            text-align: center;
-            padding: 20px;
-            font-weight: bold;
-            border-radius: 10px;
-        }
-        
-        .error {
-            background-color: #EBB1B1;
-            border-color: #973939;
-            color: #973939;
-        }
-
-        
-        @media (max-width: 768px) {
-            .box {
-            width: fit-content;
-            height: fit-content;
-            border: 2px solid #000;
-            margin: 0 auto 15px;
-            text-align: center;
-            padding: 20px;
-            font-weight: bold;
-            border-radius: 10px;
-        }
-        
-        .error {
-            background-color: #EBB1B1;
-            border-color: #973939;
-            color: #973939;
-        }
-        }
-    </style>
-    <div id="generic_price_table">
-        <section>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <!--PRICE HEADING START-->
-                        <section id="plans" class="section-bg pt-1 container">
-                            <div class="pt-1">
-                                <header class="section-header text-center">
-                                    <h4>Subscription Plans</h4>
-                                    <hr> {% if user.userplan.plan.plan_type == "Standard" %}
-                                    <h4 style="color: #27e630;">Your current subscription is: Standard</h4>
-                                    {% elif user.userplan.plan.plan_type == "Basic" %}
-                                    <h4 style="color: #27e630;">Your current subscription is: Basic</h4>
-                                    {% elif user.userplan.plan.plan_type == "Unlimited" %}
-                                    <h4 style="color: #27e630;">Your current subscription is: Unlimited</h4>
-                                    {% else %}
-                                    <h4 style="color: #27e630;">Your do not have an active Subscription</h4>
-                                    {% endif %}
-                                </header>
-                        </section>
-                        <!--//PRICE HEADING END-->
-                        </div>
-                    </div>
-                </div>
-                <div class="container p-5">
-                    {% if user.userplan.plan.plan_type == "Standard" or user.userplan.plan.plan_type == "Unlimited"%}
-                    <div class="text-center">
-                        <div class="error box">
-                            You already have an active subscription plan
-                        </div>
-                        <div class="text-center p-3"><small><a class="text-muted" href="">Unsubscribe from your current subscription</a></small></div>
-                    </div>
-                    {% else %}
-                    <!--BLOCK ROW START-->
-                    <div class="row">
-                        {% for plan in plans %}
-                        <div class="col-md-4 pb-3">
-
-                            <!--PRICE CONTENT START-->
-                            <div class="generic_content active clearfix">
-
-                                <!--HEAD PRICE DETAIL START-->
-                                <div class="generic_head_price clearfix">
-                                    <!--HEAD CONTENT START-->
-                                    <div class="generic_head_content clearfix">
-
-                                        <!--HEAD START-->
-                                        <div class="head_bg"></div>
-                                        <div class="head">
-                                            <span>{{plan.plan_type}}</span>
-                                        </div>
-                                        <!--//HEAD END-->
-
-                                    </div>
-                                    <!--//HEAD CONTENT END-->
-                                    <br>
-                                    <!--PRICE START-->
-                                    <div class="generic_price_tag clearfix">
-                                        <span class="price">
-                                    <span class="sign">$</span>
-                                        <span class="currency">{{plan.price}}</span>
-                                        <span class="month">/MON</span>
-                                        </span>
-                                    </div>
-                                    <!--//PRICE END-->
-
-                                </div>
-                                <!--//HEAD PRICE DETAIL END-->
-
-                                <!--FEATURE LIST START-->
-                                <div class="generic_feature_list">
-                                    {{plan.attributes|safe}}
-                                </div>
-                                <!--//FEATURE LIST END-->
-
-                                <!--BUTTON START-->
-                                <div class="generic_price_btn clearfix">
-                                    <a class="" href="{% url 'checkout' plan.id %}">Checkout</a>
-                                </div>
-                                <!--//BUTTON END-->
-
-                            </div>
-                            <!--//PRICE CONTENT END-->
-
-                        </div>
-                        {% endfor %}
-
-                        <!--//BLOCK ROW END-->
-                    </div>
-                </div>
-                {% endif %}
-
-        </section>
+  <section class="pricing">
+    <header class="pricing__header">
+      <h1 class="pricing__title">Pricing plans</h1>
+      <h5 class="pricing__subtitle">First 30 days absolutely <span class="accent-1">free</span> for any plan, no credit card required to get started.</h5>
+      <div class="plan-duration">
+        <div class="plan-duration__text plan-duration--active">Monthly</div>
+        <div class="plan-duration__toggle">
+          <div class="plan-duration__toggle-ball"></div>
         </div>
-        <!--end plans-->
+        <div class="plan-duration__text">Yearly</div>
+      </div>
+    </header>
+    <article class="plans">
+      <div class="plans__list">
+        <article class="plan__item">
+          <div class="plan__header">
+            <h2 class="plan__title mb-2">Basic Plan:</h2>
+            <h1 class="plan__price">5</h1>
+          </div>
+  
+          <ul>
+            <li><i class="fa-solid fa-circle-check"></i> Post up to 3 job listings</li>
+            <li><i class="fa-solid fa-circle-check"></i> Receive up to 10 job applications per listing</li>
+            <li><i class="fa-solid fa-circle-check"></i> Post 1 project for a fee</li>
+            <li><i class="fa-solid fa-circle-check"></i> Access to basic analytics</li>
+            <li><i class="fa-solid fa-circle-check"></i> Post up to 10 job listings</li>
+          </ul>
+  
+          <a href="#" class="plan__cta-link ">Get Started</a>
+        </article>
+        <article class="plan__item plan__item--active">
+          <div class="plan__header">
+            <h2 class="plan__title mb-2">Premium</h2>
+            <h1 class="plan__price">20</h1>
+          </div>
+          <ul>    
+            <li><i class="fa-solid fa-circle-check"></i> Receive up to 25 job applications per listing</li>
+            <li><i class="fa-solid fa-circle-check"></i> Post up to 3 projects for a fee</li>
+            <li><i class="fa-solid fa-circle-check"></i> Access to advanced analytics</li>
+            <li><i class="fa-solid fa-circle-check"></i> Priority support</li>
+          </ul>
+  
+          <a href="#" class="plan__cta-link plan__cta-link--active">Get Started</a>
+        </article>
+        <article class="plan__item">
+          <div class="plan__header">
+            <h2 class="plan__title mb-2">Enterprise</h2>
+            <h1 class="plan__price">80</h1>
+          </div>
+  
+          <ul>
+            <li><i class="fa-solid fa-circle-check"></i> Post unlimited job listings</li>
+            <li><i class="fa-solid fa-circle-check"></i> Receive unlimited job applications per listing</li>
+            <li><i class="fa-solid fa-circle-check"></i> Post unlimited projects for a fee</li>
+            <li><i class="fa-solid fa-circle-check"></i> Access to premium analytics</li>
+            <li><i class="fa-solid fa-circle-check"></i> 24/7 priority support</li>
+          </ul>
+  
+          <a href="#" class="plan__cta-link">Get Started</a>
+        </article>
+      </div>
+      <div class="plans__special-offer">
+        <p><strong>Limited offer: </strong> Save 20% on anuual plans. Get the coupon <a href="#">here</a></p>
+    </article>
     </div>
-    {% endblock %}
+  
+    <footer>
+      <div class="currency">
+        <span class="currency__text">Currency</span>
+        <select class="currency__select">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+        </select>
+      </div>
+    </footer>
+  </section>                
+{% endblock %}

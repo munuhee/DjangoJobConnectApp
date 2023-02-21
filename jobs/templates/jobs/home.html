@@ -8,25 +8,23 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8">
-            <h1>Job Listings</h1>
-            <div class="job-listing">
-                <h2>Web Designer</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia consectetur sem, sit amet tempus lectus accumsan nec. Nulla sollicitudin risus quis elit varius, id sagittis dui pharetra. Donec efficitur quam sit amet erat tristique aliquet. Nam luctus tempor urna, id semper elit convallis non. </p>
-                <p><a href="#" class="btn btn-info">Apply Now</a></p>
+            <h3>Job Listings</h1>
+            {% for j in jobs %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">{{j.title}}</h5>
+                    <p class="card-text">{{j.description}}</p>
+                    <p class="card-text text-info">
+                        <small class="me-3"><i class="fa fa-clock-o"></i><span class="text-muted"> {{j.pub_date}}</span></small>
+                        <small><i class="fa fa-envelope"></i><span class="text-muted"> 0 Applications</span></small>
+                    </p>
+                    <a href="#" class="btn btn-info">View</a>
+                </div>
             </div>
-            <div class="job-listing">
-                <h2>Backend Developer</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia consectetur sem, sit amet tempus lectus accumsan nec. Nulla sollicitudin risus quis elit varius, id sagittis dui pharetra. Donec efficitur quam sit amet erat tristique aliquet. Nam luctus tempor urna, id semper elit convallis non. </p>
-                <p><a href="#" class="btn btn-info">Apply Now</a></p>
-            </div>
-            <div class="job-listing">
-                <h2>Marketing Manager</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia consectetur sem, sit amet tempus lectus accumsan nec. Nulla sollicitudin risus quis elit varius, id sagittis dui pharetra. Donec efficitur quam sit amet erat tristique aliquet. Nam luctus tempor urna, id semper elit convallis non. </p>
-                <p><a href="#" class="btn btn-info">Apply Now</a></p>
-            </div>
+            {% endfor %}
         </div>
         <div class="col-lg-4">
-            <h2>Categories</h2>
+            <h5>Categories</h5>
             <ul class="list-group">
                 <li class="list-group-item"><a href="#">Web Design</a></li>
                 <li class="list-group-item"><a href="#">Development</a></li>
@@ -35,7 +33,7 @@
                 <li class="list-group-item"><a href="#">Data Entry</a></li>
             </ul>
             <br>
-            <h2>Recent Jobs</h2>
+            <h5>Recent Jobs</h5>
             <ul class="list-group">
                 <li class="list-group-item"><a href="#">Web Designer</a></li>
                 <li class="list-group-item"><a href="#">Backend Developer</a></li>
@@ -45,5 +43,18 @@
             </ul>
         </div>
     </div>
+    <nav>
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+    </nav>
 </div>
 {% endblock content%}

@@ -1,5 +1,18 @@
+:root {
+    --primary-font: "Poppins", sans-serif;
+    --margin-x: 1em;
+    --aqua-c: #17a2b8;
+    --golden-c: #ce9b00;
+}
+a{
+    text-decoration: none;
+    link-style: none;
+}
 .navbar{
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.navbar nav-button{
+    margin: 10px
 }
 .sidebar {
     height: 100%;
@@ -56,3 +69,195 @@
   #back-to-top-btn.d-none {
     display: none;
   }
+ 
+}
+ .accent-1 {
+	 color: var(--aqua-c);
+}
+ .accent-2 {
+	 color: var(--aqua-c);
+}
+
+ .nav__list {
+	 display: grid;
+	 grid-auto-flow: column;
+	 align-items: center;
+	 justify-content: flex-end;
+	 grid-gap: 1em;
+}
+ .nav__list-item--bordered {
+	 border: 1px solid var(--aqua-c);
+	 border-radius: 20px;
+	 color: var(--aqua-c);
+	 padding: 0.5em 1.1em;
+}
+ .pricing {
+	 text-align: center;
+	 margin: 0 1em;
+}
+ .plan-duration {
+	 display: flex;
+	 justify-content: space-around;
+	 align-items: center;
+	 margin: 0 auto;
+	 width: 200px;
+}
+ .plan-duration__toggle {
+	 width: 45px;
+	 height: 25px;
+	 background: linear-gradient(130deg, var(--aqua-c), #ffc107);
+	 border-radius: 16px;
+	 display: flex;
+	 align-items: center;
+	 justify-content: flex-start;
+	 transition: justify-content 0.2s;
+}
+ .plan-duration__toggle-ball {
+	 --size: 18px;
+	 margin: 0 4px;
+	 width: var(--size);
+	 height: var(--size);
+	 border-radius: 50%;
+	 background: white;
+}
+ .plan-duration__text {
+	 color: #212733 99;
+}
+ .plan-duration--active {
+	 color: var(--black);
+	 font-weight: bold;
+}
+ .plans__list {
+	 display: flex;
+	 flex-wrap: wrap;
+	 justify-content: center;
+	 margin: 1.5em 0;
+}
+ .plan__item {
+	 --radius: 10px;
+	 border-radius: var(--radius);
+	 box-shadow: 1px 2px 15px rgba(80, 80, 80, 0.12);
+	 margin: 1rem;
+	 display: flex;
+	 flex-direction: column;
+	 justify-content: space-between;
+}
+fa{
+    color: var(--golden-c);
+}
+ .plan__item--active {
+	 box-shadow: 0 0 55px rgba(80, 80, 80, 0.25);
+	 height: 350px;
+}
+ .plan__title {
+	 color: var(--aqua-c);
+	 margin-bottom: -0.5em;
+}
+ .plan__price {
+	 font-size: 2.5em;
+}
+ .plan__price:before {
+	 content: "$";
+	 font-size: 1rem;
+}
+ .plan__cta-link {
+	 color: var(--aqua-c);
+	 padding: 1em 5em;
+	 border-radius: 0 0 var(--radius) var(--radius);
+}
+ .plan__cta-link--active {
+	 background: var(--aqua-c);
+	 color: white;
+}
+ .plan__feature-list {
+	 display: grid;
+ }
+ul {
+    list-style: none
+ }
+ .plans__special-offer a {
+	 color: var(--aqua-c);
+	 text-decoration: underline;
+	 text-decoration-color: var(--aqua-c);
+}
+ .currency {
+	 margin: 2em var(--margin-x);
+	 display: grid;
+	 justify-content: flex-end;
+	 grid-gap: 0.5em;
+	 grid-auto-flow: column;
+	 align-items: center;
+}
+ .currency__select {
+	 border-radius: 15px;
+	 border: none;
+	 background: #eee;
+	 font-weight: bold;
+	 padding: 2px 4px;
+}
+ @media only screen and (min-width: 618px) and (max-width: 900px) {
+	 .plan__item--active {
+		 order: 1;
+	}
+}
+input[type='email'],input[type='text'],
+    input[type='password']{
+    display:block;
+    width:100%;
+    padding:.375rem .75rem;
+    font-size:1rem;
+    line-height:1.5;
+    color:#495057;
+    background-color:#fff;
+    background-clip:padding-box;
+    border:1px solid #ced4da;
+    border-radius:.25rem;
+    transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out
+}
+input[type='email'],input[type='text'],
+    input[type='password']::-ms-expand{
+    background-color:transparent;
+    border:0
+}
+input[type='email'],input[type='text'],
+    input[type='password']:focus{
+    color:#495057;
+    background-color:#fff;
+    border-color:#80bdff;
+    outline:0;
+    box-shadow:0 0 0 .2rem rgba(0,123,255,.25)
+}
+input[type='email'],input[type='text'],
+    input[type='password']::-webkit-input-placeholder{
+    color:#6c757d;
+    opacity:1
+}
+input[type='email'],input[type='text'],
+    input[type='password']::-moz-placeholder{
+    color:#6c757d;
+    opacity:1
+}
+input[type='email'],input[type='text'],
+    input[type='password']:-ms-input-placeholder{
+    color:#6c757d;
+    opacity:1
+}
+input[type='email'],input[type='text'],
+    input[type='password']::-ms-input-placeholder{
+    color:#6c757d;
+    opacity:1
+}
+input[type='email'],input[type='text'],
+    input[type='password']::placeholder{
+    color:#6c757d;
+    opacity:1
+}
+input[type='email'],input[type='text'],
+    input[type='password']:disabled,input[type='email'],input[type='text'],
+    input[type='password'][readonly]{
+    background-color:#e9ecef;
+    opacity:1
+}
+
+
+

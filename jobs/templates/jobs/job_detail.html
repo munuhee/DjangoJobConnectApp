@@ -1,110 +1,37 @@
 {% extends 'core/main.html' %} {% load humanize %}{% load static %} {% block title %}job detail {% endblock title %}{% block content %}
-<div class="pt-5"></div>
-<div class="container pt-5" style="font-family: montserrat;">
+<div class="container my-5">
     <div class="row">
-        <div class="col-md-4">
-            <div class="w-full hidden md:block md:w-3/12">
-                <div class="employer-info mb-4 text-center ">
-                    <img class="h-40 w-40 inline-block" src="#" alt="">
-                    <span class="text-sm hover:underline">
-                        {% if user.userplan.plan.plan_type == "Unlimited" %}
-                        <h6 class="employer-name text-center">Post by: {{j.author}}<i class="fa fa-check-circle" aria-hidden="true" style="color:#1c87c5"></i></h6>
-                        {% else %}
-                        <h4 class="employer-name text-center">Post by: {{j.author}} </h4>
-                        {% endif %}
-                    </span>
-                </div>
-                {% if user.userplan.plan.plan_type == "Unlimited" or user.userplan.plan.plan_type == "Standard" %}
-                <a style="width: 100%; border-radius: 25px;" href="{% url 'job-application-form' j.id %}" class="btn btn-murste text-white text-center block rounded-full py-2 job-description">Apply for this job</a> {% else %}
-                <a style="width: 100%; border-radius: 25px;" href="{% url 'plan' %}" class="btn btn-murste text-white text-center block rounded-full py-2 job-description">Apply for this job</a> {% endif %}
-                <div class="admin-controls text-center text-sm">
-                    {% if object.author == user %}
-                    <h6 class="text-gray-700 mb-2 mt-2">Job author controls</h6>
-                    <div class="controls">
-                        {% if user.userplan.plan.plan_type == "Unlimited" or user.userplan.plan.plan_type == "Standard" or user.userplan.plan.plan_type == "Basic" %}
-                        <a href="{% url 'job_update' j.pk %}" class="btn btn-outline-murste">Edit</a>
-                        <a href="{% url 'job_delete' j.pk %}" class="btn btn-outline-danger">Delete</a> {% else %}
-                        <a href="{% url 'plan' %}" class="btn btn-outline-murste">Edit</a>
-                        <a href="{% url 'job_delete' j.pk %}" class="btn btn-outline-danger">Delete</a> {% endif %}
-                    </div>
-                    {% endif %}
-                    <br>
-                    <small><strong class="job-description">Number of Submitted Applications </strong>( {{j.applications.count}} )</small>
-                </div>
-                <!-- end admin-controls -->
-            </div>
-            <!-- end w-3/12 -->
+      <div class="col-lg-8">
+        <h1>{{ job.title }}</h1>
+        <p class="lead">{{ job.company_name }} - {{ job.location }}</p>
+        <hr>
+        <h2>Job Description</h2>
+        <p>{{ job.description }}</p>
+        <hr>
+        <h2>Requirements</h2>
+        <ul>
+          {% for requirement in job.requirements.all %}
+          <li>{{ requirement }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Apply Now</h5>
+            <p class="card-text">To apply for this job, please send your resume to:</p>
+            <a href="mailto:{{ job.contact_email }}" class="btn btn-primary">Email Resume</a>
+          </div>
         </div>
-        <div class="col-md-7">
-            <!--     Job Post   -->
-            <div class="job-post w-full md:w-8/12">
-                <div class="job-meta mb-4">
-                    <span class="text-xs text-gray-500">
-            Posted {{ j.pub_date|naturaltime|lower }}
-          </span>
-
-                    <h3 class="job-title text-2xl">
-                        {{j.title}}
-                    </h3>
-                    {% if j.status == 'Open' %}
-                    <span class="badge badge-info pt-1 pb-1 pr-2 pl-2 mr-4"> Open </span> {% else %}
-                    <span class="badge badge-danger pt-1 pb-1 pr-2 pl-2 mr-4"><i class="fa fa-times"></i> Closed </span>{% endif %}
-                    <span class="pt-1 pb-1 pr-2 pl-2 mr-4"> Budget: {{j.budget}} </span>
-                </div>
-
-                <!--     
-          Admin Controls
-          This will be visible for small and extra small devices,
-          and invisible for medium devices and above.
-        -->
-
-                <div class="job-description mb-4">
-                    {{j.description|safe}}
-                </div>
-                {% if user.userplan.plan.plan_type == "Unlimited" or user.userplan.plan.plan_type == "Standard" %}
-                <a style="width: 100%; border-radius: 25px;" href="{% url 'job-application-form' j.id %}" class="btn btn-murste text-white text-center block rounded-full py-2 job-description">Apply for this job</a> {% else %}
-                <a style="width: 100%; border-radius: 25px;" href="{% url 'plan' %}" class="btn btn-murste text-white text-center block rounded-full py-2 job-description">Apply for this job</a> {% endif %}
-            </div>
-            <!-- end job-post -->
-
-
-            <!--Applications post-->
-            <div class="pt-3">
-                <div style="text-align: center;" class="job-description">
-                    <strong>Submitted Applications</strong>
-                </div>
-                {% for application in j.applications.all %}
-                <div class="pt-1">
-                    {% if application.author.userplan.plan.plan_type == "Unlimited" %}
-                    <a href="{% url 'public-profile' application.author.username %}" id="author-link" id="author-link">
-                        <b>  {{ application.author }} <i class="fa fa-check-circle" aria-hidden="true" style="color:#1c87c5"></i></b>
-                    </a>
-                    {% else %}
-                    <a href="{% url 'public-profile' application.author.username %}" id="author-link" id="author-link">
-                        <b>  {{ application.author }}</b>
-                    </a>
-                    {% endif %} {{ application.budget }} {% if application.author == user %}
-
-                    <button class="btn btn-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-ellipsis-h post-buttons"></i>
-                </button>
-                    <div class="dropdown-menu job-description" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{% url 'job-application-update' application.id %}">Update</a>
-                        <a class="dropdown-item" href="{% url 'job-application-delete' application.id %}">Delete</a>
-                    </div>
-                    {% endif %}
-                    <p class="job-description pl-2"><em>{{ application.content }}</em><br><small><i class="fa fa-clock-o"></i> {{ application.date_created|naturaltime|lower }}</small></p>
-                </div>
-                {% empty %}
-                <div class="pt-5 job-description" style="text-align: center;">
-                    <h4><em>Nobody has applied yet</em></h4>
-                </div>
-                {% endfor %}
-            </div>
-            <!--end Application Posts-->
+        <div class="card my-4">
+          <div class="card-body">
+            <h5 class="card-title">Company Details</h5>
+            <p class="card-text">{{ job.company_name }}</p>
+            <p class="card-text">{{ job.company_description }}</p>
+            <a href="{{ job.company_website }}" target="_blank" class="btn btn-primary">Visit Website</a>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-</div>
+  </div>
 {% endblock content %}
