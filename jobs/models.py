@@ -8,27 +8,10 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from notifications.signals import notify
 from django.utils.text import Truncator
+class Category(models.Model):
+    name = models.CharField(max_length=200, blank=True, null=True)
 
 class Job(models.Model):
-    CATEGORY_CHOICES = (
-        ("graphics-design", "Graphics & Design"),
-        ("Photography", "Photography"),
-        ("Photoshop", "Photoshop"),
-        ("Architecture Services", "Architecture Services"),
-        ("Marketing, Sales and Service","Marketing, Sales and Service"),
-        ("Data Entry", "Data Entry"),
-        ("Web Development and Designing", "Web Development and Designing"),
-        ("Teaching and Tutoring", "Teaching and Tutoring"),
-        ("Creative Design", "Creative Design"),
-        ("Mobile App Development", "Mobile App Development"),
-        ("3D Modeling and CAD", "3D Modeling and CAD"),
-        ("Game Development", "Game Development"),
-        ("Translation", "Translation"),
-        ("Transcription", "Transcription"),
-        ("Article and Blog Writing", "Article and Blog Writing"),
-        ("Logo Design and illustration", "Logo Design and illustration"),
-        ("Audio and Video Production", "Audio and Video Production"),
-    )
     JOB_STATUS = (
         ("Open", "Open"),
         ("Closed", "Closed"),
@@ -39,7 +22,7 @@ class Job(models.Model):
     pub_date = models.DateTimeField(default=timezone.now)
     budget = models.CharField(max_length=20, help_text="eg, 15-35 USD",null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    jobscategory = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default="O")
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL)
     thumbnail = ProcessedImageField(upload_to='project_pics', format='JPEG', processors = [ResizeToFill(150,150)],
                 options={ 'quality': 100})
 
