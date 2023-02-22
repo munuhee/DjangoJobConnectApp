@@ -54,11 +54,12 @@
                     </li>
                     {% endif %}
                 </ul>
+                {% if user.is_superuser %}
                 <div class="dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" id="profile-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <img class="rounded-circle" src="{% static 'images/profile_pics/beu.jpg' %}" width="30" height="30" alt="Profile Image">
                     </a>
-                
+
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile-dropdown">
                         <li>
                             <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
@@ -68,16 +69,17 @@
                         </li>
                     </ul>
                 </div>
-                
+                {% endif %}
+
                 <!-- Toggle button for small devices -->
                 <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="toggle-btn">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-            
-            
+
+
           </nav>
-          
+
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <a href="#" class="close-btn" id="close-btn">&times;</a>
