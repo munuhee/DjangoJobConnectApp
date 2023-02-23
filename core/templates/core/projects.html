@@ -1,4 +1,5 @@
-{% extends "core/main.html" %} {% load humanize %} {% load static %}{% load crispy_forms_tags %}{% block title %} Availabe posts{%endblock title%}{% block content %}
+{% extends "core/main.html" %} {% load humanize %} {% load static %}{% load crispy_forms_tags %}{% block title %} Availabe posts{%endblock title%}
+{% block content %}
 <div class="container my-5">
     <h1 class="text-center mb-5">Bootstrap Projects List</h1>
     <div class="row">
@@ -13,7 +14,7 @@
                 <small class="me-3"><i class="fa fa-star"></i><span class="text-muted"> 4.2</span></small>
                 <small><i class="fa fa-eye"></i><span class="text-muted"> 100 Views </span></small>
             </p>
-            <a href="#" class="btn btn-info">View Project</a>
+            <a href="{% url 'post-detail' p.slug %}" class="btn btn-info">View Project</a>
           </div>
         </div>
       </div>

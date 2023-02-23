@@ -10,33 +10,15 @@ from autoslug import AutoSlugField
 from users.models import Profile
 from memberships.models import *
 
+class Category(models.Model):
+    name = models.CharField(max_length=200, null=False, blank=False)
 class Post(models.Model):
-    CATEGORY_CHOICES = (
-        ("graphics-design", "Graphics & Design"),
-        ("Photography", "Photography"),
-        ("Photoshop", "Photoshop"),
-        ("Architecture Services", "Architecture Services"),
-        ("Marketing, Sales and Service","Marketing, Sales and Service"),
-        ("Data Entry", "Data Entry"),
-        ("Web Development and Designing", "Web Development and Designing"),
-        ("Teaching and Tutoring", "Teaching and Tutoring"),
-        ("Creative Design", "Creative Design"),
-        ("Mobile App Development", "Mobile App Development"),
-        ("3D Modeling and CAD", "3D Modeling and CAD"),
-        ("Game Development", "Game Development"),
-        ("Translation", "Translation"),
-        ("Transcription", "Transcription"),
-        ("Article and Blog Writing", "Article and Blog Writing"),
-        ("Logo Design and illustration", "Logo Design and illustration"),
-        ("Audio and Video Production", "Audio and Video Production"),
-    )
-
     title = models.CharField(max_length=100)
-    overview = models.CharField(max_length=100,default='explore to find more about my capabilities')
+    overview = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE,related_name='author')
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default="O")
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL)
     slug = AutoSlugField(unique=True, populate_from='title')
     last_rating = models.IntegerField(default=0)
     image = ProcessedImageField(upload_to='project_pics', format='JPEG', processors = [ResizeToFill(360,200)],

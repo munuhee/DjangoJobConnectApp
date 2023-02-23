@@ -8,23 +8,37 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from notifications.signals import notify
 from django.utils.text import Truncator
+
+
 class Category(models.Model):
-    name = models.CharField(max_length=200, blank=True, null=True)
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+class Requirement(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 class Job(models.Model):
     JOB_STATUS = (
         ("Open", "Open"),
         ("Closed", "Closed"),
     )
-    status = models.CharField(max_length=6, choices=JOB_STATUS, default="Open")
-    title = models.CharField(max_length=200)
-    description = models.TextField(blank=False)
+    company_name = models.CharField(max_legth=200, blank=False, null=False)
+    company_description = models.CharField(max_length=200, blank=True, null=True)
+    location = models.CharField(max_length=200, blank=False, null=False)
+    job_title = models.CharField(max_length=200)
+    job_description = models.TextField(blank=False)
     pub_date = models.DateTimeField(default=timezone.now)
     budget = models.CharField(max_length=20, help_text="eg, 15-35 USD",null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL)
     thumbnail = ProcessedImageField(upload_to='project_pics', format='JPEG', processors = [ResizeToFill(150,150)],
                 options={ 'quality': 100})
+    categories = models.ManyToManyField(Category)
+    requirements = models.ManyToManyField(Requirement)
 
     def __str__(self):
         return self.title

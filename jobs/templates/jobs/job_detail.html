@@ -1,16 +1,17 @@
-{% extends 'core/main.html' %} {% load humanize %}{% load static %} {% block title %}job detail {% endblock title %}{% block content %}
+{% extends 'core/main.html' %} {% load static %} {% block title %}job detail {% endblock title %}
+{% block content %}
 <div class="container my-5">
     <div class="row">
       <div class="col-lg-8">
-        <h1>{{ job.title }}</h1>
-        <p class="lead">{{ job.company_name }} - {{ job.location }}</p>
+        <h1>{{ j.title }}</h1>
+        <p class="lead">{{ j.company_name }} - {{ j.location }}</p>
         <hr>
         <h2>Job Description</h2>
-        <p>{{ job.description }}</p>
+        <p>{{ j.job_description }}</p>
         <hr>
         <h2>Requirements</h2>
         <ul>
-          {% for requirement in job.requirements.all %}
+          {% for requirement in j.requirements.all %}
           <li>{{ requirement }}</li>
           {% endfor %}
         </ul>
@@ -20,14 +21,14 @@
           <div class="card-body">
             <h5 class="card-title">Apply Now</h5>
             <p class="card-text">To apply for this job, please send your resume to:</p>
-            <a href="mailto:{{ job.contact_email }}" class="btn btn-primary">Email Resume</a>
+            <a href="mailto:{{ j.contact_email }}" class="btn btn-primary">Email Resume</a>
           </div>
         </div>
         <div class="card my-4">
           <div class="card-body">
             <h5 class="card-title">Company Details</h5>
-            <p class="card-text">{{ job.company_name }}</p>
-            <p class="card-text">{{ job.company_description }}</p>
+            <p class="card-text">{{ j.company_name }}</p>
+            <p class="card-text">{{ j.company_description }}</p>
             <a href="{{ job.company_website }}" target="_blank" class="btn btn-primary">Visit Website</a>
           </div>
         </div>
