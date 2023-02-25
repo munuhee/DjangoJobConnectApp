@@ -1,4 +1,4 @@
-{% extends 'core/main.html' %} {% load crispy_forms_tags %}{% load static %} {% block title %}Profile{% endblock %}{% block content %}
+{% extends 'core/main.html' %} {% load crispy_forms_tags %}{% load static %} {% block title %}User Profile{% endblock %}{% block content %}
 <div class="pt-5"></div>
 <div class="container">
     <div class="container mt-5">
@@ -16,38 +16,92 @@
         </ul>
     {% endif %}
     </div>
-    <form id="msform" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <!-- progressbar -->
-        <ul id="progressbar">
-            <li class="active"></li>
-            <li></li>
-            <li></li>
-        </ul>
-        <!-- fieldsets -->
-        <fieldset>
-            <h2 class="fs-title">Edit your account</h2>
-            <h3 class="fs-subtitle">This is step 1</h3>
-            {{ u_form.username.errors }} {{ u_form.username }} {{ p_form.first_name }} {{ p_form.last_name }} {{ u_form.email }} {{ p_form.telephone.errors }}{{ p_form.telephone }}
-            <input type="button" name="next" class="next action-button" value="Next" />
-        </fieldset>
-        <fieldset>
-            <h2 class="fs-title">Edit your account</h2>
-            <h3 class="fs-subtitle">This is step 2</h3>
-            {{ p_form.bio }}
-            <label class="text-muted">Profile picture: </label> {{ p_form.country }} <br> {{ p_form.profile_picture }} 
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
-            <input type="button" name="next" class="next action-button" value="Next" />
-        </fieldset>
-        <fieldset>
-            <h2 class="fs-title">Edit your account</h2>
-            <h3 class="fs-subtitle">Last step</h3>
-            <label class="text-muted">Career description</label> {{ p_form.career_description }}
-            <label class="text-muted">Skills</label> {{ p_form.skills }}
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
-            <input type="submit" class="action-button" value="Update" />
-        </fieldset>
+    <!-- User profile header -->
+  <header class="bg-light p-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="https://via.placeholder.com/150" alt="Profile picture" class="img-fluid rounded-circle">
+        </div>
+        <div class="col-md-8">
+          <h1 class="display-4">John Doe</h1>
+          <p class="lead">Software Developer</p>
+          <p>Location: Los Angeles, CA</p>
+          <p>Experience: 5+ years</p>
+        </div>
+      </div>
+    </div>
+  </header>
 
-    </form>
+  <!-- User profile main content -->
+  <main class="my-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <section>
+            <h2>About Me</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel sapien vitae nisl fermentum
+              malesuada. Morbi tincidunt felis sit amet velit rhoncus interdum. Nullam commodo, quam non bibendum
+              hendrerit, ex nibh finibus mi, vel pellentesque lorem quam eget nulla.</p>
+          </section>
+
+          <section>
+            <h2>Skills</h2>
+            <ul class="list-group">
+              <li class="list-group-item">Java</li>
+              <li class="list-group-item">Python</li>
+              <li class="list-group-item">JavaScript</li>
+              <li class="list-group-item">SQL</li>
+              <li class="list-group-item">Git</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Experience</h2>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <h3>Software Developer at ABC</h3>
+                <p><strong>ABC Company</strong> | Los Angeles, CA | January 2018 - Present</p>
+                <ul>
+                  <li>Develop and maintain Java-based web applications using Spring Framework</li>
+                  <li>Collaborate with cross-functional teams to design, develop, and implement new features</li>
+                  <li>Perform code reviews and provide constructive feedback to team members</li>
+                </ul>
+              </li>
+              <li class="list-group-item">
+                <h3>Software Engineer Intern at XYZ</h3>
+                <p><strong>XYZ Corporation</strong> | San Francisco, CA | May 2017 - August 2017</p>
+                <ul>
+                  <li>Assisted in the development of a React-based mobile app for a client project</li>
+                  <li>Worked closely with the design team to ensure app met client specifications</li>
+                  <li>Implemented automated testing to improve app reliability</li>
+                </ul>
+              </li>
+            </ul>
+          </section>      <section>
+            <h2>Education</h2>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <h3>Bachelor of Science in Computer Science</h3>
+                <p><strong>University of California, Los Angeles (UCLA)</strong> | Los Angeles, CA | September 2014 - June 2018</p>
+              </li>
+            </ul>
+          </section>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Contact Information</h5>
+              <ul class="list-group">
+                <li class="list-group-item"><i class="bi bi-geo-alt"></i> Los Angeles, CA</li>
+                <li class="list-group-item"><i class="bi bi-envelope"></i> john.doe@gmail.com</li>
+                <li class="list-group-item"><i class="bi bi-linkedin"></i> linkedin.com/in/john-doe</li>
+                <li class="list-group-item"><i class="bi bi-twitter"></i> @johndoe</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 {% endblock content %}

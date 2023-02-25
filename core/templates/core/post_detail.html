@@ -1,10 +1,38 @@
-{% extends "core/main.html" %} {% load static %}{% load crispy_forms_tags %}{% block title %}Post Detail{%endblock title%}{% block content %}
-<div class="container>
-    {% if messages %} {% for message in messages %}
-    <div class="alert alert-{{message.tags}}">
-        {{ message }} {% endfor %} {% endif %}
+{% extends "core/main.html" %} {% load static %}{% block title %}Post Detail{%endblock title%}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h2>{{ post.title }}</h2>
+      <hr>
+      {% if post.image %}
+      <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid mb-3">
+      {% endif %}
+      <p class="text-muted">{{ post.date_posted }}</p>
+      <p>{{ post.description }}</p>
     </div>
-    
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          Categories
+        </div>
+        <ul class="list-group list-group-flush">
+          {% for category in post.category.all %}
+          <li class="list-group-item">{{ category.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="card mt-3">
+        <div class="card-header">
+          Author
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ post.author }}</h5>
+          <p class="card-text">{{ post.author.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-{% endblock content %}
-</div>
+{% endblock %}
+

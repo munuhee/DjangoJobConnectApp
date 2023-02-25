@@ -53,7 +53,7 @@ def jobscategory(request, link):
         "Article and Blog Writing" : "Article and Blog Writing",
         "Logo Design and illustration" : "Logo Design and illustration",
         "Audio and Video Production" : "Audio and Video Production",
-        
+
     }
     try:
         jobs = Job.objects.filter(jobscategory=jobscategories[link])
@@ -80,7 +80,7 @@ class JobDisplay(PageContextMixin, SingleObjectMixin, View):
 class JobDetail(DetailView):
     model = Job
     context_object_name = 'applications'
-    
+
     def get(self, request, *args, **kwargs):
         view = JobDisplay.as_view()
         return view(request, *args, **kwargs)
@@ -99,7 +99,7 @@ class JobCreate(CreateView):
         form.instance.author = self.request.user
         form.save()
         return super(JobCreate, self).form_valid(form)
-    
+
 
 
 @method_decorator(login_required, name='dispatch')
@@ -112,8 +112,8 @@ class JobUpdate(UpdateView):
 class JobDelete(DeleteView):
     model = Job
     success_url = reverse_lazy('home')
-    
-    
+
+
 class ApplicationCreateView(LoginRequiredMixin, CreateView):
     model = Application
     fields = ('content', 'budget')
@@ -122,7 +122,7 @@ class ApplicationCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         form.instance.job = Job.objects.get(pk=self.kwargs['pk'])  # ['pk'] is the pk assigned by to the comment button in the home.html. we are making the instance of the form assign the post field of the comment model to the Post object whos pk=self.kwargs['pk'] which is the storage location of url parameters
         return super().form_valid(form)
-    
+
     def post(self, request, *args, **kwargs):
         if request.user.userplan.plan.plan_type == "Unlimited" or request.user.userplan.plan.plan_type == "Standard":
             if not request.user.is_authenticated:

@@ -27,10 +27,10 @@ class Job(models.Model):
         ("Open", "Open"),
         ("Closed", "Closed"),
     )
-    company_name = models.CharField(max_legth=200, blank=False, null=False)
+    company_name = models.CharField(max_length=200, blank=False, null=False)
     company_description = models.CharField(max_length=200, blank=True, null=True)
-    location = models.CharField(max_length=200, blank=False, null=False)
-    job_title = models.CharField(max_length=200)
+    location = models.CharField(max_length=200, blank=True, null=True)
+    job_title = models.CharField(max_length=200, blank=True, null=True)
     job_description = models.TextField(blank=False)
     pub_date = models.DateTimeField(default=timezone.now)
     budget = models.CharField(max_length=20, help_text="eg, 15-35 USD",null=True, blank=True)

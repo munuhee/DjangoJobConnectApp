@@ -11,18 +11,22 @@ from users.models import Profile
 from memberships.models import *
 
 class Category(models.Model):
-    name = models.CharField(max_length=200, null=False, blank=False)
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     overview = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE,related_name='author')
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL)
     slug = AutoSlugField(unique=True, populate_from='title')
     last_rating = models.IntegerField(default=0)
     image = ProcessedImageField(upload_to='project_pics', format='JPEG', processors = [ResizeToFill(360,200)],
                 options={ 'quality': 100})
+    categories = models.ManyToManyField(Category)
     class Meta:
         verbose_name_plural = "All projects"
         ordering = ["date_posted"]

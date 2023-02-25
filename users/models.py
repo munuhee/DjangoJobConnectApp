@@ -1,43 +1,33 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.utils import timezone
-from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFill
-from django_countries.fields import CountryField
-from phonenumber_field.modelfields import PhoneNumberField
-from ckeditor.fields import RichTextField
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    verify = models.BooleanField(default=False)
-    profile_picture = ProcessedImageField(upload_to='project_pics', format='JPEG',
-                                processors = [ResizeToFill(150,150)],
-                                options={ 'quality': 100})
-    telephone = PhoneNumberField(null=True,blank=True)
-    email = models.CharField(max_length=150, blank=True, null=True)
-    bio = models.CharField(max_length=150, blank=True)
-    first_name = models.CharField(max_length=30, blank=True)
-    last_name = models.CharField(max_length=30, blank=True)
-    country = CountryField(blank_label='(select country)', blank=True, null=True)
-    skills  = models.TextField(max_length=130, blank=True, null=True)
-    career_description = models.TextField(blank=True, null=True)
-    followers = models.ManyToManyField(User, blank=True, related_name='user_followers')
-
-    def get_number_of_followers(self):
-        print(self.followers.count())
-        if self.followers.count():
-            return self.followers.count()
-        else:
-            return 0
-
-    def get_number_of_following(self):
-        if self.following.count():
-            return self.following.count()
-        else:
-            return 0
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile_image = models.ImageField(upload_to='profile_images/')
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return self.user.username
 
+class Experience(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    company = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+
+class Education(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    degree = models.CharField(max_length=100)
+    institution = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+
+class Contact(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    address = models.CharField(max_length=100,null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    linkedin = models.URLField(null=True, blank=True)
+    twitter = models.URLField(null=True, blank=True)

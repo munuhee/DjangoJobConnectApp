@@ -37,7 +37,7 @@ class PostListView(ListView):
     context_object_name = 'posts'
     template_name = 'core/projects.html'
     ordering = ['-last_rating']
-    paginate_by = 6
+    paginate_by = 3
 
 class UserPostListView(ListView):
     model = Post

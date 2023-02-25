@@ -1,1 +1,6 @@
-*Pipfile
+# Ignore the virtual environment directory
+venv/
+
+# Ignore Pipenv files
+Pipfile
+Pipfile.lock
