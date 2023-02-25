@@ -5,7 +5,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile, Experience, Education, Contact
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .forms import ProfileForm
 
 
 class RegisterView(CreateView):
@@ -19,12 +18,16 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        profile = self.request.user.profile
+        try:
+            profile = self.request.user.profile
+            print("profile exists")
+        except Profile.DoesNotExist:
+            profile = None
         experiences = Experience.objects.filter(profile=profile)
         education = Education.objects.filter(profile=profile).first()
         contact = Contact.objects.filter(profile=profile).first()
         context.update({
-            'profile': Profile,
+            'profile': profile,
             'experiences': experiences,
             'education': education,
             'contact': contact
@@ -34,7 +37,6 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = Profile
-    form_class = ProfileForm
     template_name = 'users/profile_update.html'
     success_url = reverse_lazy('profile')
 
