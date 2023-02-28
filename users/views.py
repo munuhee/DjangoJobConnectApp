@@ -34,7 +34,6 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         })
         return context
 
-
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = Profile
     template_name = 'users/profile_update.html'
