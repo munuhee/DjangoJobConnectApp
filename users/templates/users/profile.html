@@ -1,107 +1,59 @@
-{% extends 'core/main.html' %} {% load crispy_forms_tags %}{% load static %} {% block title %}User Profile{% endblock %}{% block content %}
-<div class="pt-5"></div>
-<div class="container">
-    <div class="container mt-5">
-        {% if messages %} {% for message in messages %}
-        <div class="alert alert-{{message.tags}}">
-            {{ message }}
-        </div>
-        {% endfor %} {% endif %}
-
-        {% if form.non_field_errors %}
-        <ul>
-            {% for error in form.non_field_errors %}
-                <li style="color: red;">{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    </div>
-    <!-- User profile header -->
-  <header class="bg-light p-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <img src="https://via.placeholder.com/150" alt="Profile picture" class="img-fluid rounded-circle">
-        </div>
-        <div class="col-md-8">
-          <h1 class="display-4">John Doe</h1>
-          <p class="lead">Software Developer</p>
-          <p>Location: Los Angeles, CA</p>
-          <p>Experience: 5+ years</p>
-        </div>
+{% extends 'core/main.html' %}{% load static %} {% block title %}User Profile{% endblock %}{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-4">
+      <div class="profile-image">
+        <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="img-fluid">
       </div>
     </div>
-  </header>
-
-  <!-- User profile main content -->
-  <main class="my-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <section>
-            <h2>About Me</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel sapien vitae nisl fermentum
-              malesuada. Morbi tincidunt felis sit amet velit rhoncus interdum. Nullam commodo, quam non bibendum
-              hendrerit, ex nibh finibus mi, vel pellentesque lorem quam eget nulla.</p>
-          </section>
-
-          <section>
-            <h2>Skills</h2>
-            <ul class="list-group">
-              <li class="list-group-item">Java</li>
-              <li class="list-group-item">Python</li>
-              <li class="list-group-item">JavaScript</li>
-              <li class="list-group-item">SQL</li>
-              <li class="list-group-item">Git</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2>Experience</h2>
-            <ul class="list-group">
-              <li class="list-group-item">
-                <h3>Software Developer at ABC</h3>
-                <p><strong>ABC Company</strong> | Los Angeles, CA | January 2018 - Present</p>
-                <ul>
-                  <li>Develop and maintain Java-based web applications using Spring Framework</li>
-                  <li>Collaborate with cross-functional teams to design, develop, and implement new features</li>
-                  <li>Perform code reviews and provide constructive feedback to team members</li>
-                </ul>
-              </li>
-              <li class="list-group-item">
-                <h3>Software Engineer Intern at XYZ</h3>
-                <p><strong>XYZ Corporation</strong> | San Francisco, CA | May 2017 - August 2017</p>
-                <ul>
-                  <li>Assisted in the development of a React-based mobile app for a client project</li>
-                  <li>Worked closely with the design team to ensure app met client specifications</li>
-                  <li>Implemented automated testing to improve app reliability</li>
-                </ul>
-              </li>
-            </ul>
-          </section>      <section>
-            <h2>Education</h2>
-            <ul class="list-group">
-              <li class="list-group-item">
-                <h3>Bachelor of Science in Computer Science</h3>
-                <p><strong>University of California, Los Angeles (UCLA)</strong> | Los Angeles, CA | September 2014 - June 2018</p>
-              </li>
-            </ul>
-          </section>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
+    <div class="col-md-8">
+      <div class="profile-details">
+        <h1>{{ profile.user.get_full_name }}</h1>
+        <h2>{{ profile.job_status }}</h2>
+        <hr>
+        <div class="experience-section">
+          <h3>Experience</h3>
+          {% for experience in profile.experience_set.all %}
+          <div class="card mb-3">
             <div class="card-body">
-              <h5 class="card-title">Contact Information</h5>
-              <ul class="list-group">
-                <li class="list-group-item"><i class="bi bi-geo-alt"></i> Los Angeles, CA</li>
-                <li class="list-group-item"><i class="bi bi-envelope"></i> john.doe@gmail.com</li>
-                <li class="list-group-item"><i class="bi bi-linkedin"></i> linkedin.com/in/john-doe</li>
-                <li class="list-group-item"><i class="bi bi-twitter"></i> @johndoe</li>
-              </ul>
+              <h4 class="card-title">{{ experience.title }}</h4>
+              <h5 class="card-subtitle mb-2 text-muted">{{ experience.company }} - {{ experience.location }}</h5>
+              <p class="card-text">{{ experience.description }}</p>
             </div>
           </div>
+          {% endfor %}
+        </div>
+        <div class="education-section">
+          <h3>Education</h3>
+          {% for education in profile.education_set.all %}
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4 class="card-title">{{ education.degree }}</h4>
+              <h5 class="card-subtitle mb-2 text-muted">{{ education.institution }} - {{ education.location }}</h5>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="contact-section">
+          <h3>Contact</h3>
+          <ul class="list-unstyled">
+            {% if profile.address %}
+            <li><i class="fa fa-map-marker-alt"></i> {{ profile.address }}</li>
+            {% endif %}
+            {% if profile.email %}
+            <li><i class="fa fa-envelope"></i> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></li>
+            {% endif %}
+            {% if profile.linkedin %}
+            <li><i class="fa fa-linkedin"></i> <a href="{{ profile.linkedin }}">LinkedIn</a></li>
+            {% endif %}
+            {% if profile.twitter %}
+            <li><i class="fa fa-twitter"></i> <a href="{{ profile.twitter }}">Twitter</a></li>
+            {% endif %}
+          </ul>
         </div>
       </div>
     </div>
+  </div>
 </div>
+
 {% endblock content %}
