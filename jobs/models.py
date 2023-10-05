@@ -28,20 +28,16 @@ class Job(models.Model):
         ("Closed", "Closed"),
     )
     company_name = models.CharField(max_length=200, blank=False, null=False)
-    company_description = models.CharField(max_length=200, blank=True, null=True)
-    location = models.CharField(max_length=200, blank=True, null=True)
     job_title = models.CharField(max_length=200, blank=True, null=True)
     job_description = models.TextField(blank=False)
     pub_date = models.DateTimeField(default=timezone.now)
     budget = models.CharField(max_length=20, help_text="eg, 15-35 USD",null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    thumbnail = ProcessedImageField(upload_to='project_pics', format='JPEG', processors = [ResizeToFill(150,150)],
-                options={ 'quality': 100})
     categories = models.ManyToManyField(Category)
     requirements = models.ManyToManyField(Requirement)
 
     def __str__(self):
-        return self.title
+        return self.job_title
 
     def get_absolute_url(self):
         return reverse('job_detail', args=[self.pk])
