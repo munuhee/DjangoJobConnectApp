@@ -24,14 +24,18 @@ To install the application, follow these steps:
 * Home page
 ![home_page](https://github.com/munuhee/jobspeedyup/assets/51537638/c9bc9afd-dcc3-48ab-9ffd-d2747e464548)
 
-*login
+* login
 ![login](https://github.com/munuhee/jobspeedyup/assets/51537638/b794e55a-82df-41a1-8a01-852106070470)
 
-*Jobs listing
+* Jobs listing
 ![job_listing](https://github.com/munuhee/jobspeedyup/assets/51537638/38a40120-6be9-483e-8e87-a8f6f6e1a83c)
 
-*Job detail page
+* Job detail page
 ![job_detail](https://github.com/munuhee/jobspeedyup/assets/51537638/a1e9ba88-ce54-4bd7-a8cc-a496c6ce1127)
+
+* Pricing
+  ![pricing](https://github.com/munuhee/jobspeedyup/assets/51537638/7bcead68-d3ee-4921-b4c0-12f27e54ef6b)
+
 
 
 
