@@ -3,13 +3,11 @@
 <div class="container my-5">
     <div class="row">
       <div class="col-lg-8">
-        <h1>{{ j.title }}</h1>
-        <p class="lead">{{ j.company_name }} - {{ j.location }}</p>
+        <h3>{{ j.job_title }}</h3>
         <hr>
-        <h2>Job Description</h2>
         <p>{{ j.job_description }}</p>
         <hr>
-        <h2>Requirements</h2>
+        <h6>Requirements</h6>
         <ul>
           {% for requirement in j.requirements.all %}
           <li>{{ requirement }}</li>

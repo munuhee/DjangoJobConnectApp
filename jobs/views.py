@@ -93,7 +93,7 @@ class JobDetail(DetailView):
 @method_decorator(login_required, name='dispatch')
 class JobCreate(CreateView):
     model = Job
-    fields = ('title', 'jobscategory','description', 'budget', 'status')
+    fields = ('job_title', 'jobscategory','description', 'budget', 'status')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -105,7 +105,7 @@ class JobCreate(CreateView):
 @method_decorator(login_required, name='dispatch')
 class JobUpdate(UpdateView):
     model = Job
-    fields = ('title', 'jobscategory','description', 'budget', 'status')
+    fields = ('job_title', 'jobscategory','description', 'budget', 'status')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -177,7 +177,7 @@ class JobSearchListView(Home):
             query_list = query.split()
             result = result.filter(
                 reduce(operator.and_,
-                       (Q(title__icontains=q) for q in query_list)) |
+                       (Q(job_title__icontains=q) for q in query_list)) |
                 reduce(operator.and_,
                        (Q(overview__icontains=q) for q in query_list))
             )
