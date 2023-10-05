@@ -85,7 +85,7 @@ Twisted==22.10.0
 txaio==20.4.1
 typing_extensions==4.4.0
 tzdata==2022.7
-urllib3==1.25.10
+urllib3==1.26.17
 validators==0.18.1
 whitenoise==5.2.0
 zipp==3.4.0
