@@ -1,6 +1,6 @@
 asgiref==3.6.0
 attrs==20.2.0
-autobahn==20.7.1
+autobahn==20.12.3
 Automat==20.2.0
 boto3==1.16.47
 botocore==1.19.47
