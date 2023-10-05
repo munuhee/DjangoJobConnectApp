@@ -1,10 +1,41 @@
 # JobSpeedyUp
 
-This web application facilitates job postings, project sharing, and blogging for users, with pricing details outlined on the pricing page. It's constructed using Django, Bootstrap, JavaScript, CSS, and HTML, offering a user-friendly interface for efficient job posting, application, and secure payments. Job seekers can find opportunities, while employers can easily receive applications. A modern, responsive design ensures a seamless user experience."
+## Installation
 
-Step 1: Create a virtual environment<br>
-       <mark>pipenv shell</mark><br/>
-Step 2: <mark>pip install -r requirements.txt</mark><br/>
-Step 3: <mark>python manage.py makemigrations</mark><br/>
-Step 4: <mark>python manage.py migrate</mark><br/>
-Sep 5: <mark>python manage.py runserver</mark><br/>
+Before you can run the application, ensure you have the following prerequisites and dependencies:
+
+- Docker
+
+To install the application, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/munuhee/jobspeedyup.git
+   cd jobspeedyup
+   
+2. Run the setup.sh file (Builds the Docker container):
+
+    ```bash
+    bash bin/setup.sh
+
+## Screenshots
+
+* Home page
+![home_page](https://github.com/munuhee/jobspeedyup/assets/51537638/c9bc9afd-dcc3-48ab-9ffd-d2747e464548)
+
+* login
+![login](https://github.com/munuhee/jobspeedyup/assets/51537638/b794e55a-82df-41a1-8a01-852106070470)
+
+* Jobs listing
+![job_listing](https://github.com/munuhee/jobspeedyup/assets/51537638/38a40120-6be9-483e-8e87-a8f6f6e1a83c)
+
+* Job detail page
+![job_detail](https://github.com/munuhee/jobspeedyup/assets/51537638/a1e9ba88-ce54-4bd7-a8cc-a496c6ce1127)
+
+* Pricing
+  ![pricing](https://github.com/munuhee/jobspeedyup/assets/51537638/7bcead68-d3ee-4921-b4c0-12f27e54ef6b)
+
+
+
+
