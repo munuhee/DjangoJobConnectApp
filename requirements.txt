@@ -1,4 +1,4 @@
-﻿asgiref==3.6.0
+asgiref==3.6.0
 attrs==20.2.0
 autobahn==20.7.1
 Automat==20.2.0
@@ -10,7 +10,6 @@ cffi==1.15.1
 channels==4.0.0
 chardet==3.0.4
 constantly==15.1.0
-cryptography==3.1.1
 daphne==2.5.0
 decorator==4.4.2
 defusedxml==0.7.0rc1
@@ -60,6 +59,9 @@ paypal==1.2.5
 phonenumbers==8.12.11
 pilkit==2.0
 Pillow==9.4.0
+pyasn1==0.5.0
+pyasn1-modules==0.3.0
+pycparser==2.21
 PyJWT==2.0.0
 pyOpenSSL==19.1.0
 python-dateutil==2.8.1
@@ -75,9 +77,11 @@ service-identity==18.1.0
 simplejson==3.17.2
 six==1.15.0
 social-auth-app-django==5.0.0
+social-auth-core==4.4.2
 sqlparse==0.4.3
 swapper==1.1.2.post1
 timeago==1.0.15
+Twisted==22.4.0
 txaio==20.4.1
 typing_extensions==4.4.0
 tzdata==2022.7
