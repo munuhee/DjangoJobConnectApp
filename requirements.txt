@@ -10,7 +10,7 @@ cryptography==41.0.4
 decorator==5.1.1
 defusedxml==0.8.0rc2
 dj-database-url==1.2.0
-Django==4.1.5
+Django==4.2.6
 django-annoying==0.10.6
 django-appconf==1.0.5
 django-autoslug==1.9.9
@@ -70,10 +70,10 @@ simplejson==3.17.2
 six==1.15.0
 social-auth-app-django==5.0.0
 social-auth-core==4.4.2
-sqlparse==0.4.3
+sqlparse==0.4.4
 swapper==1.1.2.post1
 timeago==1.0.15
-typing_extensions==4.4.0
+typing_extensions==4.8.0
 tzdata==2023.3
 urllib3==1.26.17
 validators==0.22.0
