@@ -26,6 +26,3 @@ jobs:
 
     - name: Apply Migrations
       run: python3 manage.py migrate
-
-    - name: Run server
-      run: python3 manage.py runserver
