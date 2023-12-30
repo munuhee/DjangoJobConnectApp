@@ -3,81 +3,93 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.text import slugify
-from PIL import Image
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from autoslug import AutoSlugField
-from users.models import Profile
-from memberships.models import *
+from django.core.exceptions import ValidationError
+from django.db.models import Avg
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    """Model representing a category for posts."""
+    name = models.CharField(max_length=50, help_text='Enter a category name')
 
     def __str__(self):
         return self.name
 
 class Post(models.Model):
+    """Model representing a blog post."""
     title = models.CharField(max_length=100)
     overview = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE,related_name='author')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author')
     slug = AutoSlugField(unique=True, populate_from='title')
     last_rating = models.IntegerField(default=0)
-    image = ProcessedImageField(upload_to='project_pics', format='JPEG', processors = [ResizeToFill(360,200)],
-                options={ 'quality': 100})
-    categories = models.ManyToManyField(Category)
+    
+    def validate_image(image):
+        file_extension = image.name.split('.')[-1].lower()
+        if file_extension not in ['jpg', 'jpeg', 'png', 'gif']:
+            raise ValidationError("Unsupported file format")
+
+    image = ProcessedImageField(
+        upload_to='project_pics',
+        format='JPEG',
+        processors=[ResizeToFill(360, 200)],
+        options={'quality': 100},
+        validators=[validate_image]
+    )
+    
+    categories = models.ManyToManyField(Category, help_text='Select categories for this post')
+
     class Meta:
         verbose_name_plural = "All projects"
         ordering = ["date_posted"]
 
     def __str__(self):
-        return '%s' ' ' 'by' ' ' '%s'  ' ' '(%s)'  %(self.title,self.author, self.slug)
+        return f'{self.title} by {self.author} ({self.slug})'
 
     def get_absolute_url(self):
+        """Returns the absolute URL to access a detail record for this post."""
         return reverse('post-detail', kwargs={'slug': self.slug})
 
     @property
     def actual_rating(self):
-        list_of_stars = []
-        for star in range(self.last_rating):
-            list_of_stars.append(star)
-        return list_of_stars
+        """Generates a list representing the actual rating in stars."""
+        return list(range(self.last_rating))
 
     @property
     def calc_rating(self):
-        ratings = PostReview.objects.filter(post=self)
-        if ratings:
-            result = 0
-            for rating in ratings:
-                result += rating.rating
-            result = int(result / len(ratings))
-            return result
-        else:
-            return 0
+        """Calculates and returns the average rating of the post."""
+        average_rating = PostReview.objects.filter(post=self).aggregate(Avg('rating'))
+        return average_rating['rating__avg'] if average_rating['rating__avg'] else 0
 
     def save(self, *args, **kwargs):
+        """Overrides save method to auto-generate slug."""
         self.slug = slugify(self.title)
         super(Post, self).save(*args, **kwargs)
 
 class PostReview(models.Model):
+    """Model representing a review for a post."""
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='reviews')
+        Post, on_delete=models.CASCADE, related_name='reviews', help_text='Select a post to review')
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    rating = models.IntegerField()
-
+    RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]  # Rating scale from 1 to 5
+    rating = models.IntegerField(choices=RATING_CHOICES, help_text='Select a rating')
 
 class PostComment(models.Model):
+    """Model representing a comment on a post."""
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='comments')
+        Post, on_delete=models.CASCADE, related_name='comments', help_text='Select a post to comment on')
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    text = models.CharField(max_length=300)
+    text = models.CharField(max_length=300, help_text='Enter your comment')
 
 class Contact(models.Model):
-    name = models.CharField(max_length=100, blank=False, null=False)
-    email = models.CharField(max_length=100, blank=False, null=False)
-    message = models.TextField(max_length=100, blank=False, null=False)
+    """Model representing a contact form entry."""
+    name = models.CharField(max_length=100, help_text='Enter your name')
+    email = models.EmailField(max_length=100, help_text='Enter your email')
+    message = models.TextField(max_length=100, help_text='Enter your message')
     date_contacted = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
+        """Returns the absolute URL after a contact form entry is created."""
         return reverse('home')
