@@ -1,3 +1,0 @@
-Sitemap: http://www.murstefreelance.com/sitemaps
-User-agent:*
-Disallow: http://www.murstefreelance.com/password-reset/

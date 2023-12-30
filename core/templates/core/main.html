@@ -52,7 +52,7 @@
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
                     <li class="nav-item nav-button">
-                        <a class="nav-link btn btn-sm btn-outline-info br-5" href="{% url 'register' %}">Get started now</a>
+                        <a class="nav-link btn btn-sm btn-outline-info br-5" href="{% url 'users:register' %}">Get started now</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -64,7 +64,7 @@
 
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile-dropdown">
                         <li>
-                            <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                            <a class="dropdown-item" href="{% url 'users:profile' username=request.user.username %}">Profile</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>

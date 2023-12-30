@@ -1,59 +1,87 @@
-{% extends 'core/main.html' %}{% load static %} {% block title %}User Profile{% endblock %}{% block content %}
-<div class="container-fluid">
-  <div class="row justify-content-center align-items-center">
-    <div class="col-md-4">
-      <div class="profile-image">
-        <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="img-fluid">
+{% extends 'core/main.html' %}
+{% load static %}
+{% block title %}User Profile{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <h1>User Profile</h1>
+
+  <div class="row">
+    <!-- Profile Information -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          {% if user_profile %}
+          <h5 class="card-title">Profile Information</h5>
+          <p><strong>Username:</strong> {{ user_profile.user.username }}</p>
+          <p><strong>Job status:</strong> {{ user_profile.job_status }}</p>
+          {% endif %}
+        </div>
+        {% if is_own_profile %}
+        <div class="card-footer text-right">
+          <a href="{% url 'users:profile_edit' username=request.user.username %}" class="btn btn-primary">
+            <i class="fa fa-user-edit mr-2"></i> Edit Profile
+          </a>
+        </div>
+        {% endif %}
       </div>
     </div>
-    <div class="col-md-8">
-      <div class="profile-details">
-        <h1>{{ profile.user.get_full_name }}</h1>
-        <h2>{{ profile.job_status }}</h2>
-        <hr>
-        <div class="experience-section">
-          <h3>Experience</h3>
-          {% for experience in profile.experience_set.all %}
-          <div class="card mb-3">
-            <div class="card-body">
-              <h4 class="card-title">{{ experience.title }}</h4>
-              <h5 class="card-subtitle mb-2 text-muted">{{ experience.company }} - {{ experience.location }}</h5>
-              <p class="card-text">{{ experience.description }}</p>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        <div class="education-section">
-          <h3>Education</h3>
-          {% for education in profile.education_set.all %}
-          <div class="card mb-3">
-            <div class="card-body">
-              <h4 class="card-title">{{ education.degree }}</h4>
-              <h5 class="card-subtitle mb-2 text-muted">{{ education.institution }} - {{ education.location }}</h5>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        <div class="contact-section">
-          <h3>Contact</h3>
-          <ul class="list-unstyled">
-            {% if profile.address %}
-            <li><i class="fa fa-map-marker-alt"></i> {{ profile.address }}</li>
-            {% endif %}
-            {% if profile.email %}
-            <li><i class="fa fa-envelope"></i> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></li>
-            {% endif %}
-            {% if profile.linkedin %}
-            <li><i class="fa fa-linkedin"></i> <a href="{{ profile.linkedin }}">LinkedIn</a></li>
-            {% endif %}
-            {% if profile.twitter %}
-            <li><i class="fa fa-twitter"></i> <a href="{{ profile.twitter }}">Twitter</a></li>
-            {% endif %}
+
+    <!-- Experiences -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          {% if experiences %}
+          <h5 class="card-title">Experiences</h5>
+          <ul class="list-group">
+            {% for experience in experiences %}
+            <li class="list-group-item">
+              <i class="fa fa-briefcase mr-2"></i><strong> {{ experience.title }}</strong> at {{ experience.company }}
+            </li>
+            {% endfor %}
           </ul>
+          {% else %}
+          <p class="text-muted">No experiences available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Education -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          {% if educations %}
+          <h5 class="card-title">Education</h5>
+          {% for education in educations %}
+          <p><i class="fa fa-graduation-cap mr-2"></i><strong> Degree:</strong> {{ education.degree }}</p>
+          <p><i class="fa fa-university mr-2"></i><strong> Institution:</strong> {{ education.institution }}</p>
+          <!-- Add more education fields as needed -->
+          {% endfor %}
+          {% else %}
+          <p class="text-muted">No education information available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          {% if contact_info %}
+          <h5 class="card-title">Contact Information</h5>
+          <p><i class="fa fa-envelope mr-2"></i><strong> Email:</strong> {{ contact_info.email }}</p>
+          <p><i class="fa fa-linkedin mr-2"></i><strong> LinkedIn:</strong> {{ contact_info.linkedin }}</p>
+          <p><i class="fa fa-twitter mr-2"></i><strong> Twitter:</strong> {{ contact_info.twitter }}</p>
+          <!-- Add more contact details as needed -->
+          {% else %}
+          <p class="text-muted">No contact information available.</p>
+          {% endif %}
         </div>
       </div>
     </div>
   </div>
 </div>
-
 {% endblock content %}

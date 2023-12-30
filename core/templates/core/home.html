@@ -1,12 +1,19 @@
-{% extends "core/main.html" %}{% load static %}{% load humanize %}
-    {% block content %}
-<section class="py-5 text-center bg-light">
-    <div class="container">
-      <h1 class="display-4 fw-bold">Find Your Next Opportunity</h1>
-      <p class="lead mb-4">JobSpeedyUp is a powerful web application that provides a convenient platform for job seekers and employers to connect and exchange opportunities.</p>
-      <a href="{% url 'jobs' %}" class="btn btn-info">Browse Jobs</a>
+{% extends "core/main.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<section class="jumbotron jumbotron-fluid text-white text-center bg-dark py-5 mb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h1 class="display-4 fw-bold">Find Your Next Opportunity</h1>
+        <p class="lead mb-4">JobSpeedyUp is a powerful web application that provides a convenient platform for job seekers and employers to connect and exchange opportunities.</p>
+        <a href="{% url 'jobs' %}" class="btn btn-info btn-lg">Browse Jobs</a>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Features Section -->
   <section class="py-5">
@@ -32,14 +39,16 @@
           <div class="card mb-4">
             <div class="card-body">
               <h3 class="card-title">Post Projects and Blogs</h3>
-              <p class="card-text">The platform also allows usersto post their projects and blogs for a fee, as detailed in the pricing page. With JobSpeedyUp, users can showcase their skills and creativity by posting their own projects and blogs. Our payment system is integrated to allow for easy and secure payments when users are posting their projects or blogs. </p>
+              <p class="card-text">The platform also allows users to post their projects and blogs for a fee, as detailed in the pricing page. With JobSpeedyUp, users can showcase their skills and creativity by posting their own projects and blogs. Our payment system is integrated to allow for easy and secure payments when users are posting their projects or blogs.</p>
               <a href="{% url 'plan' %}" class="btn btn-info">View Pricing</a>
-              </div>
             </div>
           </div>
+        </div>
       </div>
-  </div>
+    </div>
   </section>
+
+  <!-- Services Section -->
   <section id="services" class="services section-bg">
     <div class="container">
       <div class="section-title">
@@ -79,85 +88,29 @@
             <p class="description">Our payment system is integrated to allow for easy and secure payments when users are posting their projects or blogs.</p>
           </div>
         </div>
-
       </div>
-
     </div>
   </section>
 
+  <!-- Call To Action Section -->
   <section id="cta" class="cta">
     <div class="container">
-
       <div class="row">
         <div class="col-lg-9 text-center text-lg-start">
           <h3>Start your journey with us now</h3>
           <p>Join the JobSpeedyUp community and start exploring a world of opportunities.</p>
         </div>
         <div class="col-lg-3 cta-btn-container text-center">
-          <a class="cta-btn align-middle" href="{% url 'register' %}">Join Now</a>
+          <a class="cta-btn btn btn-primary btn-lg align-middle" href="{% url 'users:register' %}">Join Now</a>
         </div>
       </div>
     </div>
-</section>
-<!-- End About Section -->
-<!-- ======= Services Section ======= -->
-<section id="services" class="services">
-  <div class="container">
-    <div class="section-title">
-        <h2>Services</h2>
-        <p>We offer a wide range of services to our users</p>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-pencil"></i></div>
-            <h4 class="title"><a href="">Post Jobs</a></h4>
-            <p class="description">Easily post job opportunities and receive applications from other users.</p>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-folder"></i></div>
-            <h4 class="title"><a href="">Post Projects</a></h4>
-            <p class="description">Post your projects and get paid for your work.</p>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-book"></i></div>
-            <h4 class="title"><a href="">Post Blogs</a></h4>
-            <p class="description">Share your thoughts and ideas with the community and earn money for your content.</p>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-credit-card"></i></div>
-            <h4 class="title"><a href="">Payment System</a></h4>
-            <p class="description">Secure and easy payment system to post your projects and blogs for a fee.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-</section>
-<!-- End Services Section -->
-<!-- ======= Call To Action Section ======= -->
-<section id="cta" class="cta">
-  <div class="container">
-    <div class="row">
-        <div class="col-lg-9 text-center text-lg-start">
-          <h3>Start your journey with us now</h3>
-          <p>Join the JobSpeedyUp community and start exploring a world of opportunities.</p>
-        </div>
-        <div class="col-lg-3 cta-btn-container text-center">
-          <a class="cta-btn align-middle" href="{% url 'register' %}">Join Now</a>
-        </div>
-      </div>
-    </div>
-</section>
-<!-- End Call To Action Section -->
+  </section>
+  <script>
+    // Animate the banner elements on page load
+    document.addEventListener("DOMContentLoaded", function() {
+      const banner = document.querySelector('.jumbotron');
+      banner.classList.add('fade-in-up');
+    });
+  </script>
 {% endblock content %}

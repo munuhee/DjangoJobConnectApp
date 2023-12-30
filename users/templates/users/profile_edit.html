@@ -1,0 +1,46 @@
+{% extends 'core/main.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Profile Edit{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">Edit Profile</div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {{ profile_form|crispy }}
+                        </div>
+                        <div class="mb-3">
+                            {{ experience_form|crispy }}
+                        </div>
+                        <div class="mb-3">
+                            {{ education_form|crispy }}
+                        </div>
+                        <div class="mb-3">
+                            {{ contact_form|crispy }}
+                        </div>
+                        <div class="row justify-content-end">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    <i class="fa fa-save mr-2"></i> Save Changes
+                                </button>
+                            </div>
+                            <div class="col-md-6 mt-2 mt-md-0">
+                                <a href="{% url 'users:profile' username=user_profile.user.username %}" class="btn btn-secondary btn-block">
+                                    <i class="fa fa-arrow-left mr-2"></i> Back to Profile
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
