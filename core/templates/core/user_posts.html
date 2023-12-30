@@ -130,11 +130,11 @@
                                     </p>
                                 </div>
                                 <p style="min-height: 19px; ">
-                                    <strong><a class=" " href="{% url 'post-detail' post.slug %} ">{{post.title}}</a></strong>
+                                    <strong><a class=" " href="{% url 'core:post-detail' post.slug %} ">{{post.title}}</a></strong>
                                 </p>
                             </header>
                             <p class="card_text">{{post.overview}}</p>
-                            <a class="btnr card_btn" href="{% url 'post-detail' post.slug %} ">Read More</a>
+                            <a class="btnr card_btn" href="{% url 'core:post-detail' post.slug %} ">Read More</a>
                         </div>
                     </div>
                 </li>
