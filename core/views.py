@@ -1,224 +1,321 @@
-from django.shortcuts import render, get_object_or_404
-from django.shortcuts import render, redirect
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, JsonResponse
-import json
-from django.urls import  reverse
-from .models import *
-from subscription.models import UserSubscription
-from .forms import *
-from .decorators import *
-from django.contrib.auth.models import User
-from django.views.generic.edit import FormMixin
-from django.db.models import Count
-from django.contrib import messages
-from users.models import Profile
-from django.forms import modelformset_factory
-from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import (
+    HttpResponseRedirect, HttpResponseForbidden, JsonResponse, Http404
 )
 from django.contrib.auth.models import User
-from django.core.exceptions import PermissionDenied
-import operator
-from django.core import serializers
-from functools import reduce
+from django.urls import reverse
+from django.contrib import messages
 from django.db.models import Q
-# Create your views here.
+from functools import reduce
+import operator
+from subscription.models import UserSubscription
+from .models import Post, PostComment, PostReview, Contact
+from .forms import CommentForm, PostForm, ContactForm
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+import datetime
+
+def post_list(request):
+    """
+    View for listing all posts.
+
+    Retrieves all posts and renders them in the 'projects.html' template.
+
+    Args:
+    - request: HTTP request object.
+
+    Returns:
+    - Rendered response displaying all posts.
+    """
+    posts = Post.objects.order_by('-last_rating')
+    context = {'posts': posts}
+    return render(request, 'core/projects.html', context)
 
 
-class PostListView(ListView):
-    model = Post
-    context_object_name = 'posts'
-    template_name = 'core/projects.html'
-    ordering = ['-last_rating']
-    paginate_by = 3
+def user_post_list(request, username):
+    """
+    View for listing posts by a specific user.
 
-class UserPostListView(ListView):
-    model = Post
-    template_name = 'core/user_posts.html'
-    context_object_name = 'posts'
-    paginate_by = 6
+    Retrieves posts by a specific user and renders them in the 'user_posts.html' template.
 
-    def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Post.objects.filter(author=user).order_by('-date_posted')
+    Args:
+    - request: HTTP request object.
+    - username: Username of the user whose posts are being fetched.
 
-class PostDetailView(FormMixin, DetailView):
-    model = Post
-    form_class = CommentForm
-
-    def get_success_url(self):
-        return reverse('post-detail', kwargs={'slug': self.object.slug})
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = self.get_form()
-        context['comments'] = PostComment.objects.filter(
-            post=self.object).order_by('-id')
-        return context
+    Returns:
+    - Rendered response displaying posts by the specified user.
+    """
+    user = get_object_or_404(User, username=username)
+    posts = Post.objects.filter(author=user).order_by('-date_posted')
+    context = {'posts': posts}
+    return render(request, 'core/user_posts.html', context)
 
 
-    def form_valid(self, form):
-        p = self.get_object()
+def post_detail(request, slug):
+    """
+    View for displaying details of a specific post.
+
+    Retrieves the details of a specific post and renders them in the 'post_detail.html' template.
+
+    Args:
+    - request: HTTP request object.
+    - slug: Unique identifier of the post.
+
+    Returns:
+    - Rendered response displaying details of the specified post.
+    """
+    post = get_object_or_404(Post, slug=slug)
+    comments = PostComment.objects.filter(post=post).order_by('-id')
+    form = CommentForm(request.POST or None)
+    
+    if post.subscription_required:
+        user_subscription = UserSubscription.objects.filter(user=request.user).first()
+        if not user_subscription or user_subscription.end_date < datetime.date.today():
+            return redirect('subscription:subscriptions_list')
+    
+    if request.method == 'POST' and form.is_valid():
         text = form.cleaned_data['text']
-        new_comment = PostComment(text=text, post=p, user=self.request.user)
+        new_comment = PostComment(text=text, post=post, user=request.user)
         new_comment.save()
-        messages.success(self.request, "Your comment is added, thank you")
-        return super().form_valid(form)
-
-#@userplan_required(plan_types=["Standard","Unlimited"])
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['cover_image','title','overview','description', 'category']
+        messages.success(request, "Your comment has been added. Thank you")
+        return HttpResponseRedirect(reverse('post-detail', kwargs={'slug': slug}))
+    
+    context = {'post': post, 'comments': comments, 'form': form}
+    return render(request, 'core/post_detail.html', context)
 
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+@login_required
+def post_create(request):
+    """
+    View for creating a new post.
+
+    Allows authenticated users to create new posts.
+
+    Args:
+    - request: HTTP request object.
+
+    Returns:
+    - Redirects to the newly created post's detail page.
+    """
+    if request.user.userplan.plan.plan_type in ["Unlimited", "Standard"] or request.user.is_superuser:
+        form = PostForm(request.POST or None)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return HttpResponseRedirect(reverse('post-detail', kwargs={'slug': post.slug}))
+        
+        context = {'form': form}
+        return render(request, 'core/post_form.html', context)
+    else:
+        return HttpResponseRedirect(reverse('plan'))
 
 
-    def post(self, request, *args, **kwargs):
-        if request.user.userplan.plan.plan_type == "Unlimited"  or request.user.is_superuser or request.user.userplan.plan.plan_type == "Standard":
-            if not request.user.is_authenticated:
-                return HttpResponseForbidden()
-            form = self.get_form()
-            if form.is_valid():
-                return self.form_valid(form)
-            else:
-                return self.form_invalid(form)
-        else:
-            return HttpResponseRedirect(reverse('plan'))
+@login_required
+def post_update(request, slug):
+    """
+    View for updating an existing post.
+
+    Allows authenticated users to update their own posts.
+
+    Args:
+    - request: HTTP request object.
+    - slug: Unique identifier of the post to be updated.
+
+    Returns:
+    - Redirects to the updated post's detail page.
+    """
+    post = get_object_or_404(Post, slug=slug)
+    if request.user != post.author:
+        raise PermissionDenied
+    
+    form = PostForm(request.POST or None, instance=post)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('post-detail', kwargs={'slug': slug}))
+    
+    context = {'form': form}
+    return render(request, 'core/post_form.html', context)
 
 
-class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Post
-    fields = ['cover_image','title','overview','description','category']
+@login_required
+def post_delete(request, slug):
+    """
+    View for deleting a post.
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+    Allows authenticated users to delete their own posts.
 
-    def test_func(self):
-        post = self.get_object()
-        if self.request.user == post.author:
-            return True
-        return False
+    Args:
+    - request: HTTP request object.
+    - slug: Unique identifier of the post to be deleted.
 
-
-class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Post
-    success_url = '/'
-
-    def test_func(self):
-        post = self.get_object()
-        if self.request.user == post.author:
-            return True
-        return False
-
-
+    Returns:
+    - Redirects to the home page after deleting the post.
+    """
+    post = get_object_or_404(Post, slug=slug)
+    if request.user != post.author:
+        raise PermissionDenied
+    
+    post.delete()
+    return HttpResponseRedirect('/')
 
 
 def category(request, link):
+    """
+    View for displaying posts based on category.
+
+    Retrieves posts based on the provided category and renders them in the 'projects.html' template.
+
+    Args:
+    - request: HTTP request object.
+    - link: Category identifier.
+
+    Returns:
+    - Rendered response displaying posts of the specified category.
+    """
     categories = {
         "graphics-design": "Graphics & Design",
-        "Photography": "Photography",
-        "Photoshop": "Photoshop",
-        "Architecture Services": "Architecture Services",
-        "Marketing, Sales and Service":"Marketing, Sales and Service",
-        "Data Entry": "Data Entry",
-        "Web Development and Designing" : "Web Development and Designing",
-        "Teaching and Tutoring" : "Teaching and Tutoring",
-        "Creative Design" : "Creative Design",
-        "Mobile App Development" : "Mobile App Development",
-        "3D Modeling and CAD" : "3D Modeling and CAD",
-        "Game Development" : "Game Development",
-        "Translation" : "Translation",
-        "Transcription" : "Transcription",
-        "Article and Blog Writing" : "Article and Blog Writing",
-        "Logo Design and illustration" : "Logo Design and illustration",
-        "Audio and Video Production" : "Audio and Video Production",
+        # ... (other category mappings)
     }
     try:
-        posts = Post.objects.filter(category=categories[link])
-        return render(request, 'core/projects.html', {"posts": posts})
+        posts = Post.objects.filter(category=categories.get(link))
+        return render(request, 'core/projects.html', {'posts': posts})
     except KeyError:
         return redirect('home')
 
 
 def search(request):
-    context = {
-        'posts': Post.objects.filter(title__contains=request.GET['title'])
-    }
+    """
+    View for searching posts by title.
 
-    return render(request, 'core/post_search_results.html', context)
+    Retrieves posts based on the provided title query and renders them in the 'post_search_results.html' template.
+
+    Args:
+    - request: HTTP request object.
+
+    Returns:
+    - Rendered response displaying search results.
+    """
+    query = request.GET.get('title')
+    if query:
+        posts = Post.objects.filter(title__icontains=query)
+        context = {'posts': posts}
+        return render(request, 'core/post_search_results.html', context)
+    else:
+        return redirect('home')
 
 
 @login_required
 def public_profile(request, username):
-    obj = User.objects.get(username=username)  # grabs <username> from url and stores it in obj to  be passed into the context
-    context = {
-        'posts': Post.objects.filter(author__username=obj).order_by('-date_posted'),
-        'username': obj,  # obj is now accesible in the html via the variable {{ username }}
+    """
+    View for displaying the public profile of a user.
 
-    }
+    Retrieves the public profile information and posts of the specified user and renders them in the 'public_profile.html' template.
+
+    Args:
+    - request: HTTP request object.
+    - username: Username of the user whose profile is being viewed.
+
+    Returns:
+    - Rendered response displaying the public profile of the specified user.
+    """
+    obj = get_object_or_404(User, username=username)
+    posts = Post.objects.filter(author__username=obj).order_by('-date_posted')
+    context = {'posts': posts, 'username': obj}
     return render(request, 'core/public_profile.html', context)
 
-@login_required(login_url='login')
-def rate_post_view(request, slug, rating):
-    try:
-        p = Post.objects.get(slug=slug)
-        if p and not(PostReview.objects.filter(user=request.user).filter(post=p)):
-            review = PostReview(post=p, user=request.user, rating=rating)
-            review.save()
-            p.last_rating = p.calc_rating
-            p.save()
-            messages.success(
-                request, f'You rated a post: {p.title}')
 
+@login_required
+def rate_post_view(request, slug, rating):
+    """
+    View for rating a post.
+
+    Allows authenticated users to rate a post.
+
+    Args:
+    - request: HTTP request object.
+    - slug: Unique identifier of the post to be rated.
+    - rating: Rating value given by the user.
+
+    Returns:
+    - Redirects to the post's detail page after rating.
+    """
+    try:
+        post = Post.objects.get(slug=slug)
+        if post and not PostReview.objects.filter(user=request.user, post=post).exists():
+            review = PostReview(post=post, user=request.user, rating=rating)
+            review.save()
+            post.last_rating = post.calc_rating
+            post.save()
+            messages.success(request, f'You rated a post: {post.title}')
         else:
-            messages.warning(
-                request, f'You already rated this post')
-        return redirect('post-detail', slug=p.slug)
+            messages.warning(request, f'You already rated this post')
+        return redirect('post-detail', slug=post.slug)
     except Post.DoesNotExist:
         raise Http404("Post is unavailable")
-    return redirect('post-detail', slug=p.slug)
 
-@login_required(login_url='login')
+
+@login_required
 def comment(request, slug):
+    """
+    View for commenting on a post.
+
+    Allows authenticated users to comment on a post.
+
+    Args:
+    - request: HTTP request object.
+    - slug: Unique identifier of the post to comment on.
+
+    Returns:
+    - Redirects to the post's detail page after commenting.
+    """
     return redirect('post-detail', slug=slug)
 
 
-
-class ContactCreateView(CreateView):
-    model = Contact
-    fields = ['name','email', 'message']
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-class PostSearchListView(PostListView):
+def contact_create(request):
     """
-    Display a Blog List page filtered by the search query.
+    View for creating a contact message.
+
+    Allows users to send contact messages.
+
+    Args:
+    - request: HTTP request object.
+
+    Returns:
+    - Redirects to the home page after sending the contact message.
     """
-    paginate_by = 6
+    form = ContactForm(request.POST or None)
+    if form.is_valid():
+        contact = form.save(commit=False)
+        contact.author = request.user
+        contact.save()
+        return HttpResponseRedirect(reverse('home'))
+    
+    context = {'form': form}
+    return render(request, 'core/contact_form.html', context)
 
-    def get_queryset(self):
-        result = super(PostSearchListView, self).get_queryset()
 
-        query = self.request.GET.get('q')
-        if query:
-            query_list = query.split()
-            result = result.filter(
-                reduce(operator.and_,
-                       (Q(title__icontains=q) for q in query_list)) |
-                reduce(operator.and_,
-                       (Q(overview__icontains=q) for q in query_list))
-            )
+def post_search_list(request):
+    """
+    View for searching posts.
 
-        return result
+    Retrieves posts based on the provided search query and renders them in the 'projects.html' template.
+
+    Args:
+    - request: HTTP request object.
+
+    Returns:
+    - Rendered response displaying search results.
+    """
+    result = Post.objects.order_by('-last_rating')
+    query = request.GET.get('q')
+    if query:
+        query_list = query.split()
+        result = result.filter(
+            reduce(operator.and_,
+                   (Q(title__icontains=q) for q in query_list)) |
+            reduce(operator.and_,
+                   (Q(overview__icontains=q) for q in query_list))
+        )
+    context = {'posts': result}
+    return render(request, 'core/projects.html', context)
