@@ -6,8 +6,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 import json
 from django.urls import  reverse
 from .models import *
-from memberships.models import *
-from memberships.views import *
+from subscription.models import UserSubscription
 from .forms import *
 from .decorators import *
 from django.contrib.auth.models import User

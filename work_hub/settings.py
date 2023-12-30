@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
     'directmessages.apps.DirectmessagesConfig',
-    'memberships.apps.MembershipsConfig',
+    'subscription.apps.SubscriptionConfig',
 
     'notifications',
     'crispy_forms',
