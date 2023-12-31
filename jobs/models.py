@@ -31,7 +31,7 @@ class Job(models.Model):
     job_title = models.CharField(max_length=200, blank=True, null=True)
     job_description = models.TextField(blank=False)
     pub_date = models.DateTimeField(default=timezone.now)
-    budget = models.CharField(max_length=20, help_text="eg, 15-35 USD",null=True, blank=True)
+    budget = models.CharField(max_length=100, help_text="eg, 15-35 USD",null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category)
     requirements = models.ManyToManyField(Requirement)
