@@ -1,3 +1,14 @@
+"""
+Module containing Django models for job-related functionality.
+
+This module defines the following Django models:
+- Category: Represents a job category.
+- Requirement: Represents a job requirement.
+- Job: Represents a job post.
+- Application: Represents a job application.
+
+Each model has specific fields and methods related to job management.
+"""
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -14,7 +25,7 @@ from notifications.signals import notify
 class Category(models.Model):
     """A model representing a job category."""
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         """Return the string representation of the category."""
@@ -24,7 +35,7 @@ class Category(models.Model):
 class Requirement(models.Model):
     """A model representing a job requirement."""
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         """Return the string representation of the requirement."""
