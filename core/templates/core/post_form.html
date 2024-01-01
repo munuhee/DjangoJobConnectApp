@@ -2,6 +2,7 @@
 <div class="pt-5"></div>
 <div class="container pt-5" style="font-family: 'Mukta', sans-serif!important;">
     <div class="content-section">
+        {{ form.media }}
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <section class="section-bg" id="plans">
@@ -19,4 +20,6 @@
         </form>
     </div>
 </div>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 {% endblock content %}{% block footer %} {% endblock footer %}

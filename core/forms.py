@@ -1,4 +1,5 @@
 from django import forms
+from ckeditor.widgets import CKEditorWidget
 from .models import Category, Post, PostReview, PostComment, Contact
 
 class CategoryForm(forms.ModelForm):
@@ -9,9 +10,10 @@ class CategoryForm(forms.ModelForm):
 
 class PostForm(forms.ModelForm):
     """Form for creating or updating a Post instance."""
+    main_description = forms.CharField(widget=CKEditorWidget())
     class Meta:
         model = Post
-        fields = ['title', 'overview', 'description', 'image', 'categories']
+        fields = ['title', 'short_description', 'main_description', 'categories']
 
 class ReviewForm(forms.ModelForm):
     """Form for creating or updating a PostReview instance."""

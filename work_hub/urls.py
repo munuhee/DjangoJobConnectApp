@@ -15,6 +15,7 @@ urlpatterns = [
     path('messages/', include('directmessages.urls')),
     path('subscription/', include('subscription.urls')),
     path('projects/', include('core.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('sitemap_manager.urls')),
     path('jobs/', include('jobs.urls')),
     path('account/', include('users.urls')),

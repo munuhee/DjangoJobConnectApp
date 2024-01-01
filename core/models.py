@@ -3,11 +3,10 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.text import slugify
-from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFill
-from autoslug import AutoSlugField
 from django.core.exceptions import ValidationError
 from django.db.models import Avg
+from ckeditor_uploader.fields import RichTextUploadingField
+from autoslug import AutoSlugField
 
 class Category(models.Model):
     """Model representing a category for posts."""
@@ -19,26 +18,12 @@ class Category(models.Model):
 class Post(models.Model):
     """Model representing a blog post."""
     title = models.CharField(max_length=100)
-    overview = models.CharField(max_length=100, blank=True, null=True)
-    description = models.TextField()
+    short_description = models.CharField(max_length=150, blank=True, null=True)
+    main_description = RichTextUploadingField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author')
     slug = AutoSlugField(unique=True, populate_from='title')
     last_rating = models.IntegerField(default=0)
-    
-    def validate_image(image):
-        file_extension = image.name.split('.')[-1].lower()
-        if file_extension not in ['jpg', 'jpeg', 'png', 'gif']:
-            raise ValidationError("Unsupported file format")
-
-    image = ProcessedImageField(
-        upload_to='project_pics',
-        format='JPEG',
-        processors=[ResizeToFill(360, 200)],
-        options={'quality': 100},
-        validators=[validate_image]
-    )
-    
     categories = models.ManyToManyField(Category, help_text='Select categories for this post')
 
     class Meta:

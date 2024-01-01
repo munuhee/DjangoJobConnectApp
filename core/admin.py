@@ -1,17 +1,22 @@
 from django.contrib import admin
-from .models import Post, Contact, Category
+from .models import Category, Post, PostReview, PostComment, Contact
 
-class PostAdmin(admin.ModelAdmin):
-    fields = ('title', 'overview', 'author', 'description', 'date_posted',
-              'category', 'image')
-    list_display = ('title', 'author', 'slug', 'date_posted')
-    search_fields = ['title']
-admin.site.register(Post, PostAdmin)
-
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'date_contacted', 'message')
-admin.site.register(Contact, ContactAdmin)
-
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
-admin.site.register(Category, CategoryAdmin)
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'date_posted', 'last_rating', 'calc_rating')
+
+@admin.register(PostReview)
+class PostReviewAdmin(admin.ModelAdmin):
+    list_display = ('post', 'user', 'rating')
+
+@admin.register(PostComment)
+class PostCommentAdmin(admin.ModelAdmin):
+    list_display = ('post', 'user', 'text')
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'date_contacted')
