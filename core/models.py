@@ -8,9 +8,9 @@ from django.db.models import Avg
 from ckeditor_uploader.fields import RichTextUploadingField
 from autoslug import AutoSlugField
 
-class Category(models.Model):
-    """Model representing a category for posts."""
-    name = models.CharField(max_length=50, help_text='Enter a category name')
+class Topic(models.Model):
+    """Model representing a Topic for posts."""
+    name = models.CharField(max_length=50, help_text='Enter a Topic name')
 
     def __str__(self):
         return self.name
@@ -19,12 +19,13 @@ class Post(models.Model):
     """Model representing a blog post."""
     title = models.CharField(max_length=100)
     short_description = models.CharField(max_length=150, blank=True, null=True)
-    main_description = RichTextUploadingField()
+    main_content = RichTextUploadingField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author')
     slug = AutoSlugField(unique=True, populate_from='title')
     last_rating = models.IntegerField(default=0)
-    categories = models.ManyToManyField(Category, help_text='Select categories for this post')
+    topics = models.ManyToManyField(Topic, help_text='Select categories for this post')
+    subscription_required = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "All projects"

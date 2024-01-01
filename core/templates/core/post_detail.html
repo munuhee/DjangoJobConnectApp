@@ -1,38 +1,80 @@
-{% extends "core/main.html" %} {% load static %}{% block title %}Post Detail{%endblock title%}
+{% extends "core/main.html" %}
+{% load static %}
+
+{% block title %}Blog Post Detail{% endblock title %}
+
 {% block content %}
-<div class="container">
+<div class="container mt-4">
   <div class="row">
+    <div class="mb-8">
+      <nav class="text-sm font-semibold">
+          <a href="{% url 'home' %}" class="hover:text-gray-500">Home</a> /
+          <a href="{% url 'core:post-list' %}" class="hover:text-gray-500">Blog</a> /
+          <span class="text-gray-500">{{post.title}}</span>
+      </nav>
+    </div>
     <div class="col-md-8">
-      <h2>{{ post.title }}</h2>
-      <hr>
-      {% if post.image %}
-      <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid mb-3">
-      {% endif %}
-      <p class="text-muted">{{ post.date_posted }}</p>
-      <p>{{ post.description }}</p>
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="card-title mb-3">{{ post.title }}</h2>
+          <hr>
+          <p class="card-text text-muted mb-3">{{ post.date_posted }}</p>
+          <p class="card-text">{{ post.main_content|safe }}</p>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
-      <div class="card">
-        <div class="card-header">
-          Categories
-        </div>
-        <ul class="list-group list-group-flush">
-          {% for category in post.category.all %}
-          <li class="list-group-item">{{ category.name }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="card mt-3">
-        <div class="card-header">
-          Author
+      <div class="card mb-4 shadow">
+        <div class="card-header bg-primary text-white">
+          <i class="fas fa-info-circle"></i> Blog Details
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{ post.author }}</h5>
-          <p class="card-text">{{ post.author.description }}</p>
+          <div class="mb-3">
+            <p class="text-muted"><i class="fas fa-tags"></i> Topics:</p>
+            {% if topics %}
+              <div class="d-flex flex-wrap">
+                {% for topic in topics %}
+                  <span class="badge badge-info mr-2 mb-2">{{topic.name}}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              <p>No topics</p>
+            {% endif %}
+          </div>
+          <div class="text-center mt-3">
+            <p class="text-muted mb-0">Share via:</p>
+            <a href="#" class="btn btn-sm btn-outline-secondary">
+              <i class="fab fa-twitter"></i> Twitter
+            </a>
+            <a href="#" class="btn btn-sm btn-outline-primary">
+              <i class="fab fa-facebook-f"></i> Facebook
+            </a>
+            <a href="#" class="btn btn-sm btn-outline-danger">
+              <i class="fab fa-pinterest"></i> Pinterest
+            </a>
+          </div>
         </div>
       </div>
+      <div class="card shadow">
+        <div class="card-header bg-info text-white d-flex align-items-center">
+          <i class="fas fa-users-cog mr-2"></i> Author
+        </div>
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <img src="{{ post.author.profile.profile_image.url }}" alt="Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px;">
+          </div>
+          <div>
+            <h5 class="mb-3 text-center">HEY, I’M {{ post.author }}!</h5>
+            <p class="card-text text-muted text-center">
+              {{ post.author.profile.bio }}
+            </p>
+            <div class="text-center">
+              <a href="#" class="btn btn-sm btn-outline-primary">More about me</a>
+            </div>
+          </div>
+        </div>
+      </div>      
     </div>
   </div>
 </div>
 {% endblock %}
-

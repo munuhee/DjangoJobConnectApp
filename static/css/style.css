@@ -10,3 +10,61 @@
       transform: translateY(0);
     }
   }
+
+/*Rating badge*/
+.rating {
+  display: inline-block;
+  font-family: Arial, sans-serif;
+}
+
+.badge {
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.badge i {
+  margin-right: 5px;
+}
+
+/*Footer*/
+/* Footer Styles */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 30px 0;
+  box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.social-icons {
+  font-size: 28px;
+}
+
+.social-icons a {
+  color: white;
+  margin-right: 15px;
+  transition: color 0.3s ease-in-out;
+}
+
+.social-icons a:hover {
+  color: #ffc107;
+  text-decoration: none;
+}
+
+.footer-text {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.footer-text a {
+  color: #ffc107;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.footer-text a:hover {
+  color: white;
+  text-decoration: underline;
+}

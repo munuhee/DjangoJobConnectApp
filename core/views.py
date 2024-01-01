@@ -13,13 +13,15 @@ from .models import Post, PostComment, PostReview, Contact
 from .forms import CommentForm, PostForm, ContactForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
+
 
 def post_list(request):
     """
     View for listing all posts.
 
-    Retrieves all posts and renders them in the 'projects.html' template.
+    Retrieves all posts and renders them in the 'blogs.html' template.
 
     Args:
     - request: HTTP request object.
@@ -28,8 +30,20 @@ def post_list(request):
     - Rendered response displaying all posts.
     """
     posts = Post.objects.order_by('-last_rating')
-    context = {'posts': posts}
-    return render(request, 'core/projects.html', context)
+    posts_per_page = 10
+
+    paginator = Paginator(posts, posts_per_page)
+    page_number = request.GET.get('page')
+
+    try:
+        paginated_posts = paginator.page(page_number)
+    except PageNotAnInteger:
+        paginated_posts = paginator.page(1)
+    except EmptyPage:
+        paginated_posts = paginator.page(paginator.num_pages)
+
+    context = {'posts': paginated_posts}
+    return render(request, 'core/blogs.html', context)
 
 
 def user_post_list(request, username):
@@ -67,6 +81,7 @@ def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     comments = PostComment.objects.filter(post=post).order_by('-id')
     form = CommentForm(request.POST or None)
+    topics = post.topics.all()
     
     if post.subscription_required:
         user_subscription = UserSubscription.objects.filter(user=request.user).first()
@@ -79,8 +94,12 @@ def post_detail(request, slug):
         new_comment.save()
         messages.success(request, "Your comment has been added. Thank you")
         return HttpResponseRedirect(reverse('post-detail', kwargs={'slug': slug}))
-    
-    context = {'post': post, 'comments': comments, 'form': form}
+    context = {
+        'post': post,
+        'comments': comments,
+        'form': form,
+        'topics': topics,
+        }
     return render(request, 'core/post_detail.html', context)
 
 
@@ -160,26 +179,26 @@ def post_delete(request, slug):
     return HttpResponseRedirect('/')
 
 
-def category(request, link):
+def topic(request, link):
     """
-    View for displaying posts based on category.
+    View for displaying posts based on topic.
 
-    Retrieves posts based on the provided category and renders them in the 'projects.html' template.
+    Retrieves posts based on the provided topic and renders them in the 'blogs.html' template.
 
     Args:
     - request: HTTP request object.
-    - link: Category identifier.
+    - link: topic identifier.
 
     Returns:
-    - Rendered response displaying posts of the specified category.
+    - Rendered response displaying posts of the specified topic.
     """
-    categories = {
+    topics = {
         "graphics-design": "Graphics & Design",
-        # ... (other category mappings)
+        # ... (other topic mappings)
     }
     try:
-        posts = Post.objects.filter(category=categories.get(link))
-        return render(request, 'core/projects.html', {'posts': posts})
+        posts = Post.objects.filter(topic=topics.get(link))
+        return render(request, 'core/blogs.html', {'posts': posts})
     except KeyError:
         return redirect('home')
 
@@ -299,7 +318,7 @@ def post_search_list(request):
     """
     View for searching posts.
 
-    Retrieves posts based on the provided search query and renders them in the 'projects.html' template.
+    Retrieves posts based on the provided search query and renders them in the 'blogs.html' template.
 
     Args:
     - request: HTTP request object.
@@ -318,4 +337,4 @@ def post_search_list(request):
                    (Q(overview__icontains=q) for q in query_list))
         )
     context = {'posts': result}
-    return render(request, 'core/projects.html', context)
+    return render(request, 'core/blogs.html', context)

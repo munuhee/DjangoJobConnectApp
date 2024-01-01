@@ -226,3 +226,8 @@ AWS_S3_FILE_OVERWRITE = os.getenv('AWS_S3_FILE_OVERWRITE') == 'True'
 AWS_DEFAULT_ACL = os.getenv('AWS_DEFAULT_ACL')
 AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
 AWS_S3_HOST = os.getenv('AWS_S3_HOST')
+
+# Configure PayPal SDK settings
+PAYPAL_MODE = os.getenv('PAYPAL_MODE', default='sandbox')
+PAYPAL_CLIENT_ID = os.getenv('PAYPAL_CLIENT_ID', default='YOUR_SANDBOX_CLIENT_ID')
+PAYPAL_CLIENT_SECRET = os.getenv('PAYPAL_CLIENT_SECRET', default='YOUR_SANDBOX_CLIENT_SECRET')

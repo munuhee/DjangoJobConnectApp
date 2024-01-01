@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Category, Post, PostReview, PostComment, Contact
+from .models import Topic, Post, PostReview, PostComment, Contact
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+@admin.register(Topic)
+class TopicAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 @admin.register(Post)

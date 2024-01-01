@@ -1,0 +1,70 @@
+{% extends "core/main.html" %}
+{% load humanize %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Available Posts {% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row">
+    {% for p in posts %}
+    <div class="col-lg-6 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ p.title }}</h5>
+          <p class="card-text">{{ p.short_description }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="rating">
+              <span class="badge">
+                <i class="fas fa-star"></i> 4.2
+              </span>
+            </div>            
+            <div class="views">
+              <small class="text-muted">
+                <i class="fas fa-eye"></i> 100 Views
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="{% url 'core:post-detail' p.slug %}"
+            class="btn btn-primary btn-sm">
+            See More <i class="fas fa-arrow-right ml-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- Pagination links -->
+  <div class="d-flex justify-content-center mt-4">
+    <ul class="pagination">
+      {% if posts.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1">&laquo; First</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link"
+          href="?page={{ posts.previous_page_number }}">Previous</a>
+      </li>
+      {% endif %}
+
+      {% for num in posts.paginator.page_range %}
+      <li class="page-item {% if num == posts.number %}active{% endif %}">
+        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      </li>
+      {% endfor %}
+
+      {% if posts.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ posts.paginator.num_pages }}">Last
+          &raquo;</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

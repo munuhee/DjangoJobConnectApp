@@ -13,6 +13,7 @@ class Profile(models.Model):
     ]
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    bio = models.TextField()
     profile_image = models.ImageField(upload_to='profile_images/', default="profile_images/default.jpg")
     job_status = models.CharField(max_length=20, choices=JOB_CHOICES, null=True, blank=True)
 

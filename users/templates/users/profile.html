@@ -3,32 +3,50 @@
 {% block title %}User Profile{% endblock %}
 {% block content %}
 <div class="container mt-5">
-  <h1>User Profile</h1>
-
   <div class="row">
-    <!-- Profile Information -->
-    <div class="col-md-6 mb-4">
-      <div class="card">
-        <div class="card-body">
+    <div class="col-lg-4">
+      <div class="card mb-4">
+        <div class="card-body text-center">
+          <img src="{{user_profile.profile_image.url}}" class="img-fluid rounded-circle mb-3 profile-img" alt="Profile Image">
           {% if user_profile %}
-          <h5 class="card-title">Profile Information</h5>
-          <p><strong>Username:</strong> {{ user_profile.user.username }}</p>
-          <p><strong>Job status:</strong> {{ user_profile.job_status }}</p>
+          <h5 class="card-title">{{ user_profile.user.username }}</h5>
+          <p class="text-muted">{{ user_profile.job_status }}</p>
+          {% endif %}
+          {% if is_own_profile %}
+          <div class="mt-4">
+            <a href="{% url 'users:profile_edit' username=request.user.username %}" class="btn btn-primary">
+              <i class="fa fa-user-edit mr-2"></i> Edit Profile
+            </a>
+          </div>
           {% endif %}
         </div>
-        {% if is_own_profile %}
-        <div class="card-footer text-right">
-          <a href="{% url 'users:profile_edit' username=request.user.username %}" class="btn btn-primary">
-            <i class="fa fa-user-edit mr-2"></i> Edit Profile
-          </a>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          {% if contact_info %}
+          <h5 class="card-title">Contact Information</h5>
+          <p><i class="fa fa-envelope mr-2"></i><strong> Email:</strong> {{ contact_info.email }}</p>
+          <p><i class="fa fa-linkedin mr-2"></i><strong> LinkedIn:</strong> {{ contact_info.linkedin }}</p>
+          <p><i class="fa fa-twitter mr-2"></i><strong> Twitter:</strong> {{ contact_info.twitter }}</p>
+          {% else %}
+          <p class="text-muted">No contact information available.</p>
+          {% endif %}
         </div>
-        {% endif %}
       </div>
     </div>
 
-    <!-- Experiences -->
-    <div class="col-md-6 mb-4">
-      <div class="card">
+    <div class="col-lg-8">
+      <div class="card mb-4">
+        <div class="card-body">
+          {% if user_profile %}
+          <h5 class="card-title">Bio</h5>
+          <p>{{ user_profile.bio | default:"No bio available" }}</p>
+          {% else %}
+          <p class="text-muted">No bio available.</p>
+          {% endif %}
+        </div>
+      </div>
+      <div class="card mb-4">
         <div class="card-body">
           {% if experiences %}
           <h5 class="card-title">Experiences</h5>
@@ -44,12 +62,6 @@
           {% endif %}
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <!-- Education -->
-    <div class="col-md-6 mb-4">
       <div class="card">
         <div class="card-body">
           {% if educations %}
@@ -61,23 +73,6 @@
           {% endfor %}
           {% else %}
           <p class="text-muted">No education information available.</p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-
-    <!-- Contact Information -->
-    <div class="col-md-6 mb-4">
-      <div class="card">
-        <div class="card-body">
-          {% if contact_info %}
-          <h5 class="card-title">Contact Information</h5>
-          <p><i class="fa fa-envelope mr-2"></i><strong> Email:</strong> {{ contact_info.email }}</p>
-          <p><i class="fa fa-linkedin mr-2"></i><strong> LinkedIn:</strong> {{ contact_info.linkedin }}</p>
-          <p><i class="fa fa-twitter mr-2"></i><strong> Twitter:</strong> {{ contact_info.twitter }}</p>
-          <!-- Add more contact details as needed -->
-          {% else %}
-          <p class="text-muted">No contact information available.</p>
           {% endif %}
         </div>
       </div>
