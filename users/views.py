@@ -22,7 +22,7 @@ def register_view(request):
     
     return render(request, 'users/register.html', {'form': form})
 
-@login_required
+
 def profile_view(request, username):
     """
     Display user profile, experiences, education, and contact details.
@@ -30,28 +30,24 @@ def profile_view(request, username):
     Renders the user's profile page showing their details, experiences, education,
     and contact information based on the provided username. If the user doesn’t exist,
     returns a 404 error.
-
     """
     user_profile = get_object_or_404(Profile, user__username=username)
-    
-    is_own_profile = False
-    if request.user == user_profile.user:
-        is_own_profile = True
-
     experiences = Experience.objects.filter(profile=user_profile).order_by('-start_date')
     educations = Education.objects.filter(profile=user_profile).order_by('-start_date')
-
     contact_info = Contact.objects.select_related('profile').filter(profile=user_profile).first()
-
+    
     context = {
-        'user_profile': user_profile,
-        'experiences': experiences,
-        'educations': educations,
-        'contact_info': contact_info,
-        'is_own_profile': is_own_profile,
+            'user_profile': user_profile,
+            'experiences': experiences,
+            'educations': educations,
+            'contact_info': contact_info,
     }
-
-    return render(request, 'users/profile.html', context)
+    
+    is_own_profile = False
+    if request.user.is_authenticated and request.user == user_profile.user:
+        is_own_profile = True
+        return render(request, 'users/profile.html', context)
+    return render(request, 'users/public_profile.html', context)
 
 @login_required
 def profile_edit_view(request, username):
