@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
 
 class Profile(models.Model):
     """Model representing a user profile."""
@@ -16,10 +19,37 @@ class Profile(models.Model):
     bio = models.TextField()
     profile_image = models.ImageField(upload_to='profile_images/', default="profile_images/default.jpg")
     job_status = models.CharField(max_length=20, choices=JOB_CHOICES, null=True, blank=True)
+    
+    def save(self, *args, **kwargs):
+        """
+        Override the save method to
+        define the image aspect ratio
+        """
+        if self.profile_image:
+            img = Image.open(self.profile_image)
+            output = BytesIO()
+
+            # Define the aspect ratio (1:1)
+            target_width = target_height = 300
+
+            img.thumbnail((target_width, target_height))
+
+            # Save the resized image to the BytesIO object
+            img.save(output, format='JPEG', quality=75)
+            output.seek(0)
+
+            # Set the image content to the associated ImageField
+            self.profile_image.file = ContentFile(output.getvalue())
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         """String representation of the profile."""
         return f"Profile of {self.user.username}"
+
+    class Meta:
+        verbose_name = 'Profile'
+        verbose_name_plural = 'Profiles'
 
     class Meta:
         verbose_name = 'Profile'
