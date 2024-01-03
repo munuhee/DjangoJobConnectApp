@@ -16,7 +16,7 @@
                     <ul class="list-unstyled mt-4">
                         {% for benefit in subscription.benefits.all %}
                         <li class="d-flex align-items-center">
-                            <svg class="bi bi-check-circle-fill text-success me-3" width="1em" height="1em"
+                            <svg class="bi bi-check-circle-fill text-warning me-3" width="1em" height="1em"
                                 viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.73 5.97-4 4a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 0 1 1.06-1.06L7 8.94l3.22-3.22a.75.75 0 0 1 1.06 1.06z" />
@@ -25,10 +25,12 @@
                         </li>
                         {% endfor %}
                     </ul>
-                    <a href="{% url 'subscription:subscription_detail' subscription.pk %}"
-                        class="btn btn-primary btn-block mt-4">
-                        Choose plan
-                    </a>
+                    <div class="text-center"> <!-- Added a div with text-center class -->
+                        <a href="{% url 'subscription:subscription_detail' subscription.pk %}"
+                            class="btn btn-primary btn-block mt-4">
+                            Choose plan
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

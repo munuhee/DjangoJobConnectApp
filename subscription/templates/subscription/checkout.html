@@ -28,17 +28,17 @@
       return actions.order.capture().then(function(details) {
         alert('Transaction completed successfully!');
 
-        fetch('/save-payment/', {
+        fetch('/execute_payment/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': '{{ csrf_token }}'
           },
           body: JSON.stringify({
-            orderID: data.orderID,
-            payerID: details.payer.payer_id,
-            subscriptionID: '{{ subscription_id }}',
-            amount: details.purchase_units[0].amount.value
+            payment_id: data.orderID,
+            payer_id: details.payer.payer_id,
+            subscription_id: '{{ subscription_id }}',
+            selected_price: '{{ selected_price }}'
           })
         })
         .then(response => {

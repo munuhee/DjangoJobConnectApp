@@ -1,35 +1,41 @@
 {% extends 'core/main.html' %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center vh-100">
-  <form method="POST" action="{% url 'subscription:checkout' %}" class="bg-white shadow-md rounded px-4 py-4 mb-4 w-100 max-w-md">
-    {% csrf_token %}
-    <input type="hidden" name="subscription_id" value="{{ subscription.id }}">
-    <input type="hidden" name="monthly_price" value="{{ monthly_price }}">
-    <input type="hidden" name="semi_annual_price" value="{{ semi_annual_price }}">
-    <input type="hidden" name="annual_price" value="{{ annual_price }}">
-    
-    <h2 class="text-2xl font-weight-bold mb-4 text-center">Choose a Subscription Plan</h2>
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center vh-100">
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <form method="POST" action="{% url 'subscription:checkout' %}" class="bg-light p-4 rounded">
+            {% csrf_token %}
+            <input type="hidden" name="subscription_id" value="{{ subscription.id }}">
+            <input type="hidden" name="monthly_price" value="{{ monthly_price }}">
+            <input type="hidden" name="semi_annual_price" value="{{ semi_annual_price }}">
+            <input type="hidden" name="annual_price" value="{{ annual_price }}">
+            
+            <h2 class="card-title text-center text-primary mb-4">Choose a Subscription Plan</h2>
 
-    <div class="mb-4">
-      <label class="text-dark font-weight-bold mb-2 d-block">Select Duration:</label>
-      <div class="form-check">
-        <input type="radio" id="monthly" name="selected_duration" value="monthly" class="form-check-input">
-        <label for="monthly" class="cursor-pointer form-check-label">Subscribe Monthly - ${{ monthly_price }}</label>
-      </div>
-      <div class="form-check mt-2">
-        <input type="radio" id="semi_annual" name="selected_duration" value="semi_annual" class="form-check-input">
-        <label for="semi_annual" class="cursor-pointer form-check-label">Subscribe Semi-Annually - ${{ semi_annual_price }}</label>
-      </div>
-      <div class="form-check mt-2">
-        <input type="radio" id="annual" name="selected_duration" value="annual" class="form-check-input">
-        <label for="annual" class="cursor-pointer form-check-label">Subscribe Annually - ${{ annual_price }}</label>
+            <div class="mb-4">
+              <div class="form-check">
+                <input type="radio" id="monthly" name="selected_duration" value="monthly" class="form-check-input">
+                <label for="monthly" class="cursor-pointer form-check-label">Subscribe Monthly - ${{ monthly_price }}</label>
+              </div>
+              <div class="form-check mt-3">
+                <input type="radio" id="semi_annual" name="selected_duration" value="semi_annual" class="form-check-input">
+                <label for="semi_annual" class="cursor-pointer form-check-label">Subscribe Semi-Annually - ${{ semi_annual_price }}</label>
+              </div>
+              <div class="form-check mt-3">
+                <input type="radio" id="annual" name="selected_duration" value="annual" class="form-check-input">
+                <label for="annual" class="cursor-pointer form-check-label">Subscribe Annually - ${{ annual_price }}</label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              Proceed to Checkout
+            </button>
+          </form>
+        </div>
       </div>
     </div>
-    
-    <button type="submit" class="btn btn-primary w-100">
-        Proceed to Checkout
-    </button>
-  </form>
+  </div>
 </div>
 {% endblock %}

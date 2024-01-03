@@ -1,6 +1,5 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
-from datetime import timedelta
 import paypalrestsdk
 from paypalrestsdk import Payment
 from django.urls import reverse
@@ -10,7 +9,23 @@ from django.http import HttpResponse
 from .models import Subscription, UserSubscription
 from django.contrib.auth.decorators import login_required
 
+# Configure PayPal SDK
+paypalrestsdk.configure({
+    "mode": settings.PAYPAL_MODE,
+    "client_id": settings.PAYPAL_CLIENT_ID,
+    "client_secret": settings.PAYPAL_CLIENT_SECRET,
+})
+
 def subscriptions_list(request):
+    """
+    Render a list of subscriptions.
+
+    Args:
+    - request: HttpRequest object
+
+    Returns:
+    - HttpResponse object containing rendered HTML template
+    """
     subscriptions = Subscription.objects.all()
     context = {
         'subscriptions': subscriptions
@@ -19,12 +34,21 @@ def subscriptions_list(request):
 
 @login_required
 def subscription_detail(request, pk):
-    """Renders details of a specific subscription based on its primary key."""
+    """
+    Render details of a particular subscription.
+
+    Args:
+    - request: HttpRequest object
+    - pk: Primary key of the subscription
+
+    Returns:
+    - HttpResponse object containing rendered HTML template
+    """
     subscription = get_object_or_404(Subscription, pk=pk)
 
     monthly_price = round(subscription.price, 2)
-    semi_annual_price = round(monthly_price * 6 * 0.8, 2)  # 20% discount for 6 months
-    annual_price = round(monthly_price * 12 * 0.65, 2)  # 35% discount for 12 months
+    semi_annual_price = round(monthly_price * 6 * 0.8, 2)
+    annual_price = round(monthly_price * 12 * 0.65, 2)
     context = {
         'subscription': subscription,
         'monthly_price': monthly_price,
@@ -34,12 +58,49 @@ def subscription_detail(request, pk):
     return render(request, 'subscription/subscription_detail.html', context)
 
 @login_required
+def execute_payment(request):
+    """
+    Execute a payment for a user subscription.
+
+    Args:
+    - request: HttpRequest object
+
+    Returns:
+    - HttpResponse indicating the status of payment execution
+    """
+    if request.method == 'POST':
+        payment_id = request.POST.get('payment_id')
+        payer_id = request.POST.get('payer_id')
+        subscription_id = request.POST.get('subscription_id')
+        selected_price = request.POST.get('selected_price')
+
+        user_subscription = get_object_or_404(UserSubscription, subscription_id=subscription_id, user=request.user)
+
+        payment = Payment.find(payment_id)
+        if payment.execute({"payer_id": payer_id}):
+            user_subscription.is_paid = True
+            user_subscription.save()
+            return HttpResponse("Payment successful!")
+        else:
+            return HttpResponse("Payment execution failed.")
+    else:
+        return HttpResponse("Invalid request method")
+
+@login_required
 def checkout(request):
+    """
+    Handle the checkout process for subscribing to a plan.
+
+    Args:
+    - request: HttpRequest object
+
+    Returns:
+    - HttpResponse object containing rendered HTML template or redirection to PayPal
+    """
     if request.method == 'POST':
         subscription_id = request.POST.get('subscription_id')
         selected_duration = request.POST.get('selected_duration')
         
-        # Retrieve the selected price based on the selected duration
         if selected_duration == 'monthly':
             selected_price = request.POST.get('monthly_price')
             duration_in_days = 31
@@ -50,33 +111,44 @@ def checkout(request):
             selected_price = request.POST.get('annual_price')
             duration_in_days = 366
         else:
-            # Handle invalid duration selection
             return HttpResponse("Invalid duration selection")
 
-        # Calculate start and end dates
         start_date = datetime.now().date()
         end_date = start_date + timedelta(days=duration_in_days)
         
-        # Assuming the user is already authenticated
         user = request.user
         
-        # Create UserSubscription object with calculated dates
         user_subscription = UserSubscription.objects.create(
             user=user,
-            subscription_id=subscription_id,  # Assuming the subscription ID is used
+            subscription_id=subscription_id,
             start_date=start_date,
             end_date=end_date
         )
 
-        # Further processing for checkout (PayPal or other payment gateway integration)
-        return render(request, 'subscription/checkout.html', {
-            'selected_price': selected_price,
-            'subscription_id': subscription_id,
-            'csrf_token': request.COOKIES['csrftoken'],
-            'paypal_client_id': settings.PAYPAL_CLIENT_ID,
-            'paypal_mode': settings.PAYPAL_MODE
+        payment = paypalrestsdk.Payment({
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "redirect_urls": {
+                "return_url": reverse('execute_payment'),
+                "cancel_url": reverse('cancel_payment')
+            },
+            "transactions": [{
+                "amount": {
+                    "total": selected_price,
+                    "currency": "USD"
+                },
+                "description": "Subscription Payment"
+            }]
         })
+
+        if payment.create():
+            for link in payment.links:
+                if link.method == "REDIRECT":
+                    return redirect(link.href)
+            return HttpResponse("Failed to redirect to PayPal.")
+        else:
+            return HttpResponse("Payment creation failed.")
     else:
-        # Handle GET request or invalid form submissions
-        # Redirect or render appropriate response
         return render(request, 'subscription/checkout.html')
