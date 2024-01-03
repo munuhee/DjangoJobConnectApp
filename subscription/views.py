@@ -85,6 +85,19 @@ def execute_payment(request):
             return HttpResponse("Payment execution failed.")
     else:
         return HttpResponse("Invalid request method")
+    
+@login_required
+def cancel_payment(request):
+    """
+    Cancel the payment process and handle the necessary actions.
+
+    Args:
+    - request: HttpRequest object
+
+    Returns:
+    - HttpResponse object indicating the cancellation status
+    """
+    return HttpResponse("Payment has been canceled.")
 
 @login_required
 def checkout(request):
@@ -131,8 +144,8 @@ def checkout(request):
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": reverse('execute_payment'),
-                "cancel_url": reverse('cancel_payment')
+                "return_url": reverse('subscription:execute_payment'),
+                "cancel_url": reverse('subscription:cancel_payment')
             },
             "transactions": [{
                 "amount": {
