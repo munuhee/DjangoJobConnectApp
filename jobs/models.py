@@ -65,35 +65,16 @@ class Job(models.Model):
     def get_absolute_url(self):
         """Get the absolute URL for a job detail view."""
         return reverse('job_detail', args=[self.pk])
-
-
-class Application(models.Model):
-    """A model representing a job application."""
-
-    job = models.ForeignKey(Job, related_name='applications', on_delete=models.CASCADE)
-    content = models.TextField(blank=False)
-    budget = models.CharField(max_length=25, help_text="eg, 30 USD in 30 days", null=True, blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_created = models.DateTimeField(default=timezone.now)
+class Bid(models.Model):
+    """A model representing a bid."""
+    job = models.ForeignKey('jobs.Job', on_delete=models.CASCADE)
+    bidder = models.ForeignKey(User, on_delete=models.CASCADE)
+    bid_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    project_duration = models.IntegerField()
+    proposal = models.TextField()
+    candidate_reason = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        """Return the string representation of the application content."""
-        return self.content
-
-    def get_absolute_url(self):
-        """Get the absolute URL for an application."""
-        return reverse('job_detail', kwargs={'pk': self.job.pk})
-
-    def save(self, *args, **kwargs):
-        """Override save method to trigger notifications."""
-        super(Application, self).save(*args, **kwargs)
-        n = 4
-        truncatewords = Truncator(self.content).words(n)
-        notify.send(
-            self.author,
-            recipient=self.job.author,
-            verb='commented "' + truncatewords + '" on your post!',
-            action_object=self.job,
-            description='comment',
-            target=self
-        )
+        """Return the string representation of the bid."""
+        return f"Bid by {self.bidder.username} for {self.job.job_title}"

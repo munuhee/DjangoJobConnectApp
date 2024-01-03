@@ -18,7 +18,7 @@
                         <small class="me-3"><i class="fa fa-clock-o"></i><span class="text-muted"> {{j.pub_date}}</span></small>
                         <small><i class="fa fa-envelope"></i><span class="text-muted"> 0 Applications</span></small>
                     </p>
-                    <a href="{% url 'job_detail' j.pk %}" class="btn btn-info">View</a>
+                    <a href="{% url 'jobs:job_detail' j.pk %}" class="btn btn-info">View</a>
                 </div>
             </div>
             {% endfor %}

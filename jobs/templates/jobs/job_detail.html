@@ -1,36 +1,73 @@
-{% extends 'core/main.html' %} {% load static %} {% block title %}job detail {% endblock title %}
+{% extends 'core/main.html' %}
+{% load static %}
+{% block title %}Job Detail{% endblock title %}
+
 {% block content %}
 <div class="container my-5">
     <div class="row">
-      <div class="col-lg-8">
-        <h3>{{ j.job_title }}</h3>
-        <hr>
-        <p>{{ j.job_description }}</p>
-        <hr>
-        <h6>Requirements</h6>
-        <ul>
-          {% for requirement in j.requirements.all %}
-          <li>{{ requirement }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Apply Now</h5>
-            <p class="card-text">To apply for this job, please send your resume to:</p>
-            <a href="mailto:{{ j.contact_email }}" class="btn btn-primary">Email Resume</a>
-          </div>
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">{{ job.job_title }}</h3>
+                    <p class="card-text">{{ job.job_description }}</p>
+                    <hr>
+                    <h6>Requirements</h6>
+                    <ul class="list-group">
+                        {% for requirement in job.requirements.all %}
+                        <li class="list-group-item">{{ requirement }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="card my-4">
+                <div class="card-body">
+                    <span class="badge bg-secondary"><i class="fas fa-handshake me-1"></i>{{ bids_count }}</span>
+                    <h5 class="card-title">Place Your Bid</h5>
+                    <form method="post" action="{% url 'jobs:submit_bid' job_id=job.id %}" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="bid_amount" class="form-label">Bid Amount</label>
+                            <input type="text" class="form-control" id="bid_amount" name="bid_amount" required>
+                            <div class="invalid-feedback">Please enter bid amount.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="project_duration" class="form-label">Project Duration (in days)</label>
+                            <input type="number" class="form-control" id="project_duration" name="project_duration" required>
+                            <div class="invalid-feedback">Please enter project duration.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="proposal" class="form-label">Proposal</label>
+                            <textarea class="form-control" id="proposal" name="proposal" required></textarea>
+                            <div class="invalid-feedback">Please enter your proposal.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="candidate_reason" class="form-label">Reason to Hire</label>
+                            <textarea class="form-control" id="candidate_reason" name="candidate_reason" required></textarea>
+                            <div class="invalid-feedback">Please provide reason to hire.</div>
+                        </div>
+                        <input type="hidden" name="job_id" value="{{ job.id }}">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle me-1"></i>Submit Bid</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="card my-4">
-          <div class="card-body">
-            <h5 class="card-title">Company Details</h5>
-            <p class="card-text">{{ j.company_name }}</p>
-            <p class="card-text">{{ j.company_description }}</p>
-            <a href="{{ job.company_website }}" target="_blank" class="btn btn-primary">Visit Website</a>
-          </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Apply Now</h5>
+                    <p class="card-text">To apply for this job, please send your resume to:</p>
+                    <a href="mailto:{{ job.contact_email }}" class="btn btn-primary"><i class="far fa-envelope me-1"></i>Email Resume</a>
+                </div>
+            </div>
+            <div class="card my-4">
+                <div class="card-body">
+                    <h5 class="card-title">Company Details</h5>
+                    <p class="card-text">{{ job.company_name }}</p>
+                    <p class="card-text">{{ job.company_description }}</p>
+                    <a href="{{ job.company_website }}" target="_blank" class="btn btn-primary"><i class="fas fa-globe me-1"></i>Visit Website</a>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 {% endblock content %}

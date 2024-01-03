@@ -1,185 +1,121 @@
-from django.shortcuts import render, reverse, get_object_or_404
-from django.views.generic.base import View
-from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.views.generic.list import ListView
-from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.http import JsonResponse
-from django.core import serializers
+"""
+Views for managing jobs and bids within the application.
+"""
+
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
+from .models import Job, Bid
+from .forms import JobForm, BidForm
 
-from .models import Job, Application
-import operator
-from django.core import serializers
-from functools import reduce
-from django.db.models import Q
+def job_list(request):
+    """
+    View function to display a list of jobs.
+    """
+    jobs = Job.objects.all()
+    return render(request, 'jobs/job_list.html', {'jobs': jobs})
 
-class PageContextMixin(object):
-    page_title = None
-    def get_context_data(self, **kwargs):
-        context = super(PageContextMixin, self).get_context_data(**kwargs)
-        context['page_title'] = self.page_title
-        return context
+def job_detail(request, job_id):
+    """
+    View function to display details of a specific job and handle bids.
+    """
+    job = get_object_or_404(Job, pk=job_id)
+    bid_form = BidForm(request.POST or None)
+    bids = Bid.objects.filter(job=job)
+    
+    # Get the count of bids for the job
+    bids_count = bids.count()
 
-class Home(PageContextMixin, ListView):
-    model = Job
-    template_name = 'jobs/home.html'
-    context_object_name = 'jobs'
-    ordering = '-pub_date'
-    paginate_by = 6
-
-
-
-def jobscategory(request, link):
-    jobscategories = {
-        "graphics-design": "Graphics & Design",
-        "Photography": "Photography",
-        "Photoshop": "Photoshop",
-        "Architecture Services": "Architecture Services",
-        "Marketing, Sales and Service":"Marketing, Sales and Service",
-        "Data Entry": "Data Entry",
-        "Web Development and Designing" : "Web Development and Designing",
-        "Teaching and Tutoring" : "Teaching and Tutoring",
-        "Creative Design" : "Creative Design",
-        "Mobile App Development" : "Mobile App Development",
-        "3D Modeling and CAD" : "3D Modeling and CAD",
-        "Game Development" : "Game Development",
-        "Translation" : "Translation",
-        "Transcription" : "Transcription",
-        "Article and Blog Writing" : "Article and Blog Writing",
-        "Logo Design and illustration" : "Logo Design and illustration",
-        "Audio and Video Production" : "Audio and Video Production",
-
-    }
-    try:
-        jobs = Job.objects.filter(jobscategory=jobscategories[link])
-        return render(request, 'jobs/home.html', {"jobs": jobs})
-    except KeyError:
-        return redirect('jobs')
-
-
-class JobDisplay(PageContextMixin, SingleObjectMixin, View):
-    model = Job
-    context_object_name = 'j'
-    page_title = 'Detail'
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.save()
-        job = self.get_context_data(object=self.object)
-        return render(request, 'jobs/job_detail.html', job)
-
-    def get_context_data(self, **kwargs):
-        context = super(JobDisplay, self).get_context_data(**kwargs)
-        return context
-
-class JobDetail(DetailView):
-    model = Job
-    context_object_name = 'applications'
-
-    def get(self, request, *args, **kwargs):
-        view = JobDisplay.as_view()
-        return view(request, *args, **kwargs)
-
-    def job(self, request, *args, **kwargs):
-        view = Application.as_view()
-        return view(request, *args, **kwargs)
-
-
-@method_decorator(login_required, name='dispatch')
-class JobCreate(CreateView):
-    model = Job
-    fields = ('job_title', 'jobscategory','description', 'budget', 'status')
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.save()
-        return super(JobCreate, self).form_valid(form)
-
-
-
-@method_decorator(login_required, name='dispatch')
-class JobUpdate(UpdateView):
-    model = Job
-    fields = ('job_title', 'jobscategory','description', 'budget', 'status')
-
-
-@method_decorator(login_required, name='dispatch')
-class JobDelete(DeleteView):
-    model = Job
-    success_url = reverse_lazy('home')
-
-
-class ApplicationCreateView(LoginRequiredMixin, CreateView):
-    model = Application
-    fields = ('content', 'budget')
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.job = Job.objects.get(pk=self.kwargs['pk'])  # ['pk'] is the pk assigned by to the comment button in the home.html. we are making the instance of the form assign the post field of the comment model to the Post object whos pk=self.kwargs['pk'] which is the storage location of url parameters
-        return super().form_valid(form)
-
-    def post(self, request, *args, **kwargs):
-        if request.user.userplan.plan.plan_type == "Unlimited" or request.user.userplan.plan.plan_type == "Standard":
-            if not request.user.is_authenticated:
-                return HttpResponseForbidden()
-            form = self.get_form()
-            if form.is_valid():
-                return self.form_valid(form)
-            else:
-                return self.form_invalid(form)
+    if request.method == 'POST':
+        if bid_form.is_valid():
+            bid_instance = bid_form.save(commit=False)
+            bid_instance.job = job
+            bid_instance.bidder = request.user
+            bid_instance.save()
+            messages.success(request, 'Your bid has been submitted successfully!')
+            return redirect('job_detail', job_id=job_id)
         else:
-            return HttpResponseRedirect(reverse('plan'))
+            for field, errors in bid_form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {field}: {error}")
 
+    return render(
+        request,
+        'jobs/job_detail.html',
+        {
+            'job': job,
+            'bid_form': bid_form,
+            'bids': bids,
+            'bids_count': bids_count
+        }
+    )
 
-class ApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Application
-    fields = ('content', 'budget')
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        application = self.get_object()
-        if self.request.user == application.author:
-            return True
-        return False
-
-
-class ApplicationDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Application
-    success_url = '/'
-
-    def test_func(self):
-        application = self.get_object()
-        if self.request.user == application.author:
-            return True
-        return False
-
-
-
-class JobSearchListView(Home):
+def submit_bid(request, job_id):
     """
-    Display a Blog List page filtered by the search query.
+    View function to handle bid submission.
     """
-    paginate_by = 6
+    job = get_object_or_404(Job, pk=job_id)
+    if request.method == 'POST':
+        bid_form = BidForm(request.POST)
+        if bid_form.is_valid():
+            bid_instance = bid_form.save(commit=False)
+            bid_instance.job = job
+            bid_instance.bidder = request.user
+            bid_instance.save()
+            messages.success(request, 'Your bid has been submitted successfully!')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        else:
+            for field, errors in bid_form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {field}: {error}")
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-    def get_queryset(self):
-        result = super(JobSearchListView, self).get_queryset()
+def job_create(request):
+    """
+    View function to create a new job.
+    """
+    if request.method == 'POST':
+        form = JobForm(request.POST)
+        if form.is_valid():
+            job = form.save(commit=False)
+            job.author = request.user
+            job.save()
+            messages.success(request, 'Job created successfully!')
+            return redirect('job_list')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {field}: {error}")
+    else:
+        form = JobForm()
+    return render(request, 'jobs/job_create.html', {'form': form})
 
-        query = self.request.GET.get('q')
-        if query:
-            query_list = query.split()
-            result = result.filter(
-                reduce(operator.and_,
-                       (Q(job_title__icontains=q) for q in query_list)) |
-                reduce(operator.and_,
-                       (Q(overview__icontains=q) for q in query_list))
-            )
+def job_update(request, job_id):
+    """
+    View function to update an existing job.
+    """
+    job = get_object_or_404(Job, pk=job_id)
+    if request.method == 'POST':
+        form = JobForm(request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Job updated successfully!')
+            return redirect('job_list')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {field}: {error}")
+    else:
+        form = JobForm(instance=job)
+    return render(request, 'jobs/job_update.html', {'form': form, 'job': job})
 
-        return result
+def job_delete(request, job_id):
+    """
+    View function to delete a job.
+    """
+    job = get_object_or_404(Job, pk=job_id)
+    if request.method == 'POST':
+        job.delete()
+        messages.success(request, 'Job deleted successfully!')
+        return redirect('job_list')
+    return render(request, 'jobs/job_delete.html', {'job': job})

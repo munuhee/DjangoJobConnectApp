@@ -1,0 +1,40 @@
+{% extends 'core/main.html' %} {% load static %}{% load crispy_forms_tags %} {% block title %}job post form {% endblock title %}{% block content %}
+<div class="pt-5"></div>
+<div class="containerapp">
+    <style>
+
+    </style>
+    <form id="contact" method="POST">
+        {% csrf_token %}
+        <h3>Post Job</h3>
+        <label>Title</label>
+        <fieldset>
+            {{form.title}}
+        </fieldset>
+
+        <label>Current job status</label>
+        <fieldset>
+            {{form.status}}
+        </fieldset>
+
+        <label>Budget eg, 40-50 USD</label>
+        <fieldset>
+            {{form.budget}}
+        </fieldset>
+
+        <label>Category</label>
+        <fieldset class="p-3">
+            {{form.jobscategory}}
+        </fieldset>
+
+        <label>Job Content</label>
+        <fieldset>
+            {{form.description}}
+        </fieldset>
+
+        <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+        </fieldset>
+    </form>
+
+    {% endblock %}
